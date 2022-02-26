@@ -21,7 +21,45 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/healthy_response'
+
+
+  /items:
+    get:
+      summary: アイテム一覧を返す
+      responses:
+        '200':
+          description: アイテム一覧
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/items'
+              examples:
+                sample_1:
+                  $ref: '#/components/examples/items'
 components:
+  examples:
+    items:
+      description: サンプル1
+      value:
+        has_next: false
+        items:
+          [
+            {
+              "id": 1,
+              "name": "item_1",
+              "image_src": "https://placehold.jp/3d4070/ffffff/150x150.png"
+            },
+            {
+              "id": 2,
+              "name": "item_2",
+              "image_src": "https://placehold.jp/d70f19/ffffff/150x150.png"
+            },
+            {
+              "id": 3,
+              "name": "item_3",
+              "image_src": "https://placehold.jp/00db75/ffffff/150x150.png"
+            }
+          ]
   schemas:
     healthy_response:
       description: サーバーの状態のレスポンス
@@ -30,6 +68,27 @@ components:
         status:
           type: string
           example: ok
-
-      required:
-        - status
+    items:
+      description: アイテム一覧
+      type: object
+      properties:
+        has_next:
+          type: boolean
+          example: false
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/item'
+    item:
+      description: アイテム
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 3
+        name:
+          type: string
+          example: 商品3
+        image_src:
+          type: string
+          example: http://{image_src}

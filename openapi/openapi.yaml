@@ -1,0 +1,35 @@
+openapi: 3.0.0
+info:
+  title: Blind Auction API
+  description: ""
+  version: 0.0.0
+servers:
+  - url: ""
+    description: prod
+  - url: ""
+    description: dev
+
+paths:
+  /healthcheck:
+    get:
+      summary: サーバーの状態を返します
+      description: サーバーの状態を返します。
+      responses:
+        '200':
+          description: サーバーは正常に動作しています
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/healthy_response'
+components:
+  schemas:
+    healthy_response:
+      description: サーバーの状態のレスポンス
+      type: object
+      properties:
+        status:
+          type: string
+          example: ok
+
+      required:
+        - status

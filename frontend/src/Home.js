@@ -12,7 +12,7 @@ function Home() {
     infinite: true,
     slidesToShow: 1,
     centerPadding: "30%",
-    arrows: true,
+    arrows: false,
     // autoplay: true,
     speed: 500,
   };

@@ -5,22 +5,38 @@ import {
 
 import {styled} from '@mui/material/styles'
 
-const CustomCard = styled(Card)({
+const CustomCard = styled(Card)(({ theme }) => ({
     marginLeft: 'auto',
     marginRight: 'auto',
-    width: '200px',
-    height: '160px',
-});
+    [theme.breakpoints.up('md')]:
+    {
+        width: '200px',
+        height: '160px'
+    },
+    [theme.breakpoints.down('md')]:
+    {
+        width: '133px',
+        height: '107px'
+    },
+}));
 
-const CustomCardMedia = styled(CardMedia)({
+const CustomCardMedia = styled(CardMedia)(({theme}) => ({
     component: 'img',
-    width: '150px',
-    paddingTop: '150px', // square
+    [theme.breakpoints.up('md')]:
+    {
+        width: '150px',
+        paddingTop: '150px'
+    },
+    [theme.breakpoints.down('md')]:
+    {
+        width: '100px',
+        paddingTop: '100px'
+    },
     marginTop: '2%',
     marginBottom: '2%',
     marginLeft: '2%',
     marginRight: '15%',
-})
+}))
 
 function ImageCard() {
   return (

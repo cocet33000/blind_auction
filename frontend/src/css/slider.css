@@ -1,0 +1,14 @@
+.slider .slick-center {
+    transform: scale(1.4);
+}
+
+.slider .slick-track {
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+
+.slick-prev:before,
+.slick-next:before {
+  color: black;
+}

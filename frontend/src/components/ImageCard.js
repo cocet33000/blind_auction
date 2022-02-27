@@ -8,6 +8,7 @@ import {styled} from '@mui/material/styles'
 const CustomCard = styled(Card)(({ theme }) => ({
     marginLeft: 'auto',
     marginRight: 'auto',
+    backgroundColor: "#faf9f9",
     [theme.breakpoints.up('md')]:
     {
         width: '200px',

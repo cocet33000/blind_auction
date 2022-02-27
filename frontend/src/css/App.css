@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+body,
+.MuiPaper-root {
+  background-color: #d9e4f5;
+  background-image: linear-gradient(315deg, #d9e4f5 0%, #f5e3e6 74%);
+}
+

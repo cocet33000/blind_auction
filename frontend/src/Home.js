@@ -1,5 +1,6 @@
 import ImageCard from "./components/ImageCard";
 import Slider from "react-slick";
+import {Stack, Box} from '@mui/material'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./css/slider.css"
@@ -13,17 +14,22 @@ function Home() {
     slidesToShow: 1,
     centerPadding: "30%",
     arrows: false,
-    // autoplay: true,
+    autoplay: true,
     speed: 500,
   };
   return (
-      <Slider {...settings}>
-        <ImageCard />
-        <ImageCard />
-        <ImageCard />
-        <ImageCard />
-        <ImageCard />
-      </Slider>
+      <Stack>
+        <Box sx={{height: 60}}/>
+        <Box>
+          <Slider {...settings}>
+            <ImageCard />
+            <ImageCard />
+            <ImageCard />
+            <ImageCard />
+            <ImageCard />
+          </Slider>
+        </Box>
+      </Stack>
   );
 }
 

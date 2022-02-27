@@ -10,23 +10,12 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LoginIcon from "@mui/icons-material/Login";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 
 import { LoginContext } from "../Login";
-
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: {
-      main: "#000000",
-    },
-  },
-});
-
 
 const ResponsiveAppBar = () => {
   const { isLogin, setIsLogin } = useContext(LoginContext);
@@ -86,18 +75,19 @@ const ResponsiveAppBar = () => {
   ];
 
   return (
-    <ThemeProvider theme={darkTheme}>
-      <AppBar position="static" color="primary" enableColorOnDark>
+      <AppBar position="static" color="primary">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <Typography
-              variant="h6"
+            <Button
+              color="secondary"
               noWrap
               component="div"
               sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+              component={Link}
+              to={'/'}
             >
               LOGO
-            </Typography>
+            </Button>
 
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
@@ -131,8 +121,9 @@ const ResponsiveAppBar = () => {
                 {pages.map((page) => (
                   <MenuItem key={page.text} onClick={handleCloseNavMenu}>
                     <Button
+                      color="secondary"
                       key={page.text}
-                      sx={{ my: 1, color: "white", display: "block" }}
+                      sx={{ my: 1, display: "block" }}
                       component={Link}
                       to={page.to}
                     >
@@ -142,20 +133,23 @@ const ResponsiveAppBar = () => {
                 ))}
               </Menu>
             </Box>
-            <Typography
-              variant="h6"
-              noWrap
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <Button
+              color="secondary"
               component="div"
-              sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+              sx={{ flexGrow: 0, display: { xs: "flex", md: "none" } }}
+              component={Link}
+              to={"/"}
             >
               LOGO
-            </Typography>
+            </Button>
+            </Box>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
                 <Button
                   key={page.text}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{ my: 2, color: "secondary.main", display: "block" }}
                   component={Link}
                   to={page.to}
                 >
@@ -165,15 +159,13 @@ const ResponsiveAppBar = () => {
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  {isLogin ? (
-                    <AccountCircleIcon fontSize="large" />
-                  ) : (
-                    <LoginIcon fontSize="large" />
-                  )}
-                </IconButton>
-              </Tooltip>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                {isLogin ? (
+                  <AccountCircleIcon fontSize="large" />
+                ) : (
+                  <LoginIcon fontSize="large" />
+                )}
+              </IconButton>
               <Menu
                 sx={{ mt: "45px" }}
                 id="menu-appbar"
@@ -191,7 +183,7 @@ const ResponsiveAppBar = () => {
                 onClose={handleCloseUserMenu}
               >
                 {(isLogin ? isLoginMenus : isNotLoginMenus).map((setting) => (
-                  <MenuItem key={setting.text} onClick={handleCloseUserMenu}>
+                  <MenuItem gdcolor="secondary" key={setting.text} onClick={handleCloseUserMenu}>
                     <Typography textAlign="center" onClick={setting.onClick}>
                       {setting.text}
                     </Typography>
@@ -202,7 +194,6 @@ const ResponsiveAppBar = () => {
           </Toolbar>
         </Container>
       </AppBar>
-    </ThemeProvider>
   );
 };
 export default ResponsiveAppBar;

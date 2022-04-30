@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@master  # リポジトリをチェックアウト
 
       - name: Install Dependencies
-        run: npm install
+        run: cd frontend && npm install
 
       - name: Build
         run: npm run build  # React ビルド

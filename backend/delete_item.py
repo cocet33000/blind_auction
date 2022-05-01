@@ -1,5 +1,5 @@
-from Model.Item import Item
+from Repository.ItemRepository import ItemRepository
 
 if __name__ == "__main__":
-    item = Item("2")
-    item.delete()
+    item_repository = ItemRepository()
+    item_repository.deleteByItemId("68")

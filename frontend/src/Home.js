@@ -39,7 +39,11 @@ function Home() {
       <Stack spacing={5}>
         {items.map((item) => {
           return (
-            <ImageCard image_src={item.image_src} bid_num={item.bid_num} />
+            <ImageCard
+              name={item.name}
+              image_src={item.image_src}
+              bid_num={item.bid_num}
+            />
           );
         })}
       </Stack>

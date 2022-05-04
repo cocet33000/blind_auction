@@ -10,11 +10,11 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -30,7 +30,7 @@ jobs:
       - name: Lambda Build & Update
         run: |
           pip3 install awscli
-          cd backend/main 
+          cd backend/main
           pip install -r requirements.txt -t ./
           zip -r package.zip ./*
           aws lambda update-function-code --function-name BA-Integrated-backend --zip-file fileb://package.zip --publish

@@ -19,9 +19,9 @@ jobs:
 
       - name: Build
         working-directory: ./frontend
-        run: npm run build  # React ビルド
+        run: CI=false npm run build  # React ビルド
 
-      - name: Deploy  # S3にデプロイ 
+      - name: Deploy  # S3にデプロイ
         working-directory: ./frontend
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

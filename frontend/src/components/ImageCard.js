@@ -15,7 +15,7 @@ export default function ImageCard(props) {
         sx={{
           display: "flex",
           padding: "20px",
-          maxWidth: { xs: "350px", md: "700px" },
+          maxWidth: { xs: "350px", md: "550px" },
           margin: "auto",
         }}
       >

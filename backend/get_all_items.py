@@ -1,7 +1,12 @@
+import json
+
 from Repository.ItemRepository import ItemRepository
 
+
+def get_items():
+    items = ItemRepository.getAll()
+    return {"items": [item.to_model().to_dict() for item in items]}
+
+
 if __name__ == "__main__":
-    item_repository = ItemRepository()
-    items = item_repository.getAll()
-    for item in items:
-        print(item.convert_to(), item.id)
+    print(json.dumps(get_items()))

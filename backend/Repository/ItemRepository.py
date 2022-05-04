@@ -1,10 +1,18 @@
-from DynamoDBModel.Item import Item
+from DynamoDBModel.Item import Item as DynamoDBItem
+from DynamoDBModel.Sequence import Sequence as DynamoDBSequene
+from Model.Item import Item
 
 
-class ItemRepository():
-    def save(self, item):
-        new_item = Item(hash(item))
-        new_item.number = item.number
+class ItemRepository:
+    @staticmethod
+    def save(item: Item) -> dict:
+        def getNewId():
+            sequence = DynamoDBSequene("items")
+            sequence.update(actions=[DynamoDBSequene.current_number.add(1)])
+            return sequence.current_number
+
+        new_id = getNewId()
+        new_item = DynamoDBItem(new_id)
         new_item.name = item.name
         new_item.description = item.description
         new_item.start_price = item.start_price
@@ -12,18 +20,21 @@ class ItemRepository():
 
         try:
             new_item.save()
-            return "OK"
+            return {"is_error": False, "id": new_id}
         except Exception as e:
-            return "NG"
+            return {"is_error": True}
 
-    def getByItemId(self, item_id):
-        return Item.get(item_id)
+    @staticmethod
+    def getByItemId(item_id):
+        return DynamoDBItem.get(item_id)
 
-    def getAll(self):
-        return Item.scan()
+    @staticmethod
+    def getAll():
+        return DynamoDBItem.scan()
 
-    def deleteByItemId(self, item_id):
-        item = Item(item_id)
+    @staticmethod
+    def deleteByItemId(item_id):
+        item = DynamoDBItem(item_id)
 
         try:
             item.delete()

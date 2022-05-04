@@ -3,8 +3,13 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./css/slider.css";
+import "./css/slider.css"
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
 
 function Home() {
+  const [items, setItems] = useState([]);
   const settings = {
     className: "slider",
     centerMode: true,
@@ -16,10 +21,25 @@ function Home() {
     // autoplay: true,
     speed: 500,
   };
+  useEffect(() => {
+    // Update the document title using the browser API
+    axios.get('https://api.blind-auction.com/dev/items')
+      .then((response) => {
+        setItems(response.data.items);
+      })
+      .catch(error => {
+        console.log('ERROR!! occurred in Backend.')
+      });
+
+  }, []);
+
+
+
   return (
     <Slider {...settings}>
-      <ImageCard image_src="https://placehold.jp/00db75/ffffff/500x500.png" />
-      <ImageCard image_src="https://placehold.jp/00db75/ffffff/500x500.png" />
+      {items.map((item) => {
+        return <ImageCard image={item.image_src} bid_num={item.bid_num} />;
+      })}
     </Slider>
   );
 }

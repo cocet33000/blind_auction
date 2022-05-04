@@ -7,7 +7,7 @@ class Item:
     image_src: str
     description: str
     start_price: int
-    bided_num: int
+    bid_num: int
 
     def to_dict(self):
         return asdict(self)

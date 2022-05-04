@@ -15,7 +15,7 @@ class BidRepository:
             "price": bid.price,
         }
 
-        if item.to_model().bided_num == 0:
+        if item.to_model().bid_num == 0:
             new_bids = [new_bid]
         else:
             item.bids.append(

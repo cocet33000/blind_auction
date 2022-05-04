@@ -2,7 +2,7 @@ name: Deploy to AWS Lambda
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - backend/main/**
       - .github/workflows/deploy-lambda.yaml

@@ -10,7 +10,7 @@ def register_item(name: str, image_src: str, description: str, start_price: int)
         image_src=image_src,
         description=description,
         start_price=start_price,
-        bided_num=0,
+        bid_num=0,
     )
     return ItemRepository.save(item)
 

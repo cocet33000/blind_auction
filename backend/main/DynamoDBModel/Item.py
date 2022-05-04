@@ -39,7 +39,7 @@ class Item(Model):
                 image_src=self.image_src,
                 description=self.description,
                 start_price=self.start_price,
-                bided_num=len(self.bids) if isinstance(self.bids, list) else 0,
+                bid_num=len(self.bids) if isinstance(self.bids, list) else 0,
             )
         except:
             return self

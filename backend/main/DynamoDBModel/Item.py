@@ -1,3 +1,5 @@
+import os
+
 from dotenv import load_dotenv
 from pynamodb.models import Model
 from pynamodb.attributes import UnicodeAttribute
@@ -18,7 +20,8 @@ class Bid(MapAttribute):
 class Item(Model):
     class Meta:
         load_dotenv()
-        host = "http://localhost:8000"
+        if os.environ.get("MODE") == "local":
+            host = "http://localhost:8000"
         table_name = "blind_auction_items"
         region = "ap-northeast-1"
 

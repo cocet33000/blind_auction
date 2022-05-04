@@ -46,7 +46,7 @@ def lambda_handler(event: dict, context):
             response = register_bid(
                 bided_user_id=body.get("bided_user_id"),
                 bid_item_id=body.get("bid_item_id"),
-                bid_price=body.get("bid_prie"),
+                bid_price=body.get("bid_price"),
             )
 
             if response["is_error"]:

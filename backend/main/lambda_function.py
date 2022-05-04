@@ -16,9 +16,9 @@ def lambda_handler(event: dict, context):
     logger.debug(json.dumps(event))
 
     path = event["pathParameters"]["proxy"]
-    method = event["httpMethod"]
+    method = event["requestContext"]["http"]["method"]
 
-    if path == "/items":
+    if path == "items":
         if method == "GET":
             return {"statusCode": 200, "body": json.dumps(get_items())}
         if method == "POST":
@@ -40,7 +40,7 @@ def lambda_handler(event: dict, context):
                     "body": "OK",
                 }
 
-    elif path == "/bids":
+    elif path == "bids":
         if method == "POST":
             body = json.loads(event["body"])
             response = register_bid(

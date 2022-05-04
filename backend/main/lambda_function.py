@@ -1,11 +1,20 @@
+import os
+import json
+import logging
+
 from get_all_items import get_items
 from register_item import register_item
 from register_bid import register_bid
 
-import json
+logger = logging.getLogger()
+
+if log_level := os.environ.get("LOG_LEVEL"):
+    logger.setLevel(log_level)
 
 
 def lambda_handler(event: dict, context):
+    logger.debug(json.dumps(event))
+
     path = event["pathParameters"]["proxy"]
     method = event["httpMethod"]
 

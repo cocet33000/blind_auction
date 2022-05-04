@@ -25,6 +25,7 @@ def lambda_handler(event: dict, context):
             body = json.loads(event["body"])
             response = register_item(
                 name=body.get("name"),
+                image_src=body.get("image_src"),
                 description=body.get("description"),
                 start_price=body.get("start_price"),
             )

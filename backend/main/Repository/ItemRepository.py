@@ -14,6 +14,7 @@ class ItemRepository:
         new_id = getNewId()
         new_item = DynamoDBItem(new_id)
         new_item.name = item.name
+        new_item.image_src = item.image_src
         new_item.description = item.description
         new_item.start_price = item.start_price
         new_item.save()

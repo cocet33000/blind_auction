@@ -27,6 +27,7 @@ class Item(Model):
 
     id = NumberAttribute(hash_key=True)
     name = UnicodeAttribute(null=False)
+    image_src = UnicodeAttribute(null=False)
     description = UnicodeAttribute(null=False)
     start_price = NumberAttribute(null=False)
     bids = ListAttribute(of=Bid, null=True)
@@ -35,6 +36,7 @@ class Item(Model):
         try:
             return myItem(
                 name=self.name,
+                image_src=self.image_src,
                 description=self.description,
                 start_price=self.start_price,
                 bided_num=len(self.bids) if isinstance(self.bids, list) else 0,

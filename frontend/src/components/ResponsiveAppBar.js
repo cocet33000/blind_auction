@@ -27,7 +27,6 @@ const darkTheme = createTheme({
   },
 });
 
-
 const ResponsiveAppBar = () => {
   const { isLogin, setIsLogin } = useContext(LoginContext);
   const [, setCookie, removeCookie] = useCookies(["isLogin"]);
@@ -62,13 +61,13 @@ const ResponsiveAppBar = () => {
 
   const pages = [
     {
-      "text": "A",
-      "to": "/a"
+      text: "A",
+      to: "/a",
     },
     {
-      "text": "B",
-      "to": "/b"
-    }
+      text: "B",
+      to: "/b",
+    },
   ];
 
   const isLoginMenus = [
@@ -96,7 +95,7 @@ const ResponsiveAppBar = () => {
               component="div"
               sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
             >
-              LOGO
+              BLIND AUCTION
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -148,7 +147,7 @@ const ResponsiveAppBar = () => {
               component="div"
               sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
             >
-              LOGO
+              BLIND AUCTION
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (

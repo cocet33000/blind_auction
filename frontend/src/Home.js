@@ -26,6 +26,7 @@ function Home() {
     axios.get('https://api.blind-auction.com/dev/items')
       .then((response) => {
         setItems(response.data.items);
+        console.log(response.data)
       })
       .catch(error => {
         console.log('ERROR!! occurred in Backend.')
@@ -38,7 +39,7 @@ function Home() {
   return (
     <Slider {...settings}>
       {items.map((item) => {
-        return <ImageCard image={item.image_src} bid_num={item.bid_num} />;
+        return <ImageCard image_src={item.image_src} bid_num={item.bid_num} />;
       })}
     </Slider>
   );

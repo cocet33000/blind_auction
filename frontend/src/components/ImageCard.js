@@ -1,35 +1,48 @@
-import {
-    Card,
-    CardMedia
-} from '@mui/material';
+import * as React from "react";
+import { useTheme } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import SkipNextIcon from "@mui/icons-material/SkipNext";
+import { width } from "@mui/system";
 
-import {styled} from '@mui/material/styles'
+export default function ImageCard(props) {
+  const theme = useTheme();
 
-const CustomCard = styled(Card)({
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    width: '200px',
-    height: '160px',
-});
-
-const CustomCardMedia = styled(CardMedia)({
-    component: 'img',
-    width: '150px',
-    paddingTop: '150px', // square
-    marginTop: '2%',
-    marginBottom: '2%',
-    marginLeft: '2%',
-    marginRight: '15%',
-})
-
-function ImageCard() {
   return (
-      <CustomCard>
-        <CustomCardMedia
-            image="https://placehold.jp/00db75/ffffff/500x500.png"
+    <Card
+      sx={{
+        display: "flex",
+        padding: "5px",
+        maxWidth: { xs: "150px", md: "200px" },
+        margin: "auto",
+      }}
+    >
+      <Box sx={{ display: "flex" }}>
+        <CardMedia
+          component="img"
+          sx={{ maxWidth: { xs: "100px", md: "150px" } }}
+          image={props.image_src}
+          alt="Live from space album cover"
         />
-      </CustomCard>
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          width: { xs: "5px", md: "30px" },
+          padding: { xs: "3px", md: "10px" },
+        }}
+      >
+        <Typography sx={{ fontSize: { xs: 5, md: 15 } }}>
+          {props.bid_num}
+        </Typography>
+      </Box>
+    </Card>
   );
 }
-
-export default ImageCard;

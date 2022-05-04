@@ -2,7 +2,7 @@ import ImageCard from "./components/ImageCard";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./css/slider.css"
+import "./css/slider.css";
 
 function Home() {
   const settings = {
@@ -17,13 +17,10 @@ function Home() {
     speed: 500,
   };
   return (
-      <Slider {...settings}>
-        <ImageCard />
-        <ImageCard />
-        <ImageCard />
-        <ImageCard />
-        <ImageCard />
-      </Slider>
+    <Slider {...settings}>
+      <ImageCard image_src="https://placehold.jp/00db75/ffffff/500x500.png" />
+      <ImageCard image_src="https://placehold.jp/00db75/ffffff/500x500.png" />
+    </Slider>
   );
 }
 

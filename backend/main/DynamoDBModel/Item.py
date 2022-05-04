@@ -22,8 +22,8 @@ class Item(Model):
         load_dotenv()
         if os.environ.get("MODE") == "local":
             host = "http://localhost:8000"
-        table_name = "blind_auction_items"
-        region = "ap-northeast-1"
+        table_name = os.environ.get("AWS_DYNAMO_DB_ITEMS_TABLE_NAME")
+        region = os.environ.get("AWS_REGION")
 
     id = NumberAttribute(hash_key=True)
     name = UnicodeAttribute(null=False)

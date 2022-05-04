@@ -43,7 +43,7 @@ export default function ImageCard(props) {
             }}
           >
             <Box sx={{ height: "35px" }}>
-              <Typography sx={{ fontSize: { xs: 5, md: 15 } }}>
+              <Typography sx={{ fontSize: { xs: 15, md: 20 } }}>
                 {props.bid_num}
               </Typography>
             </Box>

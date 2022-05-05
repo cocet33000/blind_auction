@@ -14,7 +14,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LoginIcon from "@mui/icons-material/Login";
 import { useCookies } from "react-cookie";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { LoginContext } from "../Login";
 
@@ -27,7 +27,9 @@ const darkTheme = createTheme({
   },
 });
 
+
 const ResponsiveAppBar = () => {
+  let navigate = useNavigate();
   const { isLogin, setIsLogin } = useContext(LoginContext);
   const [, setCookie, removeCookie] = useCookies(["isLogin"]);
 
@@ -50,6 +52,7 @@ const ResponsiveAppBar = () => {
   };
 
   const handleLogin = () => {
+    navigate("/auth")
     setIsLogin(true);
     setCookie("isLogin", true);
   };

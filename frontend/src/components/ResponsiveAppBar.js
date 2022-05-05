@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import * as React from 'react';
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -12,8 +13,17 @@ import MenuItem from "@mui/material/MenuItem";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LoginIcon from "@mui/icons-material/Login";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+
+
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthenticator } from '@aws-amplify/ui-react';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const darkTheme = createTheme({
   palette: {
@@ -29,6 +39,18 @@ const ResponsiveAppBar = () => {
   let navigate = useNavigate();
   const { authStatus } = useAuthenticator(context => [context.authStatus]);
   const { user, signOut } = useAuthenticator((context) => [context.user]);
+  const [isNotification, setNotification] = useState("");
+
+  useEffect(() => {
+    setNotification(true);
+    console.log("auth status is changed!")
+  }, [authStatus]);
+
+
+  const handleClose = (event, reason) => {
+    setNotification(false);
+  };
+
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -198,6 +220,16 @@ const ResponsiveAppBar = () => {
           </Toolbar>
         </Container>
       </AppBar>
+      <Snackbar
+        open={isNotification && authStatus === 'authenticated'}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          {authStatus !== 'authenticated' ? "" : "You are signed in as " + user.username}
+        </Alert>
+      </Snackbar>
     </ThemeProvider>
   );
 };

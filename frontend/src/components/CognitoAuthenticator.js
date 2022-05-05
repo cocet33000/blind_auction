@@ -1,9 +1,9 @@
+import { Navigate } from "react-router-dom";
+import { useState } from "react";
+import Box from "@mui/material/Box";
+import Snackbar from '@mui/material/Snackbar';
 import { Amplify } from 'aws-amplify';
 import { Authenticator } from '@aws-amplify/ui-react';
-import { Navigate } from "react-router-dom";
-import Box from "@mui/material/Box";
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 import { Image, View, useTheme, Text, translations } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import { I18n } from 'aws-amplify';
@@ -79,6 +79,7 @@ export default function CognitoAuthenticator() {
 
                 <Authenticator signUpAttributes={['email']} components={components} formFields={formFields} >
                     {({ signOut, user }) => (
+
                         <Navigate to="/" />
                     )}
                 </Authenticator>

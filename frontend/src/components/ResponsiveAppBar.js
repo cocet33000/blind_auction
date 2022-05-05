@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -8,15 +8,12 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LoginIcon from "@mui/icons-material/Login";
-import { useCookies } from "react-cookie";
-import { Link } from "react-router-dom";
-
-import { LoginContext } from "../Login";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuthenticator } from '@aws-amplify/ui-react';
 
 const darkTheme = createTheme({
   palette: {
@@ -27,9 +24,11 @@ const darkTheme = createTheme({
   },
 });
 
+
 const ResponsiveAppBar = () => {
-  const { isLogin, setIsLogin } = useContext(LoginContext);
-  const [, setCookie, removeCookie] = useCookies(["isLogin"]);
+  let navigate = useNavigate();
+  const { authStatus } = useAuthenticator(context => [context.authStatus]);
+  const { user, signOut } = useAuthenticator((context) => [context.user]);
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -50,13 +49,11 @@ const ResponsiveAppBar = () => {
   };
 
   const handleLogin = () => {
-    setIsLogin(true);
-    setCookie("isLogin", true);
+    navigate("/auth");
   };
 
   const handleLogout = () => {
-    setIsLogin(false);
-    removeCookie("isLogin");
+    signOut();
   };
 
   const pages = [
@@ -70,14 +67,14 @@ const ResponsiveAppBar = () => {
     },
   ];
 
-  const isLoginMenus = [
+  const authenticatedMenu = [
     {
-      text: "ログアウト",
+      text: "You are logged ",
       onClick: handleLogout,
     },
   ];
 
-  const isNotLoginMenus = [
+  const notAuthenticatedMenu = [
     {
       text: "ログイン",
       onClick: handleLogin,
@@ -164,15 +161,13 @@ const ResponsiveAppBar = () => {
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  {isLogin ? (
-                    <AccountCircleIcon fontSize="large" />
-                  ) : (
-                    <LoginIcon fontSize="large" />
-                  )}
-                </IconButton>
-              </Tooltip>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                {authStatus !== 'authenticated' ? (
+                  <LoginIcon fontSize="large" />
+                ) : (
+                  <AccountCircleIcon fontSize="large" />
+                )}
+              </IconButton>
               <Menu
                 sx={{ mt: "45px" }}
                 id="menu-appbar"
@@ -189,7 +184,7 @@ const ResponsiveAppBar = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {(isLogin ? isLoginMenus : isNotLoginMenus).map((setting) => (
+                {(authStatus !== 'authenticated' ? notAuthenticatedMenu : authenticatedMenu).map((setting) => (
                   <MenuItem key={setting.text} onClick={handleCloseUserMenu}>
                     <Typography textAlign="center" onClick={setting.onClick}>
                       {setting.text}

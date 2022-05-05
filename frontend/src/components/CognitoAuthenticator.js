@@ -10,7 +10,7 @@ Amplify.configure({
     aws_user_pools_web_client_id: "4ot1mjr2mj65h59kv3f09cvpcd",
 });
 
-export default function Authenticator() {
+export default function CognitoAuthenticator() {
     return (
         <Authenticator>
             {({ signOut, user }) => (

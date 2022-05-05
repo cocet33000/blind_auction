@@ -12,7 +12,7 @@ Amplify.configure({
 
 export default function CognitoAuthenticator() {
     return (
-        <Authenticator>
+        <Authenticator signUpAttributes={['email']}>
             {({ signOut, user }) => (
                 <main>
                     <h1>Hello {user.username}</h1>

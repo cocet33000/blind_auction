@@ -1,11 +1,11 @@
 import json
 import datetime
 
-from Model import Bid
+from DomainModel import Bid
 from Repository import BidRepository
 
 
-def register_bid(bided_user_id: int, bid_item_id: int, bid_price: int):
+def register_bid(bided_user_id: int, bid_item_id: int, bid_price: int) -> dict:
     bid = Bid(
         bided_user_id=bided_user_id,
         bid_item_id=bid_item_id,

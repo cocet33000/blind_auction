@@ -1,10 +1,12 @@
 import json
 
-from Model import Item
+from DomainModel import Item
 from Repository import ItemRepository
 
 
-def register_item(name: str, image_src: str, description: str, start_price: int):
+def register_item(
+    name: str, image_src: str, description: str, start_price: int
+) -> dict:
     item = Item(
         name=name,
         image_src=image_src,

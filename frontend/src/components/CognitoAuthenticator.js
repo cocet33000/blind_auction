@@ -5,7 +5,11 @@ import Box from "@mui/material/Box";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import '@aws-amplify/ui-react/styles.css';
-
+import { I18n } from 'aws-amplify';
+import { translations } from '@aws-amplify/ui-react';
+// I18n.putVocabularies(vocabularies);
+I18n.putVocabularies(translations);
+I18n.setLanguage('ja');
 
 Amplify.configure({
     aws_project_region: "ap-northeast-1",

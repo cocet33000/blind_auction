@@ -1,7 +1,7 @@
 import json
 import datetime
 
-from Model import Bid
+from DomainModel import Bid
 from Repository import BidRepository
 
 

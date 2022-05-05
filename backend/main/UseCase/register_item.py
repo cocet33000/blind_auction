@@ -1,6 +1,6 @@
 import json
 
-from Model import Item
+from DomainModel import Item
 from Repository import ItemRepository
 
 

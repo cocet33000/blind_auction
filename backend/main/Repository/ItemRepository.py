@@ -1,12 +1,12 @@
 import logging
 
 import DynamoDBModel
-import Model
+import DomainModel
 
 
 class ItemRepository:
     @staticmethod
-    def save(item: Model.Item) -> dict:
+    def save(item: DomainModel.Item) -> dict:
         def getNewId():
             sequence = DynamoDBModel.Sequence("items")
             sequence.update(actions=[DynamoDBModel.Sequence.current_number.add(1)])

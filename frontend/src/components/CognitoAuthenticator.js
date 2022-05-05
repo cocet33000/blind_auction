@@ -4,9 +4,9 @@ import { Navigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
+import { Image, View, useTheme, Text, translations } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import { I18n } from 'aws-amplify';
-import { translations } from '@aws-amplify/ui-react';
 // I18n.putVocabularies(vocabularies);
 I18n.putVocabularies(translations);
 I18n.setLanguage('ja');
@@ -19,7 +19,31 @@ Amplify.configure({
 });
 
 export default function CognitoAuthenticator() {
+    const components = {
+        Header() {
+            const { tokens } = useTheme();
 
+            return (
+                <View textAlign="center" padding={tokens.space.large}>
+                    <Image
+                        alt="BLIND AUCTION LOGO"
+                        src="/android-chrome-192x192.png"
+                    />
+                </View>
+            );
+        },
+        Footer() {
+            const { tokens } = useTheme();
+
+            return (
+                <View textAlign="center" padding={tokens.space.large}>
+                    <Text color={`${tokens.colors.neutral['80']}`}>
+                        &copy;BRIND-AUCTION All Rights Reserved
+                    </Text>
+                </View>
+            );
+        },
+    }
     return (
         <main>
             <Box sx={{
@@ -30,7 +54,7 @@ export default function CognitoAuthenticator() {
                 alignItems: 'center',
             }}>
 
-                <Authenticator signUpAttributes={['email']}>
+                <Authenticator signUpAttributes={['email']} components={components}>
                     {({ signOut, user }) => (
                         <Navigate to="/" />
                     )}

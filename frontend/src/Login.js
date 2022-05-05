@@ -1,6 +1,8 @@
 import { useCookies } from "react-cookie";
 import { createContext, useState } from "react";
 import App from "./App";
+import { Authenticator } from '@aws-amplify/ui-react';
+
 export const LoginContext = createContext();
 
 function Login() {
@@ -12,9 +14,11 @@ function Login() {
   };
 
   return (
-    <LoginContext.Provider value={loginState}>
-      <App />
-    </LoginContext.Provider>
+    <Authenticator.Provider>
+      <LoginContext.Provider value={loginState}>
+        <App />
+      </LoginContext.Provider>
+    </Authenticator.Provider>
   );
 }
 

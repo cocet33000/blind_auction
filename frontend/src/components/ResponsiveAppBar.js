@@ -87,6 +87,7 @@ const ResponsiveAppBar = () => {
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Typography
+              onClick={() => { navigate("/") }}
               variant="h6"
               noWrap
               component="div"
@@ -139,6 +140,7 @@ const ResponsiveAppBar = () => {
               </Menu>
             </Box>
             <Typography
+              onClick={() => { navigate("/") }}
               variant="h6"
               noWrap
               component="div"

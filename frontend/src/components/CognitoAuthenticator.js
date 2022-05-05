@@ -1,7 +1,8 @@
 import { Amplify } from 'aws-amplify';
-
 import { Authenticator } from '@aws-amplify/ui-react';
+import { Navigate } from "react-router-dom";
 import '@aws-amplify/ui-react/styles.css';
+
 
 Amplify.configure({
     aws_project_region: "ap-northeast-1",
@@ -11,13 +12,11 @@ Amplify.configure({
 });
 
 export default function CognitoAuthenticator() {
+
     return (
         <Authenticator signUpAttributes={['email']}>
             {({ signOut, user }) => (
-                <main>
-                    <h1>Hello {user.username}</h1>
-                    <button onClick={signOut}>Sign out</button>
-                </main>
+                <Navigate to="/" />
             )}
         </Authenticator>
     );

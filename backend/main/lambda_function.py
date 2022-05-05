@@ -2,9 +2,9 @@ import os
 import json
 import logging
 
-from get_all_items import get_items
-from register_item import register_item
-from register_bid import register_bid
+from UseCase import get_items
+from UseCase import register_item
+from UseCase import register_bid
 
 logger = logging.getLogger()
 

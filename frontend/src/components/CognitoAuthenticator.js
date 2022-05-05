@@ -1,9 +1,9 @@
+import { Navigate } from "react-router-dom";
+import { useState } from "react";
+import Box from "@mui/material/Box";
+import Snackbar from '@mui/material/Snackbar';
 import { Amplify } from 'aws-amplify';
 import { Authenticator } from '@aws-amplify/ui-react';
-import { Navigate } from "react-router-dom";
-import Box from "@mui/material/Box";
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 import { Image, View, useTheme, Text, translations } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import { I18n } from 'aws-amplify';
@@ -19,6 +19,29 @@ Amplify.configure({
 });
 
 export default function CognitoAuthenticator() {
+    const formFields = {
+        signIn: {
+            username: {
+                placeholder: 'ユーザ名 もしくは Eメール',
+                isRequired: true,
+            },
+        },
+        signUp: {
+            username: {
+                order: 1
+            },
+            email: {
+                order: 2
+            },
+            password: {
+                order: 5
+            },
+            confirm_password: {
+                order: 6
+            }
+        },
+    }
+
     const components = {
         Header() {
             const { tokens } = useTheme();
@@ -54,13 +77,14 @@ export default function CognitoAuthenticator() {
                 alignItems: 'center',
             }}>
 
-                <Authenticator signUpAttributes={['email']} components={components}>
+                <Authenticator signUpAttributes={['email']} components={components} formFields={formFields} >
                     {({ signOut, user }) => (
+
                         <Navigate to="/" />
                     )}
                 </Authenticator>
 
             </Box>
-        </main>
+        </main >
     );
 }

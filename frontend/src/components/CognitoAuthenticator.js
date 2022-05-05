@@ -19,6 +19,29 @@ Amplify.configure({
 });
 
 export default function CognitoAuthenticator() {
+    const formFields = {
+        signIn: {
+            username: {
+                placeholder: 'ユーザ名 もしくは Eメール',
+                isRequired: true,
+            },
+        },
+        signUp: {
+            username: {
+                order: 1
+            },
+            email: {
+                order: 2
+            },
+            password: {
+                order: 5
+            },
+            confirm_password: {
+                order: 6
+            }
+        },
+    }
+
     const components = {
         Header() {
             const { tokens } = useTheme();
@@ -54,13 +77,13 @@ export default function CognitoAuthenticator() {
                 alignItems: 'center',
             }}>
 
-                <Authenticator signUpAttributes={['email']} components={components}>
+                <Authenticator signUpAttributes={['email']} components={components} formFields={formFields} >
                     {({ signOut, user }) => (
                         <Navigate to="/" />
                     )}
                 </Authenticator>
 
             </Box>
-        </main>
+        </main >
     );
 }

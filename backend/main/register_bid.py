@@ -16,4 +16,4 @@ def register_bid(bided_user_id: int, bid_item_id: int, bid_price: int):
 
 
 if __name__ == "__main__":
-    print(json.dumps(register_bid(bided_user_id=1, bid_item_id=2, bid_price=10000)))
+    print(json.dumps(register_bid(bided_user_id=1, bid_item_id=9, bid_price=10000)))

@@ -69,7 +69,7 @@ const ResponsiveAppBar = () => {
 
   const authenticatedMenu = [
     {
-      text: "You are logged ",
+      text: authStatus !== 'authenticated' ? ("") : ("You are signed in as " + user.username),
       onClick: handleLogout,
     },
   ];

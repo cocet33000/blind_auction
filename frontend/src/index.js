@@ -1,17 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Login from './Login';
 import reportWebVitals from './reportWebVitals';
-import {
-  CookiesProvider,
-} from "react-cookie";
+import App from "./App";
+import { Authenticator } from '@aws-amplify/ui-react';
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <CookiesProvider>
-      <Login />
-    </CookiesProvider>
+    <Authenticator.Provider>
+      <App />
+    </Authenticator.Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,7 +1,7 @@
 import json
 
-from Model.Item import Item
-from Repository.ItemRepository import ItemRepository
+from Model import Item
+from Repository import ItemRepository
 
 
 def register_item(name: str, image_src: str, description: str, start_price: int):

@@ -1,6 +1,6 @@
 import json
 
-from Repository.ItemRepository import ItemRepository
+from Repository import ItemRepository
 
 
 def get_items():

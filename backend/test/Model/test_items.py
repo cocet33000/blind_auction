@@ -1,8 +1,10 @@
 import unittest
+from Model.Item import Item
 
 
-class TestStringMethods(unittest.TestCase):
-    def test_itemsモデルを作成(self):
+class TestItemModel(unittest.TestCase):
+    def test_itemモデルを作成(self):
+
         self.assertEqual("foo".upper(), "FOO")
 
 

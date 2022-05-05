@@ -1,8 +1,8 @@
 import json
 import datetime
 
-from Model.Bid import Bid
-from Repository.BidRepository import BidRepository
+from Model import Bid
+from Repository import BidRepository
 
 
 def register_bid(bided_user_id: int, bid_item_id: int, bid_price: int):

@@ -8,7 +8,7 @@ from pynamodb.attributes import ListAttribute
 from pynamodb.attributes import MapAttribute
 from pynamodb.attributes import UTCDateTimeAttribute
 
-from Model.Item import Item as myItem
+from Model import Item as myItem
 
 
 class Bid(MapAttribute):
@@ -33,13 +33,10 @@ class Item(Model):
     bids = ListAttribute(of=Bid, null=True)
 
     def to_model(self):
-        try:
-            return myItem(
-                name=self.name,
-                image_src=self.image_src,
-                description=self.description,
-                start_price=self.start_price,
-                bid_num=len(self.bids) if isinstance(self.bids, list) else 0,
-            )
-        except:
-            return self
+        return myItem(
+            name=self.name,
+            image_src=self.image_src,
+            description=self.description,
+            start_price=self.start_price,
+            bid_num=len(self.bids) if isinstance(self.bids, list) else 0,
+        )

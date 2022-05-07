@@ -40,6 +40,7 @@ function Home() {
         {items.map((item) => {
           return (
             <ImageCard
+              id={item.id}
               name={item.name}
               image_src={item.image_src}
               bid_num={item.bid_num}

@@ -3,7 +3,7 @@ from UseCase import register_item
 from UseCase import register_bid
 
 print(get_items())
-print(register_bid(user_id=1, item_id=9, price=10000))
+print(register_bid(user_name="hoge", item_id=9, price=10000))
 print(
     register_item(
         name="hoge",

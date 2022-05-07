@@ -13,7 +13,7 @@ from DomainModel import Item as myItem
 
 class Bid(MapAttribute):
     price = NumberAttribute(null=False)
-    bided_user_id = NumberAttribute(null=False)
+    bided_user_name = UnicodeAttribute(null=False)
     bided_at = UTCDateTimeAttribute(null=False)
 
 

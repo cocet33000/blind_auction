@@ -11,7 +11,7 @@ class BidRepository:
         item = ItemRepository.getByItemId(bid.bid_item_id)
 
         new_bid = DynamoDBModel.Bid(
-            bided_at=bid.bided_at, bided_user_id=bid.bided_user_id, price=bid.price
+            bided_at=bid.bided_at, bided_user_name=bid.bided_user_name, price=bid.price
         )
 
         try:

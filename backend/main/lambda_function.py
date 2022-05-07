@@ -45,7 +45,7 @@ def lambda_handler(event: dict, context):
         if method == "POST":
             body = json.loads(event["body"])
             response = register_bid(
-                user_id=body.get("user_id"),
+                user_name=body.get("user_name"),
                 item_id=body.get("item_id"),
                 price=body.get("price"),
             )

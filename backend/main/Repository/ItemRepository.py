@@ -1,6 +1,7 @@
+from __future__ import annotations
 import logging
 
-import DynamoDBModel
+from . import DynamoDBModel
 import DomainModel
 
 
@@ -26,8 +27,8 @@ class ItemRepository:
         return DynamoDBModel.Item.get(item_id)
 
     @staticmethod
-    def getAll():
-        return DynamoDBModel.Item.scan()
+    def getAll() -> list[DomainModel.Item]:
+        return [item.to_model() for item in DynamoDBModel.Item.scan()]
 
     @staticmethod
     def deleteByItemId(item_id):

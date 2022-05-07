@@ -8,7 +8,7 @@ from pynamodb.attributes import ListAttribute
 from pynamodb.attributes import MapAttribute
 from pynamodb.attributes import UTCDateTimeAttribute
 
-from DomainModel import Item as myItem
+import DomainModel
 
 
 class Bid(MapAttribute):
@@ -32,8 +32,8 @@ class Item(Model):
     start_price = NumberAttribute(null=False)
     bids = ListAttribute(of=Bid, null=True)
 
-    def to_model(self):
-        return myItem(
+    def to_model(self) -> DomainModel.Item:
+        return DomainModel.Item(
             id=self.id,
             name=self.name,
             image_src=self.image_src,

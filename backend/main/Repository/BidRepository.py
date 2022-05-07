@@ -1,6 +1,6 @@
 import logging
 
-import DynamoDBModel
+from . import DynamoDBModel
 import DomainModel
 from .ItemRepository import ItemRepository
 

@@ -7,13 +7,7 @@ import DomainModel
 class ItemRepository:
     @staticmethod
     def save(item: DomainModel.Item) -> dict:
-        def getNewId():
-            sequence = DynamoDBModel.Sequence("items")
-            sequence.update(actions=[DynamoDBModel.Sequence.current_number.add(1)])
-            return sequence.current_number
-
-        new_id = getNewId()
-        new_item = DynamoDBModel.Item(new_id)
+        new_item = DynamoDBModel.Item(item.id)
         new_item.name = item.name
         new_item.image_src = item.image_src
         new_item.description = item.description
@@ -22,7 +16,7 @@ class ItemRepository:
 
         try:
             new_item.save()
-            return {"is_error": False, "id": new_id}
+            return {"is_error": False, "id": item.id}
         except Exception as e:
             logging.error(e)
             return {"is_error": True}

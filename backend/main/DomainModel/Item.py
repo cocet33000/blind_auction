@@ -3,6 +3,7 @@ from dataclasses import dataclass, asdict
 
 @dataclass
 class Item:
+    id: int
     name: str
     image_src: str
     description: str

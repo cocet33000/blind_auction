@@ -34,6 +34,7 @@ class Item(Model):
 
     def to_model(self):
         return myItem(
+            id=self.id,
             name=self.name,
             image_src=self.image_src,
             description=self.description,

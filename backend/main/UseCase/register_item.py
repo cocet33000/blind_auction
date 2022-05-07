@@ -1,19 +1,19 @@
 import json
 
-from DomainModel import Item
+from DomainService import ItemFactory
 from Repository import ItemRepository
 
 
 def register_item(
     name: str, image_src: str, description: str, start_price: int
 ) -> dict:
-    item = Item(
+    item = ItemFactory.Create(
         name=name,
         image_src=image_src,
         description=description,
         start_price=start_price,
-        bid_num=0,
     )
+
     return ItemRepository.save(item)
 
 

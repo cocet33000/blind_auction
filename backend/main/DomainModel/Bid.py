@@ -8,3 +8,7 @@ class Bid:
     bid_item_id: int
     price: int
     bided_at: datetime
+
+    def __post_init__(self):
+        if not isinstance(self.price, int):
+            raise TypeError

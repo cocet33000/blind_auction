@@ -146,18 +146,7 @@ const ResponsiveAppBar = () => {
                   display: { xs: "block", md: "none" },
                 }}
               >
-                {pages.map((page) => (
-                  <MenuItem key={page.text} onClick={handleCloseNavMenu}>
-                    <Button
-                      key={page.text}
-                      sx={{ my: 1, color: "white", display: "block" }}
-                      component={Link}
-                      to={page.to}
-                    >
-                      {page.text}
-                    </Button>
-                  </MenuItem>
-                ))}
+                
               </Menu>
             </Box>
             <Typography
@@ -172,20 +161,12 @@ const ResponsiveAppBar = () => {
               BLIND AUCTION
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {pages.map((page) => (
-                <Button
-                  key={page.text}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
-                  component={Link}
-                  to={page.to}
-                >
-                  {page.text}
-                </Button>
-              ))}
             </Box>
 
-            <Box sx={{ flexGrow: 0 }}>
+            <Box sx={{ 
+              flexGrow: 0,
+              alignItems: "end",  
+              }}>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 {authStatus !== "authenticated" ? (
                   <LoginIcon fontSize="large" />

@@ -1,3 +1,4 @@
+from __future__ import annotations
 import logging
 
 from . import DynamoDBModel
@@ -30,3 +31,7 @@ class BidRepository:
         except Exception as e:
             logging.error(e)
             return {"is_error": True}
+
+    @staticmethod
+    def getByUserName(user_name: str) -> list[DomainModel.Bid]:
+        return []

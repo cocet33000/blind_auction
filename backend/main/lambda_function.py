@@ -5,6 +5,7 @@ import logging
 from UseCase import get_items
 from UseCase import register_item
 from UseCase import register_bid
+from UseCase import get_bids_by_user
 
 logger = logging.getLogger()
 
@@ -60,5 +61,12 @@ def lambda_handler(event: dict, context):
                     "statusCode": 200,
                     "body": "OK",
                 }
+        elif method == "GET":
+            user_name = event["queryStringParameters"].get("user_name")
+            return {
+                "statusCode": 200,
+                "body": json.dumps(get_bids_by_user(user_name=user_name)),
+            }
+
     else:
         return {"statusCode": 404}

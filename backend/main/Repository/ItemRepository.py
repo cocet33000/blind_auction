@@ -24,7 +24,7 @@ class ItemRepository:
 
     @staticmethod
     def getByItemId(item_id):
-        return DynamoDBModel.Item.get(item_id)
+        return DynamoDBModel.Item.get(item_id).to_model()
 
     @staticmethod
     def getAll() -> list[DomainModel.Item]:

@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from datetime import datetime
 
 
@@ -12,3 +12,6 @@ class Bid:
     def __post_init__(self):
         if not isinstance(self.price, int):
             raise TypeError
+
+    def to_dict(self):
+        return asdict(self)

@@ -1,3 +1,4 @@
+from __future__ import annotations
 import logging
 
 from . import DynamoDBModel
@@ -30,3 +31,19 @@ class BidRepository:
         except Exception as e:
             logging.error(e)
             return {"is_error": True}
+
+    @staticmethod
+    def getByUserName(user_name: str) -> list[DomainModel.Bid]:
+        def is_bid_by_user_name(bids: list[DynamoDBModel.Bid], user_name: str) -> bool:
+            return user_name in list(map(lambda bid: bid.bided_user_name, bids))
+
+        items = DynamoDBModel.Item.scan()
+        return [
+            item.bids[0].to_model(item_id=item.id)
+            for item in filter(
+                lambda item: is_bid_by_user_name(item.bids, user_name)
+                if item.bids
+                else False,
+                items,
+            )
+        ]

@@ -16,6 +16,14 @@ class Bid(MapAttribute):
     bided_user_name = UnicodeAttribute(null=False)
     bided_at = UTCDateTimeAttribute(null=False)
 
+    def to_model(self, item_id: int) -> DomainModel.Bid:
+        return DomainModel.Bid(
+            bided_user_name=self.bided_user_name,
+            bided_at=self.bided_at,
+            bid_item_id=item_id,
+            price=self.price,
+        )
+
 
 class Item(Model):
     class Meta:

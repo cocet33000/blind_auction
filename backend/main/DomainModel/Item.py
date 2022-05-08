@@ -10,5 +10,5 @@ class Item:
     start_price: int
     bid_num: int
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return asdict(self)

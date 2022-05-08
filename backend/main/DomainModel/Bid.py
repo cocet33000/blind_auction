@@ -1,4 +1,4 @@
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 from datetime import datetime
 
 
@@ -13,7 +13,7 @@ class Bid:
         if not isinstance(self.price, int):
             raise TypeError
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {
             "bided_user_name": self.bided_user_name,
             "bid_item_id": self.bid_item_id,

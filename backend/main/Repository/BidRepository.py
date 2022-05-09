@@ -3,13 +3,12 @@ import logging
 
 from . import DynamoDBModel
 import DomainModel
-from .ItemRepository import ItemRepository
 
 
 class BidRepository:
     @staticmethod
     def save(bid: DomainModel.Bid) -> dict:
-        item = ItemRepository.getByItemId(bid.bid_item_id)
+        item = DynamoDBModel.Item.get(bid.bid_item_id)
 
         new_bid = DynamoDBModel.Bid(
             bided_at=bid.bided_at, bided_user_name=bid.bided_user_name, price=bid.price

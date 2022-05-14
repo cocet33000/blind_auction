@@ -35,7 +35,7 @@ jobs:
           zip -r package.zip ./*
 
       - name: Test
-        working-directory: ./backend/test
+        working-directory: ./backend
         run: python3 -m unittest discover test
 
       - name: Deploy

@@ -64,7 +64,7 @@ class DIModule(Module):
 
 
 class TestGetItems(unittest.TestCase):
-    def test_(self):
+    def test_get_items(self):
         injector = Injector([DIModule()])
         item_usecase = injector.get(ItemUseCase)
         response = item_usecase.get_items()

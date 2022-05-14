@@ -1,11 +1,15 @@
 import os
 import json
 import logging
+from injector import Injector, Module, singleton, inject
 
-from UseCase import get_items
-from UseCase import register_item
-from UseCase import register_bid
-from UseCase import get_bids_by_user
+from Infrastructure import BidRepository
+from Infrastructure import ItemRepository
+from Infrastructure import BidRepositoryImplDynamoDB
+from Infrastructure import ItemRepositoryImplDynamoDB
+
+from UseCase import ItemUseCase
+from UseCase import BidUseCase
 
 logger = logging.getLogger()
 
@@ -13,7 +17,18 @@ if log_level := os.environ.get("LOG_LEVEL"):
     logger.setLevel(log_level)
 
 
+@singleton
+class DIModule(Module):
+    def configure(self, binder):
+        binder.bind(BidRepository, to=BidRepositoryImplDynamoDB)
+        binder.bind(ItemRepository, to=ItemRepositoryImplDynamoDB)
+
+
 def lambda_handler(event: dict, context):
+    injector = Injector([DIModule()])
+    item_usecase = injector.get(ItemUseCase)
+    bid_usecase = injector.get(BidUseCase)
+
     logger.debug(json.dumps(event))
 
     path = event["pathParameters"]["proxy"]
@@ -21,10 +36,10 @@ def lambda_handler(event: dict, context):
 
     if path == "items":
         if method == "GET":
-            return {"statusCode": 200, "body": json.dumps(get_items())}
+            return {"statusCode": 200, "body": json.dumps(item_usecase.get_items())}
         if method == "POST":
             body = json.loads(event["body"])
-            response = register_item(
+            response = item_usecase.register_item(
                 name=body.get("name"),
                 image_src=body.get("image_src"),
                 description=body.get("description"),
@@ -45,7 +60,7 @@ def lambda_handler(event: dict, context):
     elif path == "bids":
         if method == "POST":
             body = json.loads(event["body"])
-            response = register_bid(
+            response = bid_usecase.register_bid(
                 user_name=body.get("user_name"),
                 item_id=body.get("item_id"),
                 price=body.get("price"),
@@ -65,7 +80,7 @@ def lambda_handler(event: dict, context):
             user_name = event["queryStringParameters"].get("user_name")
             return {
                 "statusCode": 200,
-                "body": json.dumps(get_bids_by_user(user_name=user_name)),
+                "body": json.dumps(bid_usecase.get_bids_by_user(user_name=user_name)),
             }
 
     else:

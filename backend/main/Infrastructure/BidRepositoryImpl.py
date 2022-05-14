@@ -1,11 +1,13 @@
 from __future__ import annotations
 import logging
 
+from Infrastructure.BidRepository import BidRepository
+
 from . import DynamoDBModel
 import DomainModel
 
 
-class BidRepository:
+class BidRepositoryImpl(BidRepository):
     @staticmethod
     def save(bid: DomainModel.Bid) -> dict:
         item = DynamoDBModel.Item.get(bid.bid_item_id)

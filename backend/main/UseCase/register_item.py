@@ -1,7 +1,7 @@
 import json
 
 from DomainService import ItemFactory
-from Repository import ItemRepository
+from Infrastructure import ItemRepositoryImpl
 
 
 def register_item(
@@ -14,7 +14,7 @@ def register_item(
         start_price=start_price,
     )
 
-    return ItemRepository.save(item)
+    return ItemRepositoryImpl.save(item)
 
 
 if __name__ == "__main__":

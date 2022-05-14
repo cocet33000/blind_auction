@@ -2,7 +2,7 @@ import json
 import datetime
 
 from DomainModel import Bid
-from Repository import BidRepository
+from Infrastructure import BidRepositoryImpl
 
 
 def register_bid(user_name: str, item_id: int, price: int) -> dict:
@@ -12,7 +12,7 @@ def register_bid(user_name: str, item_id: int, price: int) -> dict:
         bided_at=datetime.datetime.now(),
         price=price,
     )
-    return BidRepository.save(bid)
+    return BidRepositoryImpl.save(bid)
 
 
 if __name__ == "__main__":

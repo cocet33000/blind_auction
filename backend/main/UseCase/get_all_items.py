@@ -1,10 +1,10 @@
 import json
 
-from Repository import ItemRepository
+from Infrastructure import ItemRepositoryImpl
 
 
 def get_items() -> dict:
-    items = ItemRepository.getAll()
+    items = ItemRepositoryImpl.getAll()
     return {"items": [item.to_dict() for item in items]}
 
 

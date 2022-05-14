@@ -1,5 +1,5 @@
 from DomainModel import Item
-from Repository.DynamoDBModel import Sequence
+from Infrastructure.DynamoDBModel import Sequence
 
 
 class ItemFactory:

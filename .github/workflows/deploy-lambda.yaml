@@ -36,7 +36,7 @@ jobs:
 
       - name: Test
         working-directory: ./backend
-        run: python3 -m unittest -v discover test
+        run: python3 -m unittest discover test -v
 
       - name: Deploy
         working-directory: backend/main

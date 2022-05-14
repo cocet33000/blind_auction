@@ -1,11 +1,13 @@
 from __future__ import annotations
 import logging
 
+from Infrastructure.ItemRepository import ItemRepository
+
 from . import DynamoDBModel
 import DomainModel
 
 
-class ItemRepository:
+class ItemRepositoryImpl(ItemRepository):
     @staticmethod
     def save(item: DomainModel.Item) -> dict:
         new_item = DynamoDBModel.Item(item.id)

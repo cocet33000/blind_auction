@@ -27,10 +27,14 @@ jobs:
         with:
           python-version: '3.9'
 
-      - name: Lambda Build & Update
+      - name: Install Library
+        working-directory: backend/main
         run: |
           pip3 install awscli
-          cd backend/main
           pip install -r requirements.txt -t ./
           zip -r package.zip ./*
+
+      - name: Deploy
+        working-directory: backend/main
+        run: |
           aws lambda update-function-code --function-name BA-Integrated-backend --zip-file fileb://package.zip --publish

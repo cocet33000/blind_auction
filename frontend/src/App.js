@@ -1,6 +1,4 @@
 import "./App.css";
-import A from "./A";
-import B from "./B";
 
 import Home from "./Home";
 import AppBar from "./AppBar.js";
@@ -15,8 +13,6 @@ function App() {
         <AppBar />
         <Container maxWidth="md">
           <Routes>
-            <Route path="/a" element={<A />} />
-            <Route path="/b" element={<B />} />
             <Route path="/auth" element={<CognitoAuthenticator />} />
             <Route path="/" element={<Home />} />
           </Routes>

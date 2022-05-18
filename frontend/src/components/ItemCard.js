@@ -7,7 +7,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import BidForm from "./BidForm";
 
-export default function ImageCard(props) {
+export default function ItemCard(props) {
   const theme = useTheme();
 
   return (

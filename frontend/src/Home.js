@@ -1,4 +1,4 @@
-import ImageCard from "./components/ImageCard";
+import ItemCard from "./components/ItemCard";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import "slick-carousel/slick/slick.css";
@@ -35,19 +35,21 @@ function Home() {
   }, []);
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Stack spacing={5}>
-        {items.map((item) => {
-          return (
-            <ImageCard
-              id={item.id}
-              name={item.name}
-              image_src={item.image_src}
-              bid_num={item.bid_num}
-            />
-          );
-        })}
-      </Stack>
+    <Box sx={{ p: 3 }}>
+      <Box sx={{ width: "100%" }}>
+        <Stack spacing={5}>
+          {items.map((item) => {
+            return (
+              <ItemCard
+                id={item.id}
+                name={item.name}
+                image_src={item.image_src}
+                bid_num={item.bid_num}
+              />
+            );
+          })}
+        </Stack>
+      </Box>
     </Box>
   );
 }

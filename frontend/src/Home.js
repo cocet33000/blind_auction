@@ -12,6 +12,7 @@ import axios from "axios";
 
 function Home() {
   const [items, setItems] = useState([]);
+  const [clickedItem, setClickedItem] = useState("");
   const [isOpen, setOpen] = useState(false);
   useEffect(() => {
     // Update the document title using the browser API
@@ -33,6 +34,7 @@ function Home() {
         handleClose={() => {
           setOpen(false);
         }}
+        item={clickedItem}
       />
       <Box sx={{ p: 3 }}>
         <Box sx={{ width: "100%" }}>
@@ -44,6 +46,7 @@ function Home() {
                   textTransform="none"
                   onClick={() => {
                     setOpen(true);
+                    setClickedItem(item);
                   }}
                 >
                   <ItemCard

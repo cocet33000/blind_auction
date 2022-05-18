@@ -5,6 +5,9 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
+import { TextField } from "@mui/material";
+import { InputAdornment } from "@mui/material";
+import { Input } from "@mui/material";
 
 export default function ItemDetailDialog(props) {
   return (
@@ -20,6 +23,16 @@ export default function ItemDetailDialog(props) {
             <DialogContentText sx={{ fontSize: 24 }}>
               {props.item.description}
             </DialogContentText>
+            <Input
+              fullWidth={true}
+              placeholder={"初期価格：" + props.item.start_price}
+              id="standard-adornment-amount"
+              type="number"
+              variant="standard"
+              startAdornment={
+                <InputAdornment position="start">¥</InputAdornment>
+              }
+            />
             <DialogActions>
               <Button onClick={props.handleClose}>Cancel</Button>
             </DialogActions>

@@ -5,9 +5,8 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import BidForm from "./BidForm";
 
-export default function ImageCard(props) {
+export default function ItemCard(props) {
   const theme = useTheme();
 
   return (
@@ -49,7 +48,6 @@ export default function ImageCard(props) {
               </Typography>
             </Box>
           </Box>
-          <BidForm item_id={props.id} />
         </Stack>
       </Card>
     </Box>

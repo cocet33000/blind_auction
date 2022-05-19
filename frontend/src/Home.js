@@ -48,6 +48,11 @@ function Home() {
                     setOpen(true);
                     setClickedItem(item);
                   }}
+                  sx={{
+                    "&.MuiButtonBase-root:hover": {
+                      bgcolor: "transparent",
+                    },
+                  }}
                 >
                   <ItemCard
                     id={item.id}

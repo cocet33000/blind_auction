@@ -36,6 +36,7 @@ def lambda_handler(event: dict, context):
 
     if path == "items":
         if method == "GET":
+            # ここで詰め替える
             return {"statusCode": 200, "body": json.dumps(item_usecase.get_items())}
         if method == "POST":
             body = json.loads(event["body"])

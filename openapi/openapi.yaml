@@ -12,54 +12,99 @@ servers:
 paths:
   /healthcheck:
     get:
-      summary: サーバーの状態を返します
+      tags:
+        - healthcheck
+      summary: サーバーの状態を返しますよ
       description: サーバーの状態を返します。
       responses:
-        '200':
+        "200":
           description: サーバーは正常に動作しています
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/healthy_response'
-
+                $ref: "#/components/schemas/healthy_response"
 
   /items:
     get:
+      tags:
+        - items
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
       summary: アイテム一覧を返す
       responses:
-        '200':
+        "200":
           description: アイテム一覧
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/items'
-              examples:
-                sample_1:
-                  $ref: '#/components/examples/items'
+                $ref: "#/components/schemas/items"
+    post:
+      tags:
+        - items
+      summary: 商品を登録する
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                name:
+                  type: string
+                  example: 商品3
+                image_src:
+                  type: string
+                  example: http://{image_src}
+                description:
+                  type: string
+                  example: 良い商品です
+                start_price:
+                  type: integer
+                  example: 100
+      responses:
+        "200":
+          description: アイテム一覧
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/bids_post_response"
+  /bids:
+    get:
+      tags:
+        - bids
+      summary: ユーザーの入札一覧を返す
+      parameters:
+        - in: query
+          name: user_name
+          schema:
+            type: string
+            example: miyazawa
+      responses:
+        "200":
+          description: 入札一覧
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/bids_get_response"
+    post:
+      tags:
+        - bids
+      summary: 入札する
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/bids_post_request"
+      responses:
+        "200":
+          description: アイテム一覧
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/bids_post_response"
+
 components:
-  examples:
-    items:
-      description: サンプル1
-      value:
-        has_next: false
-        items:
-          [
-            {
-              "id": 1,
-              "name": "item_1",
-              "image_src": "https://placehold.jp/3d4070/ffffff/150x150.png"
-            },
-            {
-              "id": 2,
-              "name": "item_2",
-              "image_src": "https://placehold.jp/d70f19/ffffff/150x150.png"
-            },
-            {
-              "id": 3,
-              "name": "item_3",
-              "image_src": "https://placehold.jp/00db75/ffffff/150x150.png"
-            }
-          ]
   schemas:
     healthy_response:
       description: サーバーの状態のレスポンス
@@ -78,7 +123,20 @@ components:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/item'
+            $ref: "#/components/schemas/item"
+    bid:
+      description: 入札
+      type: object
+      properties:
+        user_name:
+          type: string
+          example: miyazawa
+        price:
+          type: integer
+          example: 100
+        item_id:
+          type: integer
+          example: 10
     item:
       description: アイテム
       type: object
@@ -92,3 +150,65 @@ components:
         image_src:
           type: string
           example: http://{image_src}
+        description:
+          type: string
+          example: 良い商品です
+        start_price:
+          type: integer
+          example: 100
+        bid_num:
+          type: integer
+          example: 5
+    bids_post_response:
+      description: サーバーの状態のレスポンス
+      type: object
+      properties:
+        is_error:
+          type: boolean
+          example: True
+        errors:
+          type: array
+          items:
+            $ref: "#/components/schemas/bids_post_error"
+    bids_post_error:
+      description: エラー詳細
+      type: object
+      properties:
+        message:
+          type: string
+          example: "入札金額が不正"
+    bids_post_request:
+      description: サーバーの状態のレスポンス
+      type: object
+      properties:
+        user_name:
+          type: string
+          example: miyazawa
+        item_id:
+          type: integer
+          example: 3
+        price:
+          type: integer
+          example: 1000
+    bids_get_response:
+      description: アイテム
+      properties:
+        bided_items:
+          type: array
+          items:
+            $ref: "#/components/schemas/bided_items"
+    bided_items:
+      description: 入札詳細
+      type: object
+      properties:
+        item:
+          $ref: "#/components/schemas/item"
+        bid:
+          properties:
+            price:
+              type: integer
+              example: 100
+            bided_at:
+              type: string
+              format: date-time
+              example: 2020-01-31T23:59:59.000+09:00

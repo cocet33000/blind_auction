@@ -9,7 +9,6 @@ from DomainModel import Item
 
 class TestItemModel(unittest.TestCase):
     def test_input_valid_parameter(self):
-
         input_param_list = [
             (1, "hoge", "test/testimg.png", "hoge", 0, 0),
             (99999999, "hoge", "test/testimg.png", "hoge", 0, 0),
@@ -18,12 +17,12 @@ class TestItemModel(unittest.TestCase):
         ]
         for ITEM_ID, ITEM_NAME, ITEM_IMAGE_SRC, DESCRIPTION, START_PRICE, BID_NUM in input_param_list:
             with self.subTest(
-                            ITEM_ID=ITEM_ID, 
-                            ITEM_NAME=ITEM_NAME,  
-                            ITEM_IMAGE_SRC=ITEM_IMAGE_SRC, 
-                            DESCRIPTION=DESCRIPTION, 
-                            START_PRICE=START_PRICE, 
-                            BID_NUM=BID_NUM, 
+                            ITEM_ID=ITEM_ID,
+                            ITEM_NAME=ITEM_NAME, 
+                            ITEM_IMAGE_SRC=ITEM_IMAGE_SRC,
+                            DESCRIPTION=DESCRIPTION,
+                            START_PRICE=START_PRICE,
+                            BID_NUM=BID_NUM,
                             ):
                 item = Item(
                     id = ITEM_ID,
@@ -53,12 +52,12 @@ class TestItemModel(unittest.TestCase):
         ]
         for ITEM_ID, ITEM_NAME, ITEM_IMAGE_SRC, DESCRIPTION, START_PRICE, BID_NUM in input_param_list:
             with self.subTest(
-                            ITEM_ID=ITEM_ID, 
-                            ITEM_NAME=ITEM_NAME,  
-                            ITEM_IMAGE_SRC=ITEM_IMAGE_SRC, 
-                            DESCRIPTION=DESCRIPTION, 
-                            START_PRICE=START_PRICE, 
-                            BID_NUM=BID_NUM, 
+                            ITEM_ID=ITEM_ID,
+                            ITEM_NAME=ITEM_NAME,
+                            ITEM_IMAGE_SRC=ITEM_IMAGE_SRC,
+                            DESCRIPTION=DESCRIPTION,
+                            START_PRICE=START_PRICE,
+                            BID_NUM=BID_NUM,
                             ):
                 with self.assertRaises(TypeError):
                     item = Item(
@@ -83,12 +82,12 @@ class TestItemModel(unittest.TestCase):
         ]
         for ITEM_ID, ITEM_NAME, ITEM_IMAGE_SRC, DESCRIPTION, START_PRICE, BID_NUM in input_param_list:
             with self.subTest(
-                ITEM_ID=ITEM_ID, 
-                ITEM_NAME=ITEM_NAME,  
-                ITEM_IMAGE_SRC=ITEM_IMAGE_SRC, 
-                DESCRIPTION=DESCRIPTION, 
-                START_PRICE=START_PRICE, 
-                BID_NUM=BID_NUM, 
+                ITEM_ID=ITEM_ID,
+                ITEM_NAME=ITEM_NAME, 
+                ITEM_IMAGE_SRC=ITEM_IMAGE_SRC,
+                DESCRIPTION=DESCRIPTION,
+                START_PRICE=START_PRICE,
+                BID_NUM=BID_NUM,
             ):
                 with self.assertRaises(ValueError):
                     item = Item(

@@ -9,7 +9,7 @@ docker-comose up -d
 ## python環境構築
 ```bash
 cd blind_auction/backend
-python venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 ```

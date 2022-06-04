@@ -2,7 +2,7 @@ name: Actions for Frontend @prd
 on:
   push:
       branches:
-        - master
+        - prd
       paths:
         - frontend/**
         - .github/workflows/frontend-prd.yml

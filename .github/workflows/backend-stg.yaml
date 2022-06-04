@@ -1,8 +1,8 @@
-name: Deploy to AWS Lambda
+name: Actions for Backend @stg
 on:
   push:
     branches:
-      - prd
+      - master
     paths:
       - backend/main/**
       - .github/workflows/deploy-lambda.yaml
@@ -32,13 +32,7 @@ jobs:
         run: |
           pip3 install awscli
           pip install -r requirements.txt -t ./
-          zip -r package.zip ./*
 
       - name: Test
         working-directory: backend
         run: python3 -m unittest discover test -v
-
-      - name: Deploy
-        working-directory: backend
-        run: |
-          aws lambda update-function-code --function-name BA-Integrated-backend --zip-file fileb://package.zip --publish

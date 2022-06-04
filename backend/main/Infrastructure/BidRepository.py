@@ -13,5 +13,5 @@ class BidRepository(ABC):
 
     @staticmethod
     @abstractmethod
-    def getByUserName(user_name: str) -> list[DomainModel.Bid]:
+    def getByUserName(user_name: str) -> DomainModel.BidsByUser:
         raise NotImplementedError

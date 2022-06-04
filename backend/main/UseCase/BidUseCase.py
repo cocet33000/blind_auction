@@ -17,9 +17,8 @@ class BidUseCase:
 
     def register_bid(self, user_name: str, item_id: int, price: int) -> dict:
         bids_by_user = self.BidRepository.getByUserName(user_name)
-        for bid_by_user in bids_by_user:
-            if bid_by_user.bid_item_id == item_id:
-                raise BidAlreadyExistsError
+        if bids_by_user.exists_bid_by_item_id(item_id):
+            raise BidAlreadyExistsError
 
         bid = Bid(
             bided_user_name=user_name,
@@ -29,6 +28,7 @@ class BidUseCase:
         )
         return self.BidRepository.save(bid)
 
+    # getByUserNameの戻り値を変更（list(Bid) -> BidsByUser）したので動かない
     def get_bids_by_user(self, user_name: str) -> dict:
         bids = self.BidRepository.getByUserName(user_name)
 

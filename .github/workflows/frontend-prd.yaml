@@ -5,7 +5,7 @@ on:
         - master
       paths:
         - frontend/**
-        - .github/workflows/main.yml
+        - .github/workflows/frontend-prd.yml
 jobs:
   build:
     runs-on: ubuntu-latest

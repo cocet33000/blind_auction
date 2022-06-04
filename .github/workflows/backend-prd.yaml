@@ -5,7 +5,7 @@ on:
       - prd
     paths:
       - backend/main/**
-      - .github/workflows/deploy-lambda.yaml
+      - .github/workflows/backend-prd.yaml
 
 jobs:
   deploy:

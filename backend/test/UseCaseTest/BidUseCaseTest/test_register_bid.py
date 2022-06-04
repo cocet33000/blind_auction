@@ -23,6 +23,7 @@ bid_repository_mock.getByUserName.return_value = [
         bided_at=datetime.datetime.now(),
     )
 ]
+bid_repository_mock.save.return_value = {"is_error": False}
 
 
 @singleton
@@ -33,6 +34,18 @@ class DIModule(Module):
 
 
 class TestRegisterBid(unittest.TestCase):
+    def test_正常系(self):
+        injector = Injector([DIModule()])
+        bid_usecase = injector.get(BidUseCase)
+
+        test_user_name = "hoge"
+        test_item_id = 1
+        test_price = 1000
+
+        response = bid_usecase.register_bid(test_user_name, test_item_id, test_price)
+
+        self.assertEqual(response["is_error"], False)
+
     def test_既に入札済みのユーザーの場合は例外を投げる(self):
         injector = Injector([DIModule()])
         bid_usecase = injector.get(BidUseCase)

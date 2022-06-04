@@ -15,14 +15,16 @@ from UseCase import BidUseCase, BidAlreadyExistsError
 
 item_repository_mock = Mock(spec=ItemRepository)
 bid_repository_mock = Mock(spec=BidRepository)
-bid_repository_mock.getByUserName.return_value = [
-    DomainModel.Bid(
-        bided_user_name="hoge",
-        bid_item_id=2,
-        price=1000,
-        bided_at=datetime.datetime.now(),
-    )
-]
+bid_repository_mock.getByUserName.return_value = DomainModel.BidsByUser(
+    [
+        DomainModel.Bid(
+            bided_user_name="hoge",
+            bid_item_id=2,
+            price=1000,
+            bided_at=datetime.datetime.now(),
+        )
+    ]
+)
 bid_repository_mock.save.return_value = {"is_error": False}
 
 

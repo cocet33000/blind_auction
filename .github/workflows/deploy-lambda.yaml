@@ -28,7 +28,7 @@ jobs:
           python-version: '3.9'
 
       - name: Install Library
-        working-directory: backend/main
+        working-directory: backend
         run: |
           pip3 install awscli
           pip install -r requirements.txt -t ./

@@ -1,4 +1,4 @@
 from .ItemUseCase import ItemUseCase
-from .BidUseCase import BidUseCase
+from .BidUseCase import BidUseCase, BidAlreadyExistsError
 
-__all__ = ["ItemUseCase", "BidUseCase"]
+__all__ = ["ItemUseCase", "BidUseCase", "BidAlreadyExistsError"]

@@ -3,8 +3,7 @@ from __future__ import annotations
 import unittest
 from pathlib import Path
 import sys
-from urllib import response
-from injector import Injector, Module, singleton, inject
+from injector import Injector, Module, singleton
 
 sys.path.append(str(Path(__file__).parent.parent.parent / "main"))
 

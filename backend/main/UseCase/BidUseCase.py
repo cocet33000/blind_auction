@@ -19,7 +19,7 @@ class BidUseCase:
         bids_by_user = self.BidRepository.getByUserName(user_name)
         for bid_by_user in bids_by_user:
             if bid_by_user.bid_item_id == item_id:
-                raise TypeError
+                raise BidAlreadyExistsError
 
         bid = Bid(
             bided_user_name=user_name,
@@ -41,3 +41,7 @@ class BidUseCase:
             "bids": [bid.to_dict() for bid in bids],
             "items": [item.to_dict() for item in items],
         }
+
+
+class BidAlreadyExistsError(Exception):
+    pass

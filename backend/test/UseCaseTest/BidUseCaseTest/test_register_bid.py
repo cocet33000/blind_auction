@@ -11,7 +11,7 @@ from injector import Injector, Module, singleton, inject
 sys.path.append(str(Path(__file__).parent.parent.parent.parent / "main"))
 from Infrastructure import BidRepository, ItemRepository
 import DomainModel
-from UseCase import BidUseCase
+from UseCase import BidUseCase, BidAlreadyExistsError
 
 item_repository_mock = Mock(spec=ItemRepository)
 bid_repository_mock = Mock(spec=BidRepository)
@@ -55,5 +55,5 @@ class TestRegisterBid(unittest.TestCase):
         test_price = 1000
 
         # 既に入札済みのユーザーの場合は例外を投げる
-        with self.assertRaises(TypeError):
+        with self.assertRaises(BidAlreadyExistsError):
             bid_usecase.register_bid(test_user_name, test_item_id, test_price)

@@ -1,5 +1,7 @@
-from .item import Item
 import uuid
+
+from .item import Item
+from ..value_object.price import Price
 
 
 class ItemFactory:
@@ -10,11 +12,13 @@ class ItemFactory:
 
         new_id = getNewId()
 
+        domain_start_price = Price(start_price)
+
         return Item(
             id=new_id,
             name=name,
             image_src=image_src,
             description=description,
-            start_price=start_price,
+            start_price=domain_start_price,
             bid_num=0,
         )

@@ -8,8 +8,8 @@ from pynamodb.attributes import ListAttribute
 from pynamodb.attributes import MapAttribute
 from pynamodb.attributes import UTCDateTimeAttribute
 
-from main.DomainModel.Bid import Bid as DomainModelBid
-from main.DomainModel.Item import Item as DomainModelItem
+from main.domain.bid.bid import Bid as DomainModelBid
+from main.domain.item.item import Item as DomainModelItem
 
 
 class Bid(MapAttribute):

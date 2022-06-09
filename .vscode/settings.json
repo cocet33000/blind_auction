@@ -22,5 +22,6 @@
   "python.formatting.provider": "black",
   "editor.formatOnSave": true,
   "editor.formatOnPaste": false,
-  "python.analysis.typeCheckingMode": "basic"
+"python.analysis.typeCheckingMode": "basic",
+"python.linting.enabled": true
 }

@@ -3,9 +3,9 @@ from __future__ import annotations
 import unittest
 from injector import Injector, Module, singleton
 
-from main.Infrastructure.ItemRepository import ItemRepository
-from main.UseCase.ItemUseCase import ItemUseCase
-from main.DomainModel.Item import Item
+from main.domain.item.item_repository import ItemRepository
+from main.usecase.item_usecase import ItemUseCase
+from main.domain.item.item import Item
 
 
 item1 = Item(

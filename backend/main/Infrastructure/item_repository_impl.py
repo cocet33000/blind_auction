@@ -1,16 +1,16 @@
 from __future__ import annotations
 import logging
 
-from Infrastructure.ItemRepository import ItemRepository
+from domain.item.item_repository import ItemRepository
 
-from . import DynamoDBModel
-from main.DomainModel.Item import Item
+from . import dynamo_db
+from domain.item.item import Item
 
 
 class ItemRepositoryImpl(ItemRepository):
     @staticmethod
     def save(item: Item) -> dict:
-        new_item = DynamoDBModel.Item(item.id)
+        new_item = dynamo_db.Item(item.id)
         new_item.name = item.name
         new_item.image_src = item.image_src
         new_item.description = item.description
@@ -26,15 +26,15 @@ class ItemRepositoryImpl(ItemRepository):
 
     @staticmethod
     def getByItemId(item_id):
-        return DynamoDBModel.Item.get(item_id).to_model()
+        return dynamo_db.Item.get(item_id).to_model()
 
     @staticmethod
     def getAll() -> list[Item]:
-        return [item.to_model() for item in DynamoDBModel.Item.scan()]
+        return [item.to_model() for item in dynamo_db.Item.scan()]
 
     @staticmethod
     def deleteByItemId(item_id):
-        item = DynamoDBModel.Item(item_id)
+        item = dynamo_db.Item(item_id)
 
         try:
             item.delete()

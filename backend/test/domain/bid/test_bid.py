@@ -1,7 +1,7 @@
 import unittest
 import datetime
 
-from main.DomainModel.Bid import Bid
+from main.domain.bid.bid import Bid
 
 
 class TestBidModel(unittest.TestCase):

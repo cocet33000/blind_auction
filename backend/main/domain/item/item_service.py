@@ -1,5 +1,5 @@
-from main.DomainModel.Item import Item
-from main.Infrastructure.DynamoDBModel.Sequence import Sequence
+from .item import Item
+from main.infrastructure.dynamo_db.sequence import Sequence
 
 
 class ItemFactory:

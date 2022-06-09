@@ -1,31 +1,29 @@
 from __future__ import annotations
 import logging
 
-from main.Infrastructure.BidRepository import BidRepository
+from main.domain.bid.bid_repository import BidRepository
 
-import main.Infrastructure.DynamoDBModel as DynamoDBModel
-from main.DomainModel.Bid import Bid
-from main.DomainModel.BidsByUser import BidsByUser
+from . import dynamo_db
+from main.domain.bid.bid import Bid
+from main.domain.bid.bids_by_user import BidsByUser
 
 
 class BidRepositoryImpl(BidRepository):
     @staticmethod
     def save(bid: Bid) -> dict:
-        item = DynamoDBModel.Item.get(bid.bid_item_id)
+        item = dynamo_db.Item.get(bid.bid_item_id)
 
-        new_bid = DynamoDBModel.Bid(
+        new_bid = dynamo_db.Bid(
             bided_at=bid.bided_at, bided_user_name=bid.bided_user_name, price=bid.price
         )
 
         try:
             if item.to_model().bid_num == 0:
-                item.update(actions=[DynamoDBModel.Item.bids.set([new_bid])])
+                item.update(actions=[dynamo_db.Item.bids.set([new_bid])])
             else:
                 item.update(
                     actions=[
-                        DynamoDBModel.Item.bids.set(
-                            DynamoDBModel.Item.bids.append([new_bid])
-                        )
+                        dynamo_db.Item.bids.set(dynamo_db.Item.bids.append([new_bid]))
                     ]
                 )
 
@@ -36,10 +34,10 @@ class BidRepositoryImpl(BidRepository):
 
     @staticmethod
     def getByUserName(user_name):
-        def is_bid_by_user_name(bids: list[DynamoDBModel.Bid], user_name: str) -> bool:
+        def is_bid_by_user_name(bids: list[dynamo_db.Bid], user_name: str) -> bool:
             return user_name in list(map(lambda bid: bid.bided_user_name, bids))
 
-        items = DynamoDBModel.Item.scan()
+        items = dynamo_db.Item.scan()
         return BidsByUser(
             [
                 item.bids[0].to_model(item_id=item.id)

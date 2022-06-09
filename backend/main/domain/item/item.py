@@ -5,7 +5,7 @@ from ..value_object.price import Price
 
 @dataclass
 class Item:
-    id: int
+    id: str
     name: str
     image_src: str
     description: str

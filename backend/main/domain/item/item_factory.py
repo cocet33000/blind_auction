@@ -1,16 +1,12 @@
 from .item import Item
-
-# ドメインがインフラに依存しているのでここは書き直す
-from ...infrastructure.dynamo_db.sequence import Sequence
+import uuid
 
 
 class ItemFactory:
     @staticmethod
     def Create(name, image_src, description, start_price) -> Item:
-        def getNewId():
-            sequence = Sequence("items")
-            sequence.update(actions=[Sequence.current_number.add(1)])
-            return sequence.current_number
+        def getNewId() -> str:
+            return str(uuid.uuid4())
 
         new_id = getNewId()
 

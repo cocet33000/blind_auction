@@ -1,13 +1,13 @@
 from __future__ import annotations
 
 import unittest
+from mock import Mock
 from injector import Injector, Module, singleton
 
 from main.domain.item.item_repository import ItemRepository
 from main.usecase.item_usecase import ItemUseCase
 from main.domain.item.item import Item
 from main.domain.value_object.price import Price
-
 
 item1 = Item(
     id="1",
@@ -26,37 +26,14 @@ item2 = Item(
     bid_num=0,
 )
 
-
-class ItemRepositoryMock(ItemRepository):
-    @staticmethod
-    def save(item: Item) -> dict:
-        return {"is_error": False, "id": item.id}
-
-    @staticmethod
-    def getByItemId(item_id):
-        item = Item(
-            id=item_id,
-            name="hoge",
-            image_src="test.png",
-            description="fuga",
-            start_price=Price(100),
-            bid_num=0,
-        )
-        return item
-
-    @staticmethod
-    def getAll() -> list[Item]:
-        return [item1, item2]
-
-    @staticmethod
-    def deleteByItemId(item_id):
-        return "OK"
+item_repository_mock = Mock(spec=ItemRepository)
+item_repository_mock.getAll.return_value = [item1, item2]
 
 
 @singleton
 class DIModule(Module):
     def configure(self, binder):
-        binder.bind(ItemRepository, to=ItemRepositoryMock)
+        binder.bind(ItemRepository, to=item_repository_mock)
 
 
 class TestGetItems(unittest.TestCase):

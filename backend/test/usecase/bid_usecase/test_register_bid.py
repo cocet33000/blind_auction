@@ -8,6 +8,7 @@ from injector import Injector, Module, singleton
 
 from main.domain.bid.bid_repository import BidRepository
 from main.domain.item.item_repository import ItemRepository
+from main.domain.value_object.price import Price
 from main.domain.bid.bid import Bid
 from main.domain.bid.bids_by_user import BidsByUser
 from main.usecase.bid_usecase import BidUseCase
@@ -20,7 +21,7 @@ bid_repository_mock.getByUserName.return_value = BidsByUser(
         Bid(
             bided_user_name="hoge",
             bid_item_id=2,
-            price=1000,
+            price=Price(1000),
             bided_at=datetime.datetime.now(),
         )
     ]

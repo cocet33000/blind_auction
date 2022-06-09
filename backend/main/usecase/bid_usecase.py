@@ -3,6 +3,7 @@ import datetime
 
 from main.domain.bid.bid import Bid
 from main.domain.item.item import Item
+from main.domain.value_object.price import Price
 from main.domain.item.item_repository import ItemRepository
 from main.domain.bid.bid_repository import BidRepository
 
@@ -24,7 +25,7 @@ class BidUseCase:
             bided_user_name=user_name,
             bid_item_id=item_id,
             bided_at=datetime.datetime.now(),
-            price=price,
+            price=Price(price),
         )
         return self.BidRepository.save(bid)
 

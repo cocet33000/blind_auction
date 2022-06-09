@@ -6,6 +6,7 @@ from injector import Injector, Module, singleton
 from main.domain.item.item_repository import ItemRepository
 from main.usecase.item_usecase import ItemUseCase
 from main.domain.item.item import Item
+from main.domain.value_object.price import Price
 
 
 item1 = Item(
@@ -13,7 +14,7 @@ item1 = Item(
     name="hoge",
     image_src="test.png",
     description="hoge",
-    start_price=100,
+    start_price=Price(100),
     bid_num=0,
 )
 item2 = Item(
@@ -21,7 +22,7 @@ item2 = Item(
     name="fuga",
     image_src="test.png",
     description="fuga",
-    start_price=100,
+    start_price=Price(100),
     bid_num=0,
 )
 
@@ -38,7 +39,7 @@ class ItemRepositoryMock(ItemRepository):
             name="hoge",
             image_src="test.png",
             description="fuga",
-            start_price=100,
+            start_price=Price(100),
             bid_num=0,
         )
         return item

@@ -37,5 +37,5 @@ if __name__ == "__main__":
             start_price=100,
         )
     )
-    print(bid_usecase.register_bid(user_name="fuga3", item_id=4, price=10000))
+    print(bid_usecase.register_bid(user_name="fuga7", item_id=4, price=10000))
     print(bid_usecase.get_bids_by_user(user_name="hoge"))

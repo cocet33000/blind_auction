@@ -1,18 +1,14 @@
 from __future__ import annotations
 
 import unittest
-from pathlib import Path
-import sys
 from injector import Injector, Module, singleton
 
-sys.path.append(str(Path(__file__).parent.parent.parent / "main"))
-
-from Infrastructure import ItemRepository
-import DomainModel
-from UseCase import ItemUseCase
+from main.Infrastructure.ItemRepository import ItemRepository
+from main.UseCase.ItemUseCase import ItemUseCase
+from main.DomainModel.Item import Item
 
 
-item1 = DomainModel.Item(
+item1 = Item(
     id="1",
     name="hoge",
     image_src="test.png",
@@ -20,7 +16,7 @@ item1 = DomainModel.Item(
     start_price=100,
     bid_num=0,
 )
-item2 = DomainModel.Item(
+item2 = Item(
     id="2",
     name="fuga",
     image_src="test.png",
@@ -32,12 +28,12 @@ item2 = DomainModel.Item(
 
 class ItemRepositoryMock(ItemRepository):
     @staticmethod
-    def save(item: DomainModel.Item) -> dict:
+    def save(item: Item) -> dict:
         return {"is_error": False, "id": item.id}
 
     @staticmethod
     def getByItemId(item_id):
-        item = DomainModel.Item(
+        item = Item(
             id=item_id,
             name="hoge",
             image_src="test.png",
@@ -48,7 +44,7 @@ class ItemRepositoryMock(ItemRepository):
         return item
 
     @staticmethod
-    def getAll() -> list[DomainModel.Item]:
+    def getAll() -> list[Item]:
         return [item1, item2]
 
     @staticmethod

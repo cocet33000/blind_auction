@@ -1,7 +1,7 @@
 from injector import inject
 
-from DomainService import ItemFactory
-from Infrastructure import ItemRepository
+from main.DomainService.ItemService import ItemFactory
+from main.Infrastructure.ItemRepository import ItemRepository
 
 
 class ItemUseCase:

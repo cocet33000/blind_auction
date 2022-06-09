@@ -1,10 +1,10 @@
 from injector import inject
 import datetime
 
-from DomainModel import Bid
-from DomainModel import Item
-from Infrastructure import ItemRepository
-from Infrastructure import BidRepository
+from main.DomainModel.Bid import Bid
+from main.DomainModel.Item import Item
+from main.Infrastructure.ItemRepository import ItemRepository
+from main.Infrastructure.BidRepository import BidRepository
 
 
 class BidUseCase:

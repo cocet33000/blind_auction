@@ -1,10 +1,7 @@
 import unittest
 import datetime
-from pathlib import Path
-import sys
 
-sys.path.append(str(Path(__file__).parent.parent.parent / "main"))
-from DomainModel import Bid
+from main.DomainModel.Bid import Bid
 
 
 class TestBidModel(unittest.TestCase):

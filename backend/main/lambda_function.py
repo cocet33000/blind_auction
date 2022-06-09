@@ -3,10 +3,10 @@ import json
 import logging
 from injector import Injector, Module, singleton, inject
 
-from Infrastructure import BidRepository
-from Infrastructure import ItemRepository
-from Infrastructure import BidRepositoryImplDynamoDB
-from Infrastructure import ItemRepositoryImplDynamoDB
+from main.Infrastructure.BidRepository import BidRepository
+from main.Infrastructure.ItemRepository import ItemRepository
+from main.Infrastructure.BidRepositoryImpl import BidRepositoryImpl
+from main.Infrastructure.ItemRepositoryImpl import ItemRepositoryImpl
 
 from UseCase import ItemUseCase
 from UseCase import BidUseCase
@@ -20,8 +20,8 @@ if log_level := os.environ.get("LOG_LEVEL"):
 @singleton
 class DIModule(Module):
     def configure(self, binder):
-        binder.bind(BidRepository, to=BidRepositoryImplDynamoDB)
-        binder.bind(ItemRepository, to=ItemRepositoryImplDynamoDB)
+        binder.bind(BidRepository, to=BidRepositoryImpl)
+        binder.bind(ItemRepository, to=ItemRepositoryImpl)
 
 
 def lambda_handler(event: dict, context):

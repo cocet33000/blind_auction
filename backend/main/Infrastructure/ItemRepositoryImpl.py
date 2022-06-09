@@ -4,12 +4,12 @@ import logging
 from Infrastructure.ItemRepository import ItemRepository
 
 from . import DynamoDBModel
-import DomainModel
+from main.DomainModel.Item import Item
 
 
 class ItemRepositoryImpl(ItemRepository):
     @staticmethod
-    def save(item: DomainModel.Item) -> dict:
+    def save(item: Item) -> dict:
         new_item = DynamoDBModel.Item(item.id)
         new_item.name = item.name
         new_item.image_src = item.image_src
@@ -29,7 +29,7 @@ class ItemRepositoryImpl(ItemRepository):
         return DynamoDBModel.Item.get(item_id).to_model()
 
     @staticmethod
-    def getAll() -> list[DomainModel.Item]:
+    def getAll() -> list[Item]:
         return [item.to_model() for item in DynamoDBModel.Item.scan()]
 
     @staticmethod

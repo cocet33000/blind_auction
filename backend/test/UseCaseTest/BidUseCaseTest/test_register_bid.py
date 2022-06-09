@@ -3,21 +3,22 @@ from __future__ import annotations
 import unittest
 from mock import Mock
 import datetime
-from pathlib import Path
-import sys
 
 from injector import Injector, Module, singleton, inject
 
-sys.path.append(str(Path(__file__).parent.parent.parent.parent / "main"))
-from Infrastructure import BidRepository, ItemRepository
-import DomainModel
-from UseCase import BidUseCase, BidAlreadyExistsError
+from main.Infrastructure.BidRepository import BidRepository
+from main.Infrastructure.ItemRepository import ItemRepository
+from main.DomainModel.Bid import Bid
+from main.DomainModel.BidsByUser import BidsByUser
+from main.DomainModel.Item import Item
+from main.UseCase.BidUseCase import BidUseCase
+from main.UseCase.BidUseCase import BidAlreadyExistsError
 
 item_repository_mock = Mock(spec=ItemRepository)
 bid_repository_mock = Mock(spec=BidRepository)
-bid_repository_mock.getByUserName.return_value = DomainModel.BidsByUser(
+bid_repository_mock.getByUserName.return_value = BidsByUser(
     [
-        DomainModel.Bid(
+        Bid(
             bided_user_name="hoge",
             bid_item_id=2,
             price=1000,

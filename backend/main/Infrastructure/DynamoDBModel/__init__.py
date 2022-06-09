@@ -1,5 +1,3 @@
-from .Item import Item
-from .Item import Bid
-from .Sequence import Sequence
+from .Item import Item, Bid
 
-__all__ = ["Item", "Bid", "Sequence"]
+__all__ = ["Item, Bid"]

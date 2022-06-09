@@ -2,13 +2,13 @@ from __future__ import annotations
 from abc import ABC
 from abc import abstractmethod
 
-import DomainModel
+from main.DomainModel.Item import Item
 
 
 class ItemRepository(ABC):
     @staticmethod
     @abstractmethod
-    def save(item: DomainModel.Item) -> dict:
+    def save(item: Item) -> dict:
         raise NotImplementedError
 
     @staticmethod
@@ -18,7 +18,7 @@ class ItemRepository(ABC):
 
     @staticmethod
     @abstractmethod
-    def getAll() -> list[DomainModel.Item]:
+    def getAll() -> list[Item]:
         raise NotImplementedError
 
     @staticmethod

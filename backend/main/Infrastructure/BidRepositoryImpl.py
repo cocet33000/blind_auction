@@ -1,15 +1,16 @@
 from __future__ import annotations
 import logging
 
-from Infrastructure.BidRepository import BidRepository
+from main.Infrastructure.BidRepository import BidRepository
 
-from . import DynamoDBModel
-import DomainModel
+import main.Infrastructure.DynamoDBModel as DynamoDBModel
+from main.DomainModel.Bid import Bid
+from main.DomainModel.BidsByUser import BidsByUser
 
 
 class BidRepositoryImpl(BidRepository):
     @staticmethod
-    def save(bid: DomainModel.Bid) -> dict:
+    def save(bid: Bid) -> dict:
         item = DynamoDBModel.Item.get(bid.bid_item_id)
 
         new_bid = DynamoDBModel.Bid(
@@ -39,7 +40,7 @@ class BidRepositoryImpl(BidRepository):
             return user_name in list(map(lambda bid: bid.bided_user_name, bids))
 
         items = DynamoDBModel.Item.scan()
-        return DomainModel.BidsByUser(
+        return BidsByUser(
             [
                 item.bids[0].to_model(item_id=item.id)
                 for item in filter(

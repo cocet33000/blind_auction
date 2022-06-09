@@ -1,5 +1,7 @@
 from .item import Item
-from main.infrastructure.dynamo_db.sequence import Sequence
+
+# ドメインがインフラに依存しているのでここは書き直す
+from ...infrastructure.dynamo_db.sequence import Sequence
 
 
 class ItemFactory:

@@ -1,6 +1,6 @@
 from injector import inject
 
-from main.domain.item.item_service import ItemFactory
+from main.domain.item.item_factory import ItemFactory
 from main.domain.item.item_repository import ItemRepository
 
 

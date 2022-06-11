@@ -8,9 +8,9 @@ from pynamodb.attributes import ListAttribute
 from pynamodb.attributes import MapAttribute
 from pynamodb.attributes import UTCDateTimeAttribute
 
-from main.domain.bid.bid import Bid as DomainModelBid
-from main.domain.item.item import Item as DomainModelItem
-from main.domain.value_object.price import Price
+from domain.bid.bid import Bid as DomainModelBid
+from domain.item.item import Item as DomainModelItem
+from domain.value_object.price import Price
 
 
 class Bid(MapAttribute):
@@ -35,7 +35,8 @@ class Item(Model):
         table_name = os.environ.get("AWS_DYNAMO_DB_ITEMS_TABLE_NAME")
         region = os.environ.get("AWS_REGION")
 
-    id = UnicodeAttribute(hash_key=True)
+    # id = UnicodeAttribute(hash_key=True)
+    id = NumberAttribute(hash_key=True)
     name = UnicodeAttribute(null=False)
     image_src = UnicodeAttribute(null=False)
     description = UnicodeAttribute(null=False)

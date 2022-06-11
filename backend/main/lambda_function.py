@@ -3,13 +3,13 @@ import json
 import logging
 from injector import Injector, Module, singleton, inject
 
-from domain.bid.bid_repository import BidRepository
-from domain.item.item_repository import ItemRepository
-from infrastructure.bid_repository_impl import BidRepositoryImpl
-from infrastructure.item_repository_impl import ItemRepositoryImpl
+from main.domain.bid.bid_repository import BidRepository
+from main.domain.item.item_repository import ItemRepository
+from main.infrastructure.bid_repository_impl import BidRepositoryImpl
+from main.infrastructure.item_repository_impl import ItemRepositoryImpl
 
-from usecase.item_usecase import ItemUseCase
-from usecase.bid_usecase import BidUseCase
+from main.usecase.item_usecase import ItemUseCase
+from main.usecase.bid_usecase import BidUseCase
 
 logger = logging.getLogger()
 

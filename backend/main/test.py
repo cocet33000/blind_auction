@@ -1,13 +1,20 @@
-from usecase.item_usecase import ItemUseCase
-from usecase.bid_usecase import BidUseCase
+from pathlib import Path
+import sys
 
-from domain.bid.bid_repository import BidRepository
-from domain.item.item_repository import ItemRepository
+# add base project path to PYTHONPATH
+BASE_DIR = Path(__file__).resolve().parent.parent
+sys.path.append(str(BASE_DIR))
 
-from infrastructure.bid_repository_impl import BidRepositoryImpl
-from infrastructure.item_repository_impl import ItemRepositoryImpl
+from main.usecase.item_usecase import ItemUseCase
+from main.usecase.bid_usecase import BidUseCase
 
-from injector import Injector, Module, singleton
+from main.domain.bid.bid_repository import BidRepository
+from main.domain.item.item_repository import ItemRepository
+
+from main.infrastructure.bid_repository_impl import BidRepositoryImpl
+from main.infrastructure.item_repository_impl import ItemRepositoryImpl
+
+from injector import Injector, Module, singleton, inject
 
 
 @singleton
@@ -22,13 +29,13 @@ if __name__ == "__main__":
     item_usecase = injector.get(ItemUseCase)
     bid_usecase = injector.get(BidUseCase)
     print(item_usecase.get_items())
-    # print(
-    #     item_usecase.register_item(
-    #         name="hoge",
-    #         image_src="http://test",
-    #         description="hoge hoge",
-    #         start_price=100,
-    #     )
-    # )
-    # print(bid_usecase.register_bid(user_name="fuga7", item_id=4, price=10000))
+    print(
+        item_usecase.register_item(
+            name="hoge",
+            image_src="http://test",
+            description="hoge hoge",
+            start_price=100,
+        )
+    )
+    print(bid_usecase.register_bid(user_name="fuga7", item_id=4, price=10000))
     print(bid_usecase.get_bids_by_user(user_name="hoge"))

@@ -2,8 +2,8 @@ from __future__ import annotations
 from abc import abstractmethod
 from abc import ABC
 
-from main.DomainModel.Bid import Bid
-from main.DomainModel.BidsByUser import BidsByUser
+from .bid import Bid
+from .bids_by_user import BidsByUser
 
 
 class BidRepository(ABC):

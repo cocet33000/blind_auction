@@ -2,7 +2,7 @@ from __future__ import annotations
 from abc import ABC
 from abc import abstractmethod
 
-from main.DomainModel.Item import Item
+from .item import Item
 
 
 class ItemRepository(ABC):

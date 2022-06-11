@@ -1,0 +1,31 @@
+name: Actions for Backend @feature
+on:
+  push:
+    branches:
+      - feature/**
+    paths:
+      - backend/main/**
+      - .github/workflows/backend-feature.yaml
+
+jobs:
+  ActionsForBackend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Python Setup
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.9'
+
+      - name: Install Library
+        working-directory: backend
+        run: |
+          pip3 install awscli
+          pip install -r requirements.txt -t ./
+
+      - name: Test
+        working-directory: backend
+        run: python3 -m unittest discover test -v

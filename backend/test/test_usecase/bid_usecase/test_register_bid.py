@@ -6,13 +6,13 @@ import datetime
 
 from injector import Injector, Module, singleton
 
-from main.domain.bid.bid_repository import BidRepository
-from main.domain.item.item_repository import ItemRepository
-from main.domain.value_object.price import Price
-from main.domain.bid.bid import Bid
-from main.domain.bid.bids_by_user import BidsByUser
-from main.usecase.bid_usecase import BidUseCase
-from main.usecase.bid_usecase import BidAlreadyExistsError
+from domain.bid.bid_repository import BidRepository
+from domain.item.item_repository import ItemRepository
+from domain.value_object.price import Price
+from domain.bid.bid import Bid
+from domain.bid.bids_by_user import BidsByUser
+from usecase.bid_usecase import BidUseCase
+from usecase.bid_usecase import BidAlreadyExistsError
 
 item_repository_mock = Mock(spec=ItemRepository)
 bid_repository_mock = Mock(spec=BidRepository)

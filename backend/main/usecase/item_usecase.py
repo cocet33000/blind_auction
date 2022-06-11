@@ -1,7 +1,7 @@
 from injector import inject
 
-from main.domain.item.item_factory import ItemFactory
-from main.domain.item.item_repository import ItemRepository
+from domain.item.item_factory import ItemFactory
+from domain.item.item_repository import ItemRepository
 
 
 class ItemUseCase:

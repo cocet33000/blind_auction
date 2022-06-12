@@ -1,4 +1,3 @@
-from lib2to3.pgen2.token import STAR
 import unittest
 from mock import Mock
 

@@ -1,10 +1,10 @@
 from __future__ import annotations
 import logging
 
-from domain.item.item_repository import ItemRepository
 
 from . import dynamo_db
-from domain.item.item import Item
+from main.domain.item import Item
+from main.domain.item import ItemRepository
 
 
 class ItemRepositoryImpl(ItemRepository):

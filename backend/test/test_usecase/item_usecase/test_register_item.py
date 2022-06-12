@@ -4,10 +4,8 @@ import unittest
 from mock import Mock
 from injector import Injector, Module, singleton
 
-from main.domain.item.item_repository import ItemRepository
-from main.usecase.item_usecase import ItemUseCase
-from main.domain.item.item import Item
-from main.domain.value_object.price import Price
+from main.domain.item import ItemRepository
+from main.usecase import ItemUseCase
 
 item_repository_mock = Mock(spec=ItemRepository)
 item_repository_mock.save.return_value = {"is_error": False, "id": "1"}

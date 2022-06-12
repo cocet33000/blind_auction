@@ -1,6 +1,6 @@
 import unittest
 
-from main.domain.value_object.price import Price
+from main.domain.value_object import Price
 
 
 class TestPrice(unittest.TestCase):

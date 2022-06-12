@@ -27,8 +27,8 @@ item_usecase_mock.get_items.return_value = {"items": [item.to_dict() for item in
 bid_usecase_mock = Mock(spec=BidUseCase)
 
 
-class TestBidModel(unittest.TestCase):
-    def test_(self):
+class TestHandle(unittest.TestCase):
+    def test_商品一覧を取得(self):
         # TODO: リクエスト内容を別ファイルで用意する
         event = {
             "pathParameters": {"proxy": "items"},

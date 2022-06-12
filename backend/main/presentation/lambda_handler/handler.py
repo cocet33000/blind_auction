@@ -1,7 +1,37 @@
+import os
 import json
+import logging
+from injector import Injector, Module, singleton
+
+from main.domain.bid import BidRepository
+from main.domain.item import ItemRepository
+from main.infrastructure import BidRepositoryImpl
+from main.infrastructure import ItemRepositoryImpl
 
 from main.usecase import ItemUseCase
 from main.usecase import BidUseCase
+
+logger = logging.getLogger()
+
+if log_level := os.environ.get("LOG_LEVEL"):
+    logger.setLevel(log_level)
+
+
+@singleton
+class DIModule(Module):
+    def configure(self, binder):
+        binder.bind(BidRepository, to=BidRepositoryImpl)
+        binder.bind(ItemRepository, to=ItemRepositoryImpl)
+
+
+def lambda_handler(event: dict, context):
+    injector = Injector([DIModule()])
+    item_usecase = injector.get(ItemUseCase)
+    bid_usecase = injector.get(BidUseCase)
+
+    logger.debug(json.dumps(event))
+
+    return handler(event, context, item_usecase, bid_usecase)
 
 
 def handler(event: dict, context, item_usecase: ItemUseCase, bid_usecase: BidUseCase):

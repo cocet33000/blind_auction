@@ -8,13 +8,23 @@ from injector import Injector, Module, singleton
 
 from main.domain.value_object import Price
 from main.domain.item import ItemRepository
+from main.domain.item import Item
 from main.domain.bid import Bid
 from main.domain.bid import BidsByUser
 from main.domain.bid import BidRepository
 from main.usecase import BidUseCase
 from main.usecase import BidAlreadyExistsError
 
+START_PRICE = 500
 item_repository_mock = Mock(spec=ItemRepository)
+item_repository_mock.getByItemId.return_value = Item(
+    id="1",
+    name="fuga",
+    image_src="test.png",
+    description="fuga",
+    start_price=Price(START_PRICE),
+    bid_num=0,
+)
 bid_repository_mock = Mock(spec=BidRepository)
 bid_repository_mock.getByUserName.return_value = BidsByUser(
     [

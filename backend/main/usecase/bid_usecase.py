@@ -6,6 +6,7 @@ from main.domain.item import Item
 from main.domain.item import ItemRepository
 from main.domain.bid import Bid
 from main.domain.bid import BidRepository
+from main.domain.bid import BidFactory
 
 
 class BidUseCase:
@@ -21,11 +22,11 @@ class BidUseCase:
         if bids_by_user.exists_bid_by_item_id(item_id):
             raise BidAlreadyExistsError
 
-        bid = Bid(
-            bided_user_name=user_name,
-            bid_item_id=item_id,
-            bided_at=datetime.datetime.now(),
-            price=Price(price),
+        bid_factory = BidFactory(self.ItemRepository)
+        bid = bid_factory.create(
+            user_name,
+            item_id,
+            price,
         )
         return self.BidRepository.save(bid)
 

@@ -15,6 +15,8 @@ class BidUseCase:
         self.BidRepository = BidRepositoryImpl
 
     def register_bid(self, user_name: str, item_id: int, price: int) -> dict:
+        # 同一ユーザーは同一商品に一度しか入札できない
+        # この知識はユースケースではなく、ドメインに持たせても良いかもしれない
         bids_by_user = self.BidRepository.getByUserName(user_name)
         if bids_by_user.exists_bid_by_item_id(item_id):
             raise BidAlreadyExistsError

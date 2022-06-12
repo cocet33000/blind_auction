@@ -17,6 +17,8 @@ class BidFactory:
         bid_price: Price = Price(price)
         target_item: Item = self.item_repository.getByItemId(item_id)
 
+        # 最低金額より高いか判定
+        # この知識をドメインモデルに直接持たせるのが難しいため、ファクトリメソッドで持つ
         if bid_price <= target_item.start_price:
             raise ValueError
 

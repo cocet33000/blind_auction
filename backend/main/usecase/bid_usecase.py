@@ -1,11 +1,11 @@
 from injector import inject
 import datetime
 
-from domain.bid.bid import Bid
-from domain.item.item import Item
-from domain.value_object.price import Price
-from domain.item.item_repository import ItemRepository
-from domain.bid.bid_repository import BidRepository
+from domain.value_object import Price
+from domain.item import Item
+from domain.item import ItemRepository
+from domain.bid import Bid
+from domain.bid import BidRepository
 
 
 class BidUseCase:

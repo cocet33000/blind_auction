@@ -1,8 +1,8 @@
 import unittest
 import datetime
 
-from main.domain.bid.bid import Bid
-from main.domain.value_object.price import Price
+from main.domain.bid import Bid
+from main.domain.value_object import Price
 
 
 class TestBidModel(unittest.TestCase):

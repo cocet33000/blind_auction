@@ -4,10 +4,10 @@ import unittest
 from mock import Mock
 from injector import Injector, Module, singleton
 
-from domain.item.item_repository import ItemRepository
-from usecase.item_usecase import ItemUseCase
-from domain.item.item import Item
-from domain.value_object.price import Price
+from main.domain.item import ItemRepository
+from main.usecase import ItemUseCase
+from main.domain.item import Item
+from main.domain.value_object import Price
 
 item1 = Item(
     id="1",
@@ -25,6 +25,7 @@ item2 = Item(
     start_price=Price(100),
     bid_num=0,
 )
+
 
 item_repository_mock = Mock(spec=ItemRepository)
 item_repository_mock.getAll.return_value = [item1, item2]

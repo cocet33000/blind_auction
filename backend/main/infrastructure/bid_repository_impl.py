@@ -1,11 +1,10 @@
 from __future__ import annotations
 import logging
 
-from domain.bid.bid_repository import BidRepository
-
 from . import dynamo_db
-from domain.bid.bid import Bid
-from domain.bid.bids_by_user import BidsByUser
+from domain.bid import Bid
+from domain.bid import BidsByUser
+from domain.bid import BidRepository
 
 
 class BidRepositoryImpl(BidRepository):

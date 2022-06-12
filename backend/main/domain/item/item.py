@@ -1,6 +1,6 @@
 from dataclasses import dataclass, asdict
 
-from ..value_object.price import Price
+from ..value_object import Price
 
 
 @dataclass

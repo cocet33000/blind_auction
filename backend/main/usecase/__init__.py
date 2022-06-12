@@ -5,8 +5,7 @@ import sys
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.append(str(BASE_DIR))
 import main.domain
-import main.usecase
 
-from . import dynamo_db
-from .bid_repository_impl import BidRepositoryImpl
-from .item_repository_impl import ItemRepositoryImpl
+from .bid_usecase import BidUseCase
+from .bid_usecase import BidAlreadyExistsError
+from .item_usecase import ItemUseCase

@@ -5,9 +5,10 @@ from mock import Mock
 from injector import Injector, Module, singleton
 
 from main.domain.item import ItemRepository
-from main.usecase import ItemUseCase
 from main.domain.item import Item
 from main.domain.value_object import Price
+
+from main.usecase import ItemUseCase
 
 item1 = Item(
     id="1",

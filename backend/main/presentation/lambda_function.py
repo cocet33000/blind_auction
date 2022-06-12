@@ -3,10 +3,10 @@ import json
 import logging
 from injector import Injector, Module, singleton
 
-from domain.bid.bid_repository import BidRepository
-from domain.item.item_repository import ItemRepository
-from infrastructure.bid_repository_impl import BidRepositoryImpl
-from infrastructure.item_repository_impl import ItemRepositoryImpl
+from domain.bid import BidRepository
+from domain.item import ItemRepository
+from infrastructure import BidRepositoryImpl
+from infrastructure import ItemRepositoryImpl
 
 from usecase import ItemUseCase
 from usecase import BidUseCase

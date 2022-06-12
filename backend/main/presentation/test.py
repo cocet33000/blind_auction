@@ -1,11 +1,11 @@
-from usecase import ItemUseCase
-from usecase import BidUseCase
+from main.usecase import ItemUseCase
+from main.usecase import BidUseCase
 
-from domain.bid import BidRepository
-from domain.item import ItemRepository
+from main.domain.bid import BidRepository
+from main.domain.item import ItemRepository
 
-from infrastructure import BidRepositoryImpl
-from infrastructure import ItemRepositoryImpl
+from main.infrastructure import BidRepositoryImpl
+from main.infrastructure import ItemRepositoryImpl
 
 from injector import Injector, Module, singleton
 

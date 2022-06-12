@@ -8,9 +8,9 @@ from pynamodb.attributes import ListAttribute
 from pynamodb.attributes import MapAttribute
 from pynamodb.attributes import UTCDateTimeAttribute
 
-from domain.bid import Bid as DomainModelBid
-from domain.item import Item as DomainModelItem
-from domain.value_object import Price
+from main.domain.bid import Bid as DomainModelBid
+from main.domain.item import Item as DomainModelItem
+from main.domain.value_object import Price
 
 
 class Bid(MapAttribute):

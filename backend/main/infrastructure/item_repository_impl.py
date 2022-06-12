@@ -3,8 +3,8 @@ import logging
 
 
 from . import dynamo_db
-from domain.item import Item
-from domain.item import ItemRepository
+from main.domain.item import Item
+from main.domain.item import ItemRepository
 
 
 class ItemRepositoryImpl(ItemRepository):

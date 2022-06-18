@@ -35,8 +35,7 @@ class Item(Model):
         table_name = os.environ.get("AWS_DYNAMO_DB_ITEMS_TABLE_NAME")
         region = os.environ.get("AWS_REGION")
 
-    # id = UnicodeAttribute(hash_key=True)
-    id = NumberAttribute(hash_key=True)
+    id = UnicodeAttribute(hash_key=True)
     name = UnicodeAttribute(null=False)
     image_src = UnicodeAttribute(null=False)
     description = UnicodeAttribute(null=False)

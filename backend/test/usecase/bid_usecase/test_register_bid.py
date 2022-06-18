@@ -10,7 +10,7 @@ from main.domain.value_object import Price
 from main.domain.item import ItemRepository
 from main.domain.item import Item
 from main.domain.bid import Bid
-from main.domain.bid import BidsByUser
+from main.domain.bid import AllBidsByUser
 from main.domain.bid import BidRepository
 from main.usecase import BidUseCase
 from main.usecase import BidAlreadyExistsError
@@ -26,11 +26,11 @@ item_repository_mock.getByItemId.return_value = Item(
     bid_num=0,
 )
 bid_repository_mock = Mock(spec=BidRepository)
-bid_repository_mock.getByUserName.return_value = BidsByUser(
+bid_repository_mock.getByUserName.return_value = AllBidsByUser(
     [
         Bid(
             bided_user_name="hoge",
-            bid_item_id=2,
+            bid_item_id="2",
             price=Price(1000),
             bided_at=datetime.datetime.now(),
         )
@@ -64,7 +64,7 @@ class TestRegisterBid(unittest.TestCase):
         bid_usecase = injector.get(BidUseCase)
 
         test_user_name = "hoge"
-        test_item_id = 2
+        test_item_id = "2"
         test_price = 1000
 
         # 既に入札済みのユーザーの場合は例外を投げる

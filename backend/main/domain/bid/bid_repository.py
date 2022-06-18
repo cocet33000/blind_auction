@@ -3,7 +3,7 @@ from abc import abstractmethod
 from abc import ABC
 
 from .bid import Bid
-from .bids_by_user import BidsByUser
+from .all_bids_by_user import AllBidsByUser
 
 
 class BidRepository(ABC):
@@ -14,5 +14,5 @@ class BidRepository(ABC):
 
     @staticmethod
     @abstractmethod
-    def getByUserName(user_name: str) -> BidsByUser:
+    def getByUserName(user_name: str) -> AllBidsByUser:
         raise NotImplementedError

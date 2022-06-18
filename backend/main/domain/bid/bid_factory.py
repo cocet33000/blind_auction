@@ -13,7 +13,7 @@ class BidFactory:
     def __init__(self, ItemRepositoryImpl: ItemRepository):
         self.item_repository = ItemRepositoryImpl
 
-    def create(self, name: str, item_id: int, price: int) -> Bid:
+    def create(self, name: str, item_id: str, price: int) -> Bid:
         bid_price: Price = Price(price)
         target_item: Item = self.item_repository.getByItemId(item_id)
 

@@ -8,7 +8,7 @@ from main.domain.value_object import Price
 class TestBidModel(unittest.TestCase):
     def test_bidモデルを作成(self):
         BIDED_USER_NAME = "hoge"
-        BID_ITEM_ID = 1
+        BID_ITEM_ID = "1"
         PRICE = 100
         BIDED_AT = datetime.datetime.now()
 
@@ -26,7 +26,7 @@ class TestBidModel(unittest.TestCase):
 
     def test_priceに文字列はNG(self):
         BIDED_USER_NAME = "hoge"
-        BID_ITEM_ID = 1
+        BID_ITEM_ID = "1"
         PRICE_STR = "HOGE"
         BIDED_AT = datetime.datetime.now()
 
@@ -40,7 +40,7 @@ class TestBidModel(unittest.TestCase):
 
     def test_priceにint型はNG(self):
         BIDED_USER_NAME = "hoge"
-        BID_ITEM_ID = 1
+        BID_ITEM_ID = "1"
         PRICE_INT = int(1000)
         BIDED_AT = datetime.datetime.now()
 

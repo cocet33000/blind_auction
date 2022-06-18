@@ -3,7 +3,7 @@ import logging
 
 from . import dynamo_db
 from main.domain.bid import Bid
-from main.domain.bid import BidsByUser
+from main.domain.bid import AllBidsByUser
 from main.domain.bid import BidRepository
 
 
@@ -37,7 +37,7 @@ class BidRepositoryImpl(BidRepository):
             return user_name in list(map(lambda bid: bid.bided_user_name, bids))
 
         items = dynamo_db.Item.scan()
-        return BidsByUser(
+        return AllBidsByUser(
             [
                 item.bids[0].to_model(item_id=item.id)
                 for item in filter(

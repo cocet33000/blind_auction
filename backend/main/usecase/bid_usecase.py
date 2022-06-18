@@ -14,7 +14,7 @@ class BidUseCase:
         self.ItemRepository = ItemRepositoryImpl
         self.BidRepository = BidRepositoryImpl
 
-    def register_bid(self, user_name: str, item_id: int, price: int) -> dict:
+    def register_bid(self, user_name: str, item_id: str, price: int) -> dict:
         # 同一ユーザーは同一商品に一度しか入札できない
         # この知識はユースケースではなく、ドメインに持たせても良いかもしれない
         bids_by_user = self.BidRepository.getByUserName(user_name)
@@ -29,7 +29,7 @@ class BidUseCase:
         )
         return self.BidRepository.save(bid)
 
-    # getByUserNameの戻り値を変更（list(Bid) -> BidsByUser）したので動かない
+    # getByUserNameの戻り値を変更（list(Bid) -> AllBidsByUser）したので動かない
     def get_bids_by_user(self, user_name: str) -> dict:
         bids = self.BidRepository.getByUserName(user_name)
 

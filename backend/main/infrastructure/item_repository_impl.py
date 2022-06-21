@@ -10,7 +10,7 @@ from main.domain.item import ItemRepository
 class ItemRepositoryImpl(ItemRepository):
     @staticmethod
     def save(item: Item) -> dict:
-        new_item = dynamo_db.Item(item.id)
+        new_item = dynamo_db.Item(hash_key=item.id, range_key="item")
         new_item.name = item.name
         new_item.image_src = item.image_src
         new_item.description = item.description
@@ -26,15 +26,15 @@ class ItemRepositoryImpl(ItemRepository):
 
     @staticmethod
     def getByItemId(item_id):
-        return dynamo_db.Item.get(item_id).to_model()
+        return dynamo_db.Item.get(hash_key=item_id, range_key="item").to_model()
 
     @staticmethod
     def getAll() -> list[Item]:
-        return [item.to_model() for item in dynamo_db.Item.scan()]
+        return [item.to_model() for item in dynamo_db.Item.getAllItemsIndex.scan()]
 
     @staticmethod
     def deleteByItemId(item_id):
-        item = dynamo_db.Item(item_id)
+        item = dynamo_db.Item(hash_key=item_id, range_key="item")
 
         try:
             item.delete()

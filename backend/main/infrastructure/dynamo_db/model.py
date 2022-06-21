@@ -4,12 +4,23 @@ from dotenv import load_dotenv
 from pynamodb.models import Model
 from pynamodb.attributes import UnicodeAttribute
 from pynamodb.attributes import NumberAttribute
-from pynamodb.indexes import LocalSecondaryIndex, AllProjection
+from pynamodb.indexes import LocalSecondaryIndex, GlobalSecondaryIndex, AllProjection
 from pynamodb.attributes import UTCDateTimeAttribute
 
 from main.domain.bid import Bid as DomainModelBid
 from main.domain.item import Item as DomainModelItem
 from main.domain.value_object import Price
+
+
+class BidsByUserNameIndex(GlobalSecondaryIndex):
+    class Meta:
+        index_name = "bidsByUsername-GSI"
+        read_capacity_units = 1
+        write_capacity_units = 1
+        projection = AllProjection()
+
+    bided_user_name = UnicodeAttribute(hash_key=True)
+    id = UnicodeAttribute(range_key=True)
 
 
 class Bid(Model):
@@ -25,6 +36,7 @@ class Bid(Model):
     price = NumberAttribute(null=False)
     bided_user_name = UnicodeAttribute(null=False)
     bided_at = UTCDateTimeAttribute(null=False)
+    bidsByUserNameIndex = BidsByUserNameIndex()
 
     def to_model(self, item_id: int) -> DomainModelBid:
         return DomainModelBid(

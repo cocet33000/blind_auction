@@ -18,6 +18,7 @@ class Bid:
 
     def to_dict(self) -> dict:
         return {
+            "id": self.id,
             "bided_user_name": self.bided_user_name,
             "bid_item_id": self.bid_item_id,
             "price": self.price,

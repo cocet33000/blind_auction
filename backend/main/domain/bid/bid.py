@@ -6,6 +6,7 @@ from ..value_object.price import Price
 
 @dataclass
 class Bid:
+    id: str
     bided_user_name: str
     bid_item_id: str
     price: Price

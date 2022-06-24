@@ -20,3 +20,6 @@ typing-extensions==4.2.0
 typing-inspect==0.7.1
 urllib3==1.26.9
 mock==4.0.3
+overage==6.4.1
+pytest==7.1.2
+pytest-cov==3.0.0

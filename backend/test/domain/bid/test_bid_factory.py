@@ -1,4 +1,4 @@
-import unittest
+import pytest
 from mock import Mock
 
 from injector import Injector, Module, singleton
@@ -26,31 +26,28 @@ class DIModule(Module):
         binder.bind(ItemRepository, to=item_repository_mock)
 
 
-class TestBidFactory(unittest.TestCase):
-    def test_開始金額より低い価格はNG(self):
-        injector = Injector([DIModule()])
-        bid_factory = injector.get(BidFactory)
+def test_開始金額より低い価格はNG():
+    injector = Injector([DIModule()])
+    bid_factory = injector.get(BidFactory)
 
-        BID_PRICE = 999
-        with self.assertRaises(ValueError):
-            bid_factory.create("hoge", 1, BID_PRICE)
-
-    def test_開始金額と同じ価格はNG(self):
-        injector = Injector([DIModule()])
-        bid_factory = injector.get(BidFactory)
-
-        BID_PRICE = 1000
-        with self.assertRaises(ValueError):
-            bid_factory.create("hoge", 1, BID_PRICE)
-
-    def test_開始金額より高い価格はOK(self):
-        injector = Injector([DIModule()])
-        bid_factory = injector.get(BidFactory)
-
-        BID_PRICE = 1001
-        bid = bid_factory.create("hoge", 1, BID_PRICE)
-        self.assertEqual(Price(BID_PRICE), bid.price)
+    BID_PRICE = 999
+    with pytest.raises(ValueError):
+        bid_factory.create("hoge", 1, BID_PRICE)
 
 
-if __name__ == "__main__":
-    unittest.main()
+def test_開始金額と同じ価格はNG():
+    injector = Injector([DIModule()])
+    bid_factory = injector.get(BidFactory)
+
+    BID_PRICE = 1000
+    with pytest.raises(ValueError):
+        bid_factory.create("hoge", 1, BID_PRICE)
+
+
+def test_開始金額より高い価格はOK():
+    injector = Injector([DIModule()])
+    bid_factory = injector.get(BidFactory)
+
+    BID_PRICE = 1001
+    bid = bid_factory.create("hoge", 1, BID_PRICE)
+    assert Price(BID_PRICE) == bid.price

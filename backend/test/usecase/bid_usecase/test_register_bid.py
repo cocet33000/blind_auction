@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import uuid
 import pytest
 from mock import Mock
 import datetime
@@ -29,6 +30,7 @@ bid_repository_mock = Mock(spec=BidRepository)
 bid_repository_mock.getByUserName.return_value = AllBidsByUser(
     [
         Bid(
+            id="bid" + str(uuid.uuid4()),
             bided_user_name="hoge",
             bid_item_id="2",
             price=Price(1000),

@@ -20,7 +20,7 @@ export default function ItemDetailDialog(props) {
   const bid = () => {
     const data = {
       user_name: user.username,
-      item_id: props.item_id,
+      item_id: props.item.id,
       price: Number(price),
     };
     console.log(data);

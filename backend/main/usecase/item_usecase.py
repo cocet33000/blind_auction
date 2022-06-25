@@ -16,7 +16,7 @@ class ItemUseCase:
     def register_item(
         self, name: str, image_src: str, description: str, start_price: int
     ) -> dict:
-        item = ItemFactory.Create(
+        item = ItemFactory.create(
             name=name,
             image_src=image_src,
             description=description,

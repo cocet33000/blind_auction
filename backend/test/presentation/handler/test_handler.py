@@ -11,7 +11,7 @@ from main.domain.item import Item
 from main.domain.value_object import Price
 
 items = [
-    Item(
+    Item.reconstruct(
         id="1",
         name="hoge",
         image_src="test.png",

@@ -1,11 +1,13 @@
+import pytest
 import uuid
 
 from main.domain.item import Item
 from main.domain.value_object import Price
+from main.domain.shared.errors import ProhibitedGenerationError
 
 
-def test_itemを生成():
-    item = Item(
+def test_itemを再構成():
+    item = Item.reconstruct(
         id=str(uuid.uuid4()),
         name="hoge",
         image_src="hoge",
@@ -27,3 +29,15 @@ def test_itemを生成():
         "start_price": item.start_price,
         "bid_num": item.bid_num,
     }
+
+
+def test_外部からのitemの生成はNG():
+    with pytest.raises(ProhibitedGenerationError):
+        Item(
+            id=str(uuid.uuid4()),
+            name="hoge",
+            image_src="hoge",
+            description="hoge",
+            start_price=Price(100),
+            bid_num=0,
+        )

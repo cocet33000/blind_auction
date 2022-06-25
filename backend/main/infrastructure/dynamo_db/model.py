@@ -74,7 +74,7 @@ class Item(Model):
     getAllItemsIndex = GetAllItemsIndex()
 
     def to_model(self) -> DomainModelItem:
-        return DomainModelItem(
+        return DomainModelItem.reconstruct(
             id=self.id,
             name=self.name,
             image_src=self.image_src,

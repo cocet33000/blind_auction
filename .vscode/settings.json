@@ -1,36 +1,41 @@
 {
-  // 単体テストツールとしてpytestを有効化
-  "python.testing.pytestEnabled": true,
-  "python.testing.unittestEnabled": false,
-  // ファイル保存時にテスト対象コードを自動的に探索
-  "python.testing.autoTestDiscoverOnSaveEnabled": true,
-  "python.testing.pytestArgs": ["backend", "--cov", "--cov-report", "xml"],
-  // エディタ上のカバレッジ表示設定
-  // ガター(ブレークポイント等が表示される場所)でのカバレッジ表示有無(default: true)
-  "coverage-gutters.showGutterCoverage": true,
-  // エディタ行でのカバレッジ表示有無(default: false)
-  "coverage-gutters.showLineCoverage": true,
-  // ルーラーでのカバレッジ表示有無(default: false)
-  "coverage-gutters.showRulerCoverage": true,
-  "python.defaultInterpreterPath": "./backend/.venv/bin/python",
-  "python.linting.pylintEnabled": false,
-  "python.linting.flake8Enabled": true,
-  "python.linting.lintOnSave": true,
-  "python.linting.mypyEnabled": false,
-  "python.linting.flake8Args": [
-    "--max-line-length",
-    "88",
-    "--ignore=E203,W503,W504",
-	"--max-complexity=20",
-  ],
-  // フォーマッタの設定
-  "python.formatting.provider": "black",
-  "editor.formatOnSave": true,
-  "editor.formatOnPaste": false,
-"python.analysis.typeCheckingMode": "basic",
-"python.linting.enabled": true,
-"python.formatting.autopep8Args": [
-	"--max-line-length",
-	"150"
-],
+	// 単体テストツールとしてpytestを有効化
+	"python.testing.pytestEnabled": true,
+	"python.testing.unittestEnabled": false,
+	// ファイル保存時にテスト対象コードを自動的に探索
+	"python.testing.autoTestDiscoverOnSaveEnabled": true,
+	"python.testing.pytestArgs": [
+		"backend",
+		"--cov",
+		"--cov-report",
+		"xml"
+	],
+	// エディタ上のカバレッジ表示設定
+	// ガター(ブレークポイント等が表示される場所)でのカバレッジ表示有無(default: true)
+	"coverage-gutters.showGutterCoverage": true,
+	// エディタ行でのカバレッジ表示有無(default: false)
+	"coverage-gutters.showLineCoverage": true,
+	// ルーラーでのカバレッジ表示有無(default: false)
+	"coverage-gutters.showRulerCoverage": true,
+	"python.defaultInterpreterPath": "./backend/.venv/bin/python",
+	"python.linting.pylintEnabled": false,
+	"python.linting.flake8Enabled": true,
+	"python.linting.lintOnSave": true,
+	"python.linting.mypyEnabled": false,
+	"python.linting.flake8Args": [
+		"--max-line-length",
+		"88",
+		"--ignore=E203,W503,W504",
+		"--max-complexity=20",
+	],
+	// フォーマッタの設定
+	"python.formatting.provider": "black",
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": false,
+	"python.analysis.typeCheckingMode": "basic",
+	"python.linting.enabled": true,
+	"python.formatting.autopep8Args": [
+		"--max-line-length",
+		"150"
+	],
 }

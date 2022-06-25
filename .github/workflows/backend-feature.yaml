@@ -28,4 +28,4 @@ jobs:
 
       - name: Test
         working-directory: backend
-        run: python3 -m unittest discover test -v
+        run: pytest tests/ --cov --junitxml=pytest.xml --cov-report=term-missing:skip-covered | tee pytest-coverage.txt

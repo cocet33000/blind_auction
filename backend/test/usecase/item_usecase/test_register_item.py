@@ -27,7 +27,7 @@ def test_正常系():
     start_price = 10000
 
     response = item_usecase.register_item(name, image_src, description, start_price)
-    assert response["is_error"] == False
+    assert not response["is_error"]
 
 
 def test_価格が数値でない場合はエラー():

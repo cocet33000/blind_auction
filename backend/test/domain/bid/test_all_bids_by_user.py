@@ -1,5 +1,4 @@
 import uuid
-import pytest
 import datetime
 
 import main.domain.value_object as value_object

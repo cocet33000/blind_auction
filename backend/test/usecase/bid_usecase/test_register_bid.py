@@ -53,12 +53,12 @@ def test_正常系():
     bid_usecase = injector.get(BidUseCase)
 
     test_user_name = "hoge"
-    test_item_id = 1
+    test_item_id = "1"
     test_price = 1000
 
     response = bid_usecase.register_bid(test_user_name, test_item_id, test_price)
 
-    assert response["is_error"] == False
+    assert not response["is_error"]
 
 
 def test_既に入札済みのユーザーの場合は例外を投げる():

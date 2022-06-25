@@ -29,4 +29,8 @@
   "editor.formatOnPaste": false,
 "python.analysis.typeCheckingMode": "basic",
 "python.linting.enabled": true,
+"python.formatting.autopep8Args": [
+	"--max-line-length",
+	"150"
+],
 }

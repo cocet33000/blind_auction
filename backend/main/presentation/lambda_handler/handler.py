@@ -34,9 +34,7 @@ def lambda_handler(event: dict, context):
     return handler(event, context, item_usecase, bid_usecase)
 
 
-def handler(
-    event: dict, context, item_usecase: ItemUseCase, bid_usecase: BidUseCase
-) -> dict:
+def handler(event: dict, context, item_usecase: ItemUseCase, bid_usecase: BidUseCase):
     path = event["pathParameters"]["proxy"]
     method = event["requestContext"]["http"]["method"]
 

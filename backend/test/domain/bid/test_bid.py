@@ -1,3 +1,4 @@
+import uuid
 import pytest
 import datetime
 
@@ -6,12 +7,14 @@ from main.domain.value_object import Price
 
 
 def test_bidモデルを作成():
+    BID_ID = "bid" + str(uuid.uuid4())
     BIDED_USER_NAME = "hoge"
     BID_ITEM_ID = "1"
     PRICE = 100
     BIDED_AT = datetime.datetime.now()
 
     bid = Bid(
+        id=BID_ID,
         bided_user_name=BIDED_USER_NAME,
         bid_item_id=BID_ITEM_ID,
         price=Price(PRICE),

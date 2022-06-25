@@ -8,9 +8,9 @@ class BidHistory:
 
     """
 
-    def __init__(self, user_id, bid_history):
-        self._user_id = user_id
+    def __init__(self, user_name, bid_history):
+        self._user_name = user_name
         self._bid_history = bid_history
 
-    def get_user_id(self):
-        return self._user_id
+    def get_user_name(self):
+        return self._user_name

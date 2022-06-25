@@ -28,6 +28,7 @@ def test_bidモデルを作成():
 
 
 def test_priceに文字列はNG():
+    BID_ID = "bid" + str(uuid.uuid4())
     BIDED_USER_NAME = "hoge"
     BID_ITEM_ID = "1"
     PRICE_STR = "HOGE"
@@ -35,14 +36,16 @@ def test_priceに文字列はNG():
 
     with pytest.raises(TypeError):
         Bid(
+            id=BID_ID,
             bided_user_name=BIDED_USER_NAME,
             bid_item_id=BID_ITEM_ID,
-            price=PRICE_STR,
+            price=PRICE_STR,  # type: ignore
             bided_at=BIDED_AT,
         )
 
 
 def test_priceにint型はNG():
+    BID_ID = "bid" + str(uuid.uuid4())
     BIDED_USER_NAME = "hoge"
     BID_ITEM_ID = "1"
     PRICE_INT = int(1000)
@@ -50,8 +53,9 @@ def test_priceにint型はNG():
 
     with pytest.raises(TypeError):
         Bid(
+            id=BID_ID,
             bided_user_name=BIDED_USER_NAME,
             bid_item_id=BID_ITEM_ID,
-            price=PRICE_INT,
+            price=PRICE_INT,  # type: ignore
             bided_at=BIDED_AT,
         )

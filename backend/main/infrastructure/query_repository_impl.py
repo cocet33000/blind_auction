@@ -1,6 +1,4 @@
 from __future__ import annotations
-from main.domain.item import Item
-from main.domain.bid import Bid
 from main.domain.query import QueryRepository
 from main.domain.query.bid_history import BidHistory
 from . import dynamo_db

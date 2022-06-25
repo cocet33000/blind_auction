@@ -32,7 +32,7 @@ def test_開始金額より低い価格はNG():
 
     BID_PRICE = 999
     with pytest.raises(ValueError):
-        bid_factory.create("hoge", 1, BID_PRICE)
+        bid_factory.create("hoge", "uuid", BID_PRICE)
 
 
 def test_開始金額と同じ価格はNG():
@@ -41,7 +41,7 @@ def test_開始金額と同じ価格はNG():
 
     BID_PRICE = 1000
     with pytest.raises(ValueError):
-        bid_factory.create("hoge", 1, BID_PRICE)
+        bid_factory.create("hoge", "uuid", BID_PRICE)
 
 
 def test_開始金額より高い価格はOK():
@@ -49,5 +49,5 @@ def test_開始金額より高い価格はOK():
     bid_factory = injector.get(BidFactory)
 
     BID_PRICE = 1001
-    bid = bid_factory.create("hoge", 1, BID_PRICE)
+    bid = bid_factory.create("hoge", "uuid", BID_PRICE)
     assert Price(BID_PRICE) == bid.price

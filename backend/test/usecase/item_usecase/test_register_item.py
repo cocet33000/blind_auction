@@ -40,4 +40,6 @@ def test_価格が数値でない場合はエラー():
     start_price = "hoge"
 
     with pytest.raises(ValueError):
-        item_usecase.register_item(name, image_src, description, start_price)
+        item_usecase.register_item(
+            name, image_src, description, start_price  # type: ignore
+        )

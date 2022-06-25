@@ -39,7 +39,7 @@ def test_priceに文字列はNG():
             id=BID_ID,
             bided_user_name=BIDED_USER_NAME,
             bid_item_id=BID_ITEM_ID,
-            price=PRICE_STR,
+            price=PRICE_STR,  # type: ignore
             bided_at=BIDED_AT,
         )
 
@@ -56,6 +56,6 @@ def test_priceにint型はNG():
             id=BID_ID,
             bided_user_name=BIDED_USER_NAME,
             bid_item_id=BID_ITEM_ID,
-            price=PRICE_INT,
+            price=PRICE_INT,  # type: ignore
             bided_at=BIDED_AT,
         )

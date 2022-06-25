@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import unittest
+import pytest
 from mock import Mock
 from injector import Injector, Module, singleton
 
@@ -17,27 +17,27 @@ class DIModule(Module):
         binder.bind(ItemRepository, to=item_repository_mock)
 
 
-class TestRegisterItem(unittest.TestCase):
-    def test_正常系(self):
-        injector = Injector([DIModule()])
-        item_usecase = injector.get(ItemUseCase)
+def test_正常系():
+    injector = Injector([DIModule()])
+    item_usecase = injector.get(ItemUseCase)
 
-        name = "hoge"
-        image_src = "http://hoge.jpg"
-        description = "hogeです"
-        start_price = 10000
+    name = "hoge"
+    image_src = "http://hoge.jpg"
+    description = "hogeです"
+    start_price = 10000
 
-        response = item_usecase.register_item(name, image_src, description, start_price)
-        self.assertEqual(response["is_error"], False)
+    response = item_usecase.register_item(name, image_src, description, start_price)
+    assert response["is_error"] == False
 
-    def test_価格が数値でない場合はエラー(self):
-        injector = Injector([DIModule()])
-        item_usecase = injector.get(ItemUseCase)
 
-        name = "hoge"
-        image_src = "http://hoge.jpg"
-        description = "hogeです"
-        start_price = "hoge"
+def test_価格が数値でない場合はエラー():
+    injector = Injector([DIModule()])
+    item_usecase = injector.get(ItemUseCase)
 
-        with self.assertRaises(ValueError):
-            item_usecase.register_item(name, image_src, description, start_price)
+    name = "hoge"
+    image_src = "http://hoge.jpg"
+    description = "hogeです"
+    start_price = "hoge"
+
+    with pytest.raises(ValueError):
+        item_usecase.register_item(name, image_src, description, start_price)

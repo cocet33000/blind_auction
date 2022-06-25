@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import unittest
+import pytest
 from mock import Mock
 from injector import Injector, Module, singleton
 
@@ -20,11 +20,10 @@ class DIModule(Module):
         binder.bind(QueryRepository, to=query_repository_mock)
 
 
-class TestGetBidHistory(unittest.TestCase):
-    def test_正常系(self):
-        injector = Injector([DIModule()])
-        query_usecase = injector.get(QueryUseCase)
+def test_正常系():
+    injector = Injector([DIModule()])
+    query_usecase = injector.get(QueryUseCase)
 
-        bid_history = query_usecase.get_bid_history(USER_ID)
+    bid_history = query_usecase.get_bid_history(USER_ID)
 
-        self.assertEqual(USER_ID, bid_history.get_user_id())
+    assert USER_ID == bid_history.get_user_id()

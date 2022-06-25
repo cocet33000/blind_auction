@@ -4,8 +4,10 @@ on:
     branches:
       - feature/**
     paths:
-      - backend/main/**
+      - backend/**
       - .github/workflows/backend-feature.yaml
+
+permissions: write-all
 
 jobs:
   ActionsForBackend:
@@ -26,6 +28,16 @@ jobs:
           pip3 install awscli
           pip install -r requirements.txt -t ./
 
-      - name: Test
+      - name: run pytest
         working-directory: backend
-        run: python3 -m unittest discover test -v
+        run: |
+          pip install pytest
+          pip install pytest-cov
+          pytest test/ -v --cov --junitxml=pytest.xml --cov-report=term-missing:skip-covered | tee pytest-coverage.txt
+
+      - name: Create Coverage Comment
+        id: coverageComment
+        uses: MishaKav/pytest-coverage-comment@main
+        with:
+            pytest-coverage-path: /backend/pytest-coverage.txt
+            junitxml-path: ./backend/pytest.xml

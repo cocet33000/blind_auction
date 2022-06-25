@@ -39,7 +39,7 @@ class Bid(Model):
     bidsByUserNameIndex = BidsByUserNameIndex()
 
     def to_model(self) -> DomainModelBid:
-        return DomainModelBid(
+        return DomainModelBid.reconstruct(
             id=self.range_key,
             bided_user_name=self.bided_user_name,
             bided_at=self.bided_at,
@@ -74,7 +74,7 @@ class Item(Model):
     getAllItemsIndex = GetAllItemsIndex()
 
     def to_model(self) -> DomainModelItem:
-        return DomainModelItem(
+        return DomainModelItem.reconstruct(
             id=self.id,
             name=self.name,
             image_src=self.image_src,

@@ -10,7 +10,7 @@ from main.domain.item import Item
 
 START_PRICE = 1000
 item_repository_mock = Mock(spec=ItemRepository)
-item_repository_mock.getByItemId.return_value = Item(
+item_repository_mock.getByItemId.return_value = Item.reconstruct(
     id="1",
     name="fuga",
     image_src="test.png",

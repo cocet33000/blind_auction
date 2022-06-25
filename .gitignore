@@ -1,5 +1,4 @@
 .DS_Store
-.vscode/launch.json
 frontend/package-lock.json
 coverage.xml
 .coverage

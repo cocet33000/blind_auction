@@ -18,7 +18,7 @@ from main.usecase import BidAlreadyExistsError
 
 START_PRICE = 500
 item_repository_mock = Mock(spec=ItemRepository)
-item_repository_mock.getByItemId.return_value = Item(
+item_repository_mock.getByItemId.return_value = Item.reconstruct(
     id="1",
     name="fuga",
     image_src="test.png",
@@ -29,7 +29,7 @@ item_repository_mock.getByItemId.return_value = Item(
 bid_repository_mock = Mock(spec=BidRepository)
 bid_repository_mock.getByUserName.return_value = AllBidsByUser(
     [
-        Bid(
+        Bid.reconstruct(
             id="bid" + str(uuid.uuid4()),
             bided_user_name="hoge",
             bid_item_id="2",

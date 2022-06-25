@@ -6,7 +6,7 @@ from ..value_object.price import Price
 
 class ItemFactory:
     @staticmethod
-    def Create(name, image_src, description, start_price) -> Item:
+    def create(name, image_src, description, start_price) -> Item:
         def getNewId() -> str:
             return str(uuid.uuid4())
 

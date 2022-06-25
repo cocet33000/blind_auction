@@ -1,5 +1,4 @@
 from __future__ import annotations
-import pytest
 
 from main.presentation.lambda_handler import handler
 
@@ -12,7 +11,7 @@ from main.domain.item import Item
 from main.domain.value_object import Price
 
 items = [
-    Item(
+    Item.reconstruct(
         id="1",
         name="hoge",
         image_src="test.png",
@@ -33,7 +32,7 @@ def test_商品一覧を取得():
         "pathParameters": {"proxy": "items"},
         "requestContext": {"http": {"method": "GET"}},
     }
-    response = handler(event, "", item_usecase_mock, bid_usecase_mock)
+    response: dict = handler(event, "", item_usecase_mock, bid_usecase_mock)
     assert (
         '{"items": [{"id": "1", "name": "hoge", "image_src": "test.png", "description": "hoge", "start_price": 100, "bid_num": 0}]}'
         == response.get("body")

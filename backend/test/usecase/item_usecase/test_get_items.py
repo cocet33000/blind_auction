@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import pytest
 from mock import Mock
 from injector import Injector, Module, singleton
 
@@ -10,7 +9,7 @@ from main.domain.value_object import Price
 
 from main.usecase import ItemUseCase
 
-item1 = Item(
+item1 = Item.reconstruct(
     id="1",
     name="hoge",
     image_src="test.png",
@@ -18,7 +17,7 @@ item1 = Item(
     start_price=Price(100),
     bid_num=0,
 )
-item2 = Item(
+item2 = Item.reconstruct(
     id="2",
     name="fuga",
     image_src="test.png",

@@ -1,12 +1,11 @@
 import uuid
-import pytest
 import datetime
 
 import main.domain.value_object as value_object
-import main.domain.bid as domain_bid
+from main.domain.bid import Bid, AllBidsByUser
 
 
-def test_():
+def test_入札済みかどうかの判定が正しく行える():
     BID_ID_1 = "bid" + str(uuid.uuid4())
     BID_ID_2 = "bid" + str(uuid.uuid4())
     BIDED_USER_NAME = "hoge"
@@ -14,7 +13,7 @@ def test_():
     PRICE = 100
     BIDED_AT = datetime.datetime.now()
 
-    bid_1 = domain_bid.Bid(
+    bid_1 = Bid.reconstruct(
         id=BID_ID_1,
         bided_user_name=BIDED_USER_NAME,
         bid_item_id=BID_ITEM_ID,
@@ -22,7 +21,7 @@ def test_():
         bided_at=BIDED_AT,
     )
 
-    bid_2 = domain_bid.Bid(
+    bid_2 = Bid.reconstruct(
         id=BID_ID_2,
         bided_user_name=BIDED_USER_NAME,
         bid_item_id=BID_ITEM_ID,
@@ -30,8 +29,7 @@ def test_():
         bided_at=BIDED_AT,
     )
     bid_list = [bid_1, bid_2]
-    all_bids_by_user = domain_bid.AllBidsByUser(bid_list)
+    all_bids_by_user = AllBidsByUser(bid_list)
 
-    for _bid in all_bids_by_user:
-        _bid: domain_bid.Bid = _bid
-        assert BID_ITEM_ID == _bid.bid_item_id
+    assert all_bids_by_user.exists_bid_by_item_id(BID_ITEM_ID)
+    assert not all_bids_by_user.exists_bid_by_item_id("hoge")

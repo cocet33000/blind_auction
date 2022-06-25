@@ -18,7 +18,7 @@ from main.usecase import BidAlreadyExistsError
 
 START_PRICE = 500
 item_repository_mock = Mock(spec=ItemRepository)
-item_repository_mock.getByItemId.return_value = Item(
+item_repository_mock.getByItemId.return_value = Item.reconstruct(
     id="1",
     name="fuga",
     image_src="test.png",
@@ -29,7 +29,7 @@ item_repository_mock.getByItemId.return_value = Item(
 bid_repository_mock = Mock(spec=BidRepository)
 bid_repository_mock.getByUserName.return_value = AllBidsByUser(
     [
-        Bid(
+        Bid.reconstruct(
             id="bid" + str(uuid.uuid4()),
             bided_user_name="hoge",
             bid_item_id="2",
@@ -53,12 +53,12 @@ def test_正常系():
     bid_usecase = injector.get(BidUseCase)
 
     test_user_name = "hoge"
-    test_item_id = 1
+    test_item_id = "1"
     test_price = 1000
 
     response = bid_usecase.register_bid(test_user_name, test_item_id, test_price)
 
-    assert response["is_error"] == False
+    assert not response["is_error"]
 
 
 def test_既に入札済みのユーザーの場合は例外を投げる():

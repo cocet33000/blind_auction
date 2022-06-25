@@ -71,6 +71,7 @@ class Item(Model):
     image_src = UnicodeAttribute(null=False)
     description = UnicodeAttribute(null=False)
     start_price = NumberAttribute(null=False)
+    bid_num = NumberAttribute(null=False)
     getAllItemsIndex = GetAllItemsIndex()
 
     def to_model(self) -> DomainModelItem:
@@ -80,5 +81,5 @@ class Item(Model):
             image_src=self.image_src,
             description=self.description,
             start_price=Price(self.start_price),
-            bid_num=0,  # あとで修正する
+            bid_num=int(self.bid_num),
         )

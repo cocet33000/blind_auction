@@ -15,6 +15,7 @@ class ItemRepositoryImpl(ItemRepository):
         new_item.image_src = item.image_src
         new_item.description = item.description
         new_item.start_price = item.start_price
+        new_item.bid_num = item.bid_num
         new_item.save()
 
         try:

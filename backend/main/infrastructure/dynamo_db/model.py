@@ -38,7 +38,7 @@ class Bid(Model):
     bided_at = UTCDateTimeAttribute(null=False)
     bidsByUserNameIndex = BidsByUserNameIndex()
 
-    def to_model(self, item_id: int) -> DomainModelBid:
+    def to_model(self) -> DomainModelBid:
         return DomainModelBid(
             id=self.range_key,
             bided_user_name=self.bided_user_name,

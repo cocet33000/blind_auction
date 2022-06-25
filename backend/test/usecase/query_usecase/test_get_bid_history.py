@@ -9,9 +9,9 @@ from main.domain.query import BidHistory
 
 from main.usecase import QueryUseCase
 
-USER_ID = "hoge"
+USER_NAME = "hoge"
 query_repository_mock = Mock(spec=QueryRepository)
-query_repository_mock.get_bid_history.return_value = BidHistory(USER_ID, {})
+query_repository_mock.get_bid_history.return_value = BidHistory(USER_NAME, {})
 
 
 @singleton
@@ -24,6 +24,6 @@ def test_正常系():
     injector = Injector([DIModule()])
     query_usecase = injector.get(QueryUseCase)
 
-    bid_history = query_usecase.get_bid_history(USER_ID)
+    bid_history = query_usecase.get_bid_history(USER_NAME)
 
-    assert USER_ID == bid_history.get_user_id()
+    assert USER_NAME == bid_history.get_user_name()

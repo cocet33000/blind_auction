@@ -9,5 +9,5 @@ class QueryUseCase:
     def __init__(self, query_repository_impl: QueryRepository):
         self.query_repository = query_repository_impl
 
-    def get_bid_history(self, user_id: str) -> BidHistory:
-        return self.query_repository.get_bid_history(user_id)
+    def get_bid_history(self, user_name: str) -> BidHistory:
+        return self.query_repository.get_bid_history(user_name)

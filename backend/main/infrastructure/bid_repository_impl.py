@@ -25,5 +25,8 @@ class BidRepositoryImpl(BidRepository):
 
     @staticmethod
     def getByUserName(user_name) -> AllBidsByUser:
-        bids = dynamo_db.Bid.bidsByUserNameIndex.query(hash_key=user_name)
+        bids = [
+            bid.to_model()
+            for bid in dynamo_db.Bid.bidsByUserNameIndex.query(hash_key=user_name)
+        ]
         return AllBidsByUser(bids)

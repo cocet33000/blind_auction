@@ -1,3 +1,4 @@
+import uuid
 import pytest
 import datetime
 
@@ -6,12 +7,15 @@ import main.domain.bid as domain_bid
 
 
 def test_():
+    BID_ID_1 = "bid" + str(uuid.uuid4())
+    BID_ID_2 = "bid" + str(uuid.uuid4())
     BIDED_USER_NAME = "hoge"
     BID_ITEM_ID = "1"
     PRICE = 100
     BIDED_AT = datetime.datetime.now()
 
     bid_1 = domain_bid.Bid(
+        id=BID_ID_1,
         bided_user_name=BIDED_USER_NAME,
         bid_item_id=BID_ITEM_ID,
         price=value_object.Price(PRICE),
@@ -19,6 +23,7 @@ def test_():
     )
 
     bid_2 = domain_bid.Bid(
+        id=BID_ID_2,
         bided_user_name=BIDED_USER_NAME,
         bid_item_id=BID_ITEM_ID,
         price=value_object.Price(PRICE),

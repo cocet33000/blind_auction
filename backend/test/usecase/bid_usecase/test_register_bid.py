@@ -29,7 +29,7 @@ item_repository_mock.getByItemId.return_value = Item(
 bid_repository_mock = Mock(spec=BidRepository)
 bid_repository_mock.getByUserName.return_value = AllBidsByUser(
     [
-        Bid(
+        Bid.reconstruct(
             id="bid" + str(uuid.uuid4()),
             bided_user_name="hoge",
             bid_item_id="2",

@@ -4,7 +4,7 @@ on:
     branches:
       - feature/**
     paths:
-      - backend/main/**
+      - backend/**
       - .github/workflows/backend-feature.yaml
 
 jobs:
@@ -26,6 +26,9 @@ jobs:
           pip3 install awscli
           pip install -r requirements.txt -t ./
 
-      - name: Test
+      - name: run pytest
         working-directory: backend
-        run: python3 -m unittest discover test -v
+        run: |
+          pip install pytest
+          pip install pytest-cov
+          pytest -v --cov

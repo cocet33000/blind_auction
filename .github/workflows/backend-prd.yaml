@@ -4,7 +4,7 @@ on:
     branches:
       - prd
     paths:
-      - backend/main/**
+      - backend/**
       - .github/workflows/backend-prd.yaml
 
 jobs:
@@ -34,9 +34,13 @@ jobs:
           pip install -r requirements.txt -t ./
           zip -r package.zip ./*
 
-      - name: Test
+      - name: run pytest
         working-directory: backend
-        run: python3 -m unittest discover test -v
+        run: |
+          pip install pytest
+          pip install pytest-cov
+          pytest -v --cov
+
 
       - name: Deploy
         working-directory: backend

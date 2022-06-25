@@ -31,10 +31,21 @@ def lambda_handler(event: dict, context):
 
     logger.debug(json.dumps(event))
 
-    return handler(event, context, item_usecase, bid_usecase)
+    if "pathParameters" in event:
+        return api_handler(event, context, item_usecase, bid_usecase)
+
+    if "Records" in event:
+        return stream_handler(event, context, item_usecase, bid_usecase)
+
+    return {
+        "statusCode": 500,
+        "body": "NG",
+    }
 
 
-def handler(event: dict, context, item_usecase: ItemUseCase, bid_usecase: BidUseCase):
+def api_handler(
+    event: dict, context, item_usecase: ItemUseCase, bid_usecase: BidUseCase
+):
     path = event["pathParameters"]["proxy"]
     method = event["requestContext"]["http"]["method"]
 
@@ -90,3 +101,13 @@ def handler(event: dict, context, item_usecase: ItemUseCase, bid_usecase: BidUse
 
     else:
         return {"statusCode": 404}
+
+
+def stream_handler(
+    event: dict, context, item_usecase: ItemUseCase, bid_usecase: BidUseCase
+):
+    logger.debug(json.dumps(event))
+    return {
+        "statusCode": 200,
+        "body": "OK",
+    }

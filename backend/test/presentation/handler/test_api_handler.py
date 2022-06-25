@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from main.presentation.lambda_handler import handler
+from main.presentation.lambda_handler import api_handler
 
 from mock import Mock
 
@@ -32,7 +32,7 @@ def test_商品一覧を取得():
         "pathParameters": {"proxy": "items"},
         "requestContext": {"http": {"method": "GET"}},
     }
-    response: dict = handler(event, "", item_usecase_mock, bid_usecase_mock)
+    response: dict = api_handler(event, "", item_usecase_mock, bid_usecase_mock)
     assert (
         '{"items": [{"id": "1", "name": "hoge", "image_src": "test.png", "description": "hoge", "start_price": 100, "bid_num": 0}]}'
         == response.get("body")

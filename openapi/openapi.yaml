@@ -70,23 +70,6 @@ paths:
               schema:
                 $ref: "#/components/schemas/bids_post_response"
   /bids:
-    get:
-      tags:
-        - bids
-      summary: ユーザーの入札一覧を返す
-      parameters:
-        - in: query
-          name: user_name
-          schema:
-            type: string
-            example: miyazawa
-      responses:
-        "200":
-          description: 入札一覧
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/bids_get_response"
     post:
       tags:
         - bids
@@ -103,6 +86,24 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/bids_post_response"
+  /users/{userId}/bid-history:
+    get:
+      tags:
+        - users
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+      summary: ユーザーの入札一覧を返す
+      responses:
+        "200":
+          description: 入札一覧
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/bids_get_response"
 
 components:
   schemas:
@@ -193,7 +194,7 @@ components:
     bids_get_response:
       description: アイテム
       properties:
-        bided_items:
+        bid_history:
           type: array
           items:
             $ref: "#/components/schemas/bided_items"

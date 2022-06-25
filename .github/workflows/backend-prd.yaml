@@ -4,8 +4,10 @@ on:
     branches:
       - prd
     paths:
-      - backend/main/**
+      - backend/**
       - .github/workflows/backend-prd.yaml
+
+permissions: write-all
 
 jobs:
   ActionsForBackend:
@@ -34,9 +36,19 @@ jobs:
           pip install -r requirements.txt -t ./
           zip -r package.zip ./*
 
-      - name: Test
+      - name: run pytest
         working-directory: backend
-        run: python3 -m unittest discover test -v
+        run: |
+          pip install pytest
+          pip install pytest-cov
+          pytest test/ -v --cov --junitxml=pytest.xml --cov-report=term-missing:skip-covered | tee pytest-coverage.txt
+
+      - name: Create Coverage Comment
+        id: coverageComment
+        uses: MishaKav/pytest-coverage-comment@main
+        with:
+            pytest-coverage-path: /backend/pytest-coverage.txt
+            junitxml-path: ./backend/pytest.xml
 
       - name: Deploy
         working-directory: backend

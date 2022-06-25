@@ -1,13 +1,8 @@
-import unittest
+import pytest
 
 from main.domain.value_object import Price
 
 
-class TestPrice(unittest.TestCase):
-    def test_Price型に負の値はNG(self):
-        with self.assertRaises(ValueError):
-            Price(-100)
-
-
-if __name__ == "__main__":
-    unittest.main()
+def test_Price型に負の値はNG():
+    with pytest.raises(ValueError):
+        Price(-100)

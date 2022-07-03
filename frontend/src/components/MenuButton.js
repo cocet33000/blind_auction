@@ -103,7 +103,7 @@ export default function MenuButton(props) {
 					{(authStatus !== 'authenticated'
 						? unAuthenticatedList
 						: authenticatedList
-					).map(({ item }) => {
+					).map((item) => {
 						return (
 							<Button
 								key={item.id}

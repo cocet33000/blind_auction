@@ -91,7 +91,7 @@ export default function ItemDetailDialog(props) {
 }
 
 ItemDetailDialog.propTypes = {
-	item: PropTypes.object.required,
-	isOpen: PropTypes.bool.required,
-	handleClose: PropTypes.func.required
+	item: PropTypes.object.isRequired,
+	isOpen: PropTypes.bool.isRequired,
+	handleClose: PropTypes.func.isRequired
 };

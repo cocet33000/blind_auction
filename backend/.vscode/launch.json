@@ -12,7 +12,7 @@
 			"console": "integratedTerminal",
 			"justMyCode": true,
 			"env":{
-				"PYTHONPATH": "${workspaceRoot}/backend/main:${workspaceRoot}/backend"
+				"PYTHONPATH": "${workspaceRoot}/main:${workspaceRoot}"
 			}
 		}
 	]

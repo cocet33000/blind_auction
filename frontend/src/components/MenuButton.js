@@ -145,5 +145,5 @@ export default function MenuButton(props) {
 }
 
 MenuButton.propTypes = {
-	anchor: PropTypes.oneOf(['top', 'left', 'bottom', 'right']).required
+	anchor: PropTypes.oneOf(['top', 'left', 'bottom', 'right']).isRequired
 };

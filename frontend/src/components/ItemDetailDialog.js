@@ -9,6 +9,7 @@ import { Input } from '@mui/material';
 import { Stack, Box } from '@mui/material';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import axios from 'axios';
+import { PropTypes } from 'prop-types';
 
 export default function ItemDetailDialog(props) {
 	const [price, setPrice] = React.useState('');
@@ -29,7 +30,7 @@ export default function ItemDetailDialog(props) {
 				console.log(response.data);
 			})
 			.catch((error) => {
-				console.log('ERROR!! occurred in Backend.');
+				console.log('ERROR!! occurred in Backend.', error);
 			});
 
 		props.handleClose();
@@ -88,3 +89,9 @@ export default function ItemDetailDialog(props) {
 		</main>
 	);
 }
+
+ItemDetailDialog.propTypes = {
+	item: PropTypes.object.required,
+	isOpen: PropTypes.bool.required,
+	handleClose: PropTypes.func.required
+};

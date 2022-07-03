@@ -28,7 +28,7 @@ const darkTheme = createTheme({
 const ResponsiveAppBar = () => {
 	let navigate = useNavigate();
 	const { authStatus } = useAuthenticator((context) => [context.authStatus]);
-	const { user, signOut } = useAuthenticator((context) => [context.user]);
+	const { user } = useAuthenticator((context) => [context.user]);
 	const [isNotification, setNotification] = useState('');
 
 	useEffect(() => {
@@ -36,6 +36,7 @@ const ResponsiveAppBar = () => {
 		console.log('auth status is changed!');
 	}, [authStatus]);
 
+	// eslint-disable-next-line no-unused-vars
 	const handleClose = (event, reason) => {
 		setNotification(false);
 	};
@@ -74,40 +75,6 @@ const ResponsiveAppBar = () => {
 
 						<Box sx={{ flexGrow: 0 }}>
 							<MenuButton anchor="right" />
-							{/* <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {authStatus !== "authenticated" ? (
-                  <LoginIcon fontSize="large" />
-                ) : (
-                  <AccountCircleIcon fontSize="large" />
-                )}
-              </IconButton>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {(authStatus !== "authenticated"
-                  ? notAuthenticatedMenu
-                  : authenticatedMenu
-                ).map((setting) => (
-                  <MenuItem key={setting.text} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center" onClick={setting.onClick}>
-                      {setting.text}
-                    </Typography>
-                  </MenuItem>
-                ))}
-              </Menu> */}
 						</Box>
 					</Toolbar>
 				</Container>

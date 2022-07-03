@@ -7,12 +7,15 @@
 		"eslint:recommended",
 		"prettier"
 	],
-
+	"parser": "babel-eslint",
 	"rules": {
 		"no-extra-semi": "warn",
 		"quotes": [
 			"warn",
 			"single"
 		]
+	},
+	"parserOptions": {
+		"sourceType": "module"
 	}
 }

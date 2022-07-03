@@ -7,7 +7,6 @@
 		"eslint:recommended",
 		"prettier"
 	],
-	"parser": "babel-eslint",
 	"rules": {
 		"no-extra-semi": "warn",
 		"quotes": [
@@ -16,6 +15,9 @@
 		]
 	},
 	"parserOptions": {
-		"sourceType": "module"
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"jsx": true
+		}
 	}
 }

@@ -7,7 +7,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './css/slider.css';
 import './css/slider.css';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function Home() {
@@ -23,7 +23,7 @@ function Home() {
 				console.log(response.data);
 			})
 			.catch((error) => {
-				console.log('ERROR!! occurred in Backend.');
+				console.log('ERROR!! occurred in Backend.', error);
 			});
 	}, []);
 
@@ -42,6 +42,7 @@ function Home() {
 						{items.map((item) => {
 							return (
 								<Button
+									key={item.id}
 									component="div"
 									textTransform="none"
 									onClick={() => {

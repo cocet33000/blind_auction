@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
+import { PropTypes } from 'prop-types';
 
 import { useAuthenticator } from '@aws-amplify/ui-react';
 
@@ -28,6 +29,7 @@ export default function MenuButton(props) {
 	let navigate = useNavigate();
 	const [isOpen, setOpen] = React.useState(false);
 	const { authStatus } = useAuthenticator((context) => [context.authStatus]);
+	// eslint-disable-next-line no-unused-vars
 	const { user, signOut } = useAuthenticator((context) => [context.user]);
 
 	const classes = useStyles();
@@ -101,9 +103,10 @@ export default function MenuButton(props) {
 					{(authStatus !== 'authenticated'
 						? unAuthenticatedList
 						: authenticatedList
-					).map((item) => {
+					).map(({ item }) => {
 						return (
 							<Button
+								key={item.id}
 								variant={item.variant}
 								size="large"
 								onClick={item.onClick}
@@ -140,3 +143,7 @@ export default function MenuButton(props) {
 		</div>
 	);
 }
+
+MenuButton.propTypes = {
+	anchor: PropTypes.oneOf(['top', 'left', 'bottom', 'right']).required
+};

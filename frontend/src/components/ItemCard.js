@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import PropTypes from 'prop-types';
 
 export default function ItemCard(props) {
 	return (
@@ -49,3 +50,9 @@ export default function ItemCard(props) {
 		</Box>
 	);
 }
+
+ItemCard.propTypes = {
+	name: PropTypes.string.isRequired,
+	image_src: PropTypes.string.isRequired,
+	bid_num: PropTypes.number.isRequired
+};

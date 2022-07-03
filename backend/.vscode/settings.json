@@ -5,7 +5,7 @@
 	// ファイル保存時にテスト対象コードを自動的に探索
 	"python.testing.autoTestDiscoverOnSaveEnabled": true,
 	"python.testing.pytestArgs": [
-		"backend",
+		"./",
 		"--cov",
 		"--cov-report",
 		"xml"
@@ -17,7 +17,7 @@
 	"coverage-gutters.showLineCoverage": true,
 	// ルーラーでのカバレッジ表示有無(default: false)
 	"coverage-gutters.showRulerCoverage": true,
-	"python.defaultInterpreterPath": "./backend/.venv/bin/python",
+	"python.defaultInterpreterPath": ".venv/bin/python",
 	"python.linting.pylintEnabled": false,
 	"python.linting.flake8Enabled": true,
 	"python.linting.lintOnSave": true,

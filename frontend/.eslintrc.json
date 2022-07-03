@@ -3,21 +3,19 @@
 		"browser": true,
 		"es6": true
 	},
-	"extends": [
-		"eslint:recommended",
-		"prettier"
-	],
+	"extends": ["eslint:recommended", "prettier", "plugin:react/recommended"],
 	"rules": {
 		"no-extra-semi": "warn",
-		"quotes": [
-			"warn",
-			"single"
-		]
+		"quotes": ["warn", "single"],
+		"react/jsx-uses-react": "off",
+		"react/react-in-jsx-scope": "off"
 	},
 	"parserOptions": {
+		"parser": "babel-eslint",
 		"sourceType": "module",
 		"ecmaFeatures": {
-			"jsx": true
+			"jsx": true,
+			"impliedStrict": true
 		}
 	}
 }

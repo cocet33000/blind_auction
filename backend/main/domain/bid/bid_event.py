@@ -12,3 +12,12 @@ class BidEvent(Event):
             "price": price,
         }
         super().__init__(event_name, event_details)
+
+    def user_name(self):
+        return self.event_details.get("user_name")
+
+    def item_id(self):
+        return self.event_details.get("item_id")
+
+    def price(self):
+        return self.event_details.get("price")

@@ -9,3 +9,6 @@ def test_bid_eventを作成():
     bid_event = BidEvent(user_name, item_id, price)
 
     assert bid_event.event_name == "BID"
+    assert bid_event.user_name() == user_name
+    assert bid_event.item_id() == item_id
+    assert bid_event.price() == price

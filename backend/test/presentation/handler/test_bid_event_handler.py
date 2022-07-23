@@ -4,12 +4,14 @@ from main.presentation.lambda_handler import stream_handler
 
 from mock import Mock
 
+from main.domain.item.bid_event_subscriber import BidEventSubscriber
 from main.usecase import ItemUseCase
 from main.usecase import BidUseCase
 
 
 item_usecase_mock = Mock(spec=ItemUseCase)
 bid_usecase_mock = Mock(spec=BidUseCase)
+bid_event_subscriber_mock = Mock(spec=BidEventSubscriber)
 
 
 def test_正常系():
@@ -47,7 +49,9 @@ def test_正常系():
     }
 
     context = {}
-    res = stream_handler(event, context, item_usecase_mock, bid_usecase_mock)
+    res = stream_handler(
+        event, context, item_usecase_mock, bid_usecase_mock, bid_event_subscriber_mock
+    )
 
     assert 200 == res.get("statusCode")
     assert "BID" == res.get("eventName")

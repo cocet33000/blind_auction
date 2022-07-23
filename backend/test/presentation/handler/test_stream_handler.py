@@ -1,15 +1,18 @@
 from __future__ import annotations
+from main.domain import bid
 
 from main.presentation.lambda_handler import stream_handler
 
 from mock import Mock
 
+from main.domain.item.bid_event_subscriber import BidEventSubscriber
 from main.usecase import ItemUseCase
 from main.usecase import BidUseCase
 
 
 item_usecase_mock = Mock(spec=ItemUseCase)
 bid_usecase_mock = Mock(spec=BidUseCase)
+bid_event_subscriber_mock = Mock(spec=BidEventSubscriber)
 
 
 def test_正常系():
@@ -47,7 +50,7 @@ def test_正常系():
     }
     context = {}
     assert 200 == stream_handler(
-        event, context, item_usecase_mock, bid_usecase_mock
+        event, context, item_usecase_mock, bid_usecase_mock, bid_event_subscriber_mock
     ).get("statusCode")
 
 
@@ -55,5 +58,5 @@ def test_異常系_パースエラー():
     event = {}
     context = {}
     assert 500 == stream_handler(
-        event, context, item_usecase_mock, bid_usecase_mock
+        event, context, item_usecase_mock, bid_usecase_mock, bid_event_subscriber_mock
     ).get("statusCode")

@@ -13,6 +13,11 @@ class ItemRepository(ABC):
 
     @staticmethod
     @abstractmethod
+    def bidNumIncrement(item_id: str) -> dict:
+        raise NotImplementedError
+
+    @staticmethod
+    @abstractmethod
     def getByItemId(item_id):
         raise NotImplementedError
 

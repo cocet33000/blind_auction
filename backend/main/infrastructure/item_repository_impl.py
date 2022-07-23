@@ -26,6 +26,11 @@ class ItemRepositoryImpl(ItemRepository):
             return {"is_error": True}
 
     @staticmethod
+    def bidNumIncrement(item_id):
+        # 仮実装
+        pass
+
+    @staticmethod
     def getByItemId(item_id):
         return dynamo_db.Item.get(hash_key=item_id, range_key="item").to_model()
 

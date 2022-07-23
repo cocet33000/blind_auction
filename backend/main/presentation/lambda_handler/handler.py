@@ -110,7 +110,21 @@ def stream_handler(
     event: dict, context, item_usecase: ItemUseCase, bid_usecase: BidUseCase
 ):
     logger.debug(json.dumps(event))
-    return {
-        "statusCode": 200,
-        "body": "OK",
-    }
+
+    try:
+        event_name, event_details = parse_event(event)
+    except Exception as e:
+        logger.error(e)
+        return {"statusCode": 500, "body": "NG"}
+
+    if event_name == "BID":
+        # ここでBIDイベントのサブスクライバを呼び出す
+        pass
+
+    return {"statusCode": 200, "body": "OK", "eventName": event_name}
+
+
+def parse_event(event: dict):
+    event_name = event["Records"][0]["dynamodb"]["NewImage"]["name"]["S"]
+    event_details = event["Records"][0]["dynamodb"]["NewImage"]["details"]["M"]
+    return event_name, event_details

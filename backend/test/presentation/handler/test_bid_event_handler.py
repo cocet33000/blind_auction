@@ -45,15 +45,9 @@ def test_正常系():
             }
         ]
     }
-    context = {}
-    assert 200 == stream_handler(
-        event, context, item_usecase_mock, bid_usecase_mock
-    ).get("statusCode")
 
-
-def test_異常系_パースエラー():
-    event = {}
     context = {}
-    assert 500 == stream_handler(
-        event, context, item_usecase_mock, bid_usecase_mock
-    ).get("statusCode")
+    res = stream_handler(event, context, item_usecase_mock, bid_usecase_mock)
+
+    assert 200 == res.get("statusCode")
+    assert "BID" == res.get("eventName")

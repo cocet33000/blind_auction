@@ -126,11 +126,15 @@ def stream_handler(
         logger.error(e)
         return {"statusCode": 500, "body": "NG"}
 
-    if event_name == "BID":
-        bid_event = BidEvent.reconstruct(event_details)
-        bid_event_subscriber.consume(bid_event)
-
-    return {"statusCode": 200, "body": "OK", "eventName": event_name}
+    try:
+        if event_name == "BID":
+            bid_event = BidEvent.reconstruct(event_details)
+            logger.debug(json.dumps(bid_event))
+            bid_event_subscriber.consume(bid_event)
+        return {"statusCode": 200, "body": "OK", "eventName": event_name}
+    except Exception as e:
+        logger.error(e)
+        return {"statusCode": 200, "body": "OK", "eventName": event_name}
 
 
 def parse_event(event: dict):

@@ -7,26 +7,17 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './css/slider.css';
 import './css/slider.css';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
+import useSWR from 'swr';
+import blindAuctionFetcher from './utils/blindAuctionFetcher.js';
 
 function Home() {
-	const [items, setItems] = useState([]);
 	const [clickedItem, setClickedItem] = useState('');
 	const [isOpen, setOpen] = useState(false);
-	useEffect(() => {
-		// Update the document title using the browser API
-		axios
-			.get('https://api.blind-auction.com/dev/items')
-			.then((response) => {
-				setItems(response.data.items);
-				console.log(response.data);
-			})
-			.catch((error) => {
-				console.log('ERROR!! occurred in Backend.', error);
-			});
-	}, []);
+	const { data, error } = useSWR('items', blindAuctionFetcher);
 
+	if (error) return <div>failed to load</div>;
+	if (!data) return <div>loading...</div>;
 	return (
 		<main>
 			<ItemDetailDialog
@@ -39,7 +30,7 @@ function Home() {
 			<Box sx={{ p: 3 }}>
 				<Box sx={{ width: '100%' }}>
 					<Stack spacing={5}>
-						{items.map((item) => {
+						{data.items.map((item) => {
 							return (
 								<Button
 									key={item.id}

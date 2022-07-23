@@ -3,6 +3,7 @@ import logging
 
 
 from . import dynamo_db
+
 from main.domain.item import Item
 from main.domain.item import ItemRepository
 
@@ -24,6 +25,12 @@ class ItemRepositoryImpl(ItemRepository):
         except Exception as e:
             logging.error(e)
             return {"is_error": True}
+
+    @staticmethod
+    def bidNumIncrement(item_id):
+        # 仮実装
+        item = dynamo_db.Item(hash_key=item_id, range_key="item")
+        return item.update(actions=[dynamo_db.Item.bid_num.add(1)])
 
     @staticmethod
     def getByItemId(item_id):

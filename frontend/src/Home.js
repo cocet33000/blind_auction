@@ -9,6 +9,7 @@ import './css/slider.css';
 import './css/slider.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import CountdownTimer from './components/CountDown';
 
 function Home() {
 	const [items, setItems] = useState([]);
@@ -26,9 +27,16 @@ function Home() {
 				console.log('ERROR!! occurred in Backend.', error);
 			});
 	}, []);
+	//unix時間でカウントダウンを設定
+	const THREE_DAYS_IN_MS = 3 * 24 * 60 * 60 * 1000;
+	const NOW_IN_MS = new Date().getTime();
+	const dateTimeAfterThreeDays = NOW_IN_MS + THREE_DAYS_IN_MS;
 
 	return (
 		<main>
+			<Box sx={{ p: 3 }}>
+				<CountdownTimer targetDate={dateTimeAfterThreeDays} />
+			</Box>
 			<ItemDetailDialog
 				isOpen={isOpen}
 				handleClose={() => {

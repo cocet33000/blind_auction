@@ -5,8 +5,10 @@ from injector import Injector, Module, singleton
 
 from main.domain.bid import BidRepository
 from main.domain.item import ItemRepository
+from main.domain.shared import EventPublisher
 from main.infrastructure import BidRepositoryImpl
 from main.infrastructure import ItemRepositoryImpl
+from main.infrastructure import EventPublisherImpl
 
 from main.usecase import ItemUseCase
 from main.usecase import BidUseCase
@@ -22,6 +24,7 @@ class DIModule(Module):
     def configure(self, binder):
         binder.bind(BidRepository, to=BidRepositoryImpl)
         binder.bind(ItemRepository, to=ItemRepositoryImpl)
+        binder.bind(EventPublisher, to=EventPublisherImpl)
 
 
 def lambda_handler(event: dict, context):

@@ -15,6 +15,8 @@ from main.infrastructure import EventPublisherImpl
 from main.usecase import ItemUseCase
 from main.usecase import BidUseCase
 
+from .helper_functions import parse_event, parser_bid_event
+
 logger = logging.getLogger()
 
 if log_level := os.environ.get("LOG_LEVEL"):
@@ -128,16 +130,11 @@ def stream_handler(
 
     try:
         if event_name == "BID":
-            bid_event = BidEvent.reconstruct(event_details)
+            item_id, user_name, price = parser_bid_event(event_details)
+            bid_event = BidEvent(item_id=item_id, user_name=user_name, price=price)
             logger.info(f"increment item_id: {bid_event.item_id()}")
             bid_event_subscriber.consume(bid_event)
         return {"statusCode": 200, "body": "OK", "eventName": event_name}
     except Exception as e:
         logger.error(e)
         return {"statusCode": 200, "body": "OK", "eventName": event_name}
-
-
-def parse_event(event: dict):
-    event_name = event["Records"][0]["dynamodb"]["NewImage"]["name"]["S"]
-    event_details = event["Records"][0]["dynamodb"]["NewImage"]["details"]["M"]
-    return event_name, event_details

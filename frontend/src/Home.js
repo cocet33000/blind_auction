@@ -9,17 +9,12 @@ import './css/slider.css';
 import './css/slider.css';
 import { useState } from 'react';
 import useSWR from 'swr';
-import fetch from 'unfetch';
-
-const fetcher = (url) => fetch(url).then((r) => r.json());
+import blindAuctionFetcher from './utils/blindAuctionFetcher.js';
 
 function Home() {
 	const [clickedItem, setClickedItem] = useState('');
 	const [isOpen, setOpen] = useState(false);
-	const { data, error } = useSWR(
-		'https://api.blind-auction.com/dev/items',
-		fetcher
-	);
+	const { data, error } = useSWR('items', blindAuctionFetcher);
 
 	if (error) return <div>failed to load</div>;
 	if (!data) return <div>loading...</div>;

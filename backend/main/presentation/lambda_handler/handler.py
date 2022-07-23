@@ -4,8 +4,10 @@ import logging
 from injector import Injector, Module, singleton
 
 from main.domain.bid import BidRepository
+from main.domain.bid import BidEvent
 from main.domain.item import ItemRepository
 from main.domain.shared import EventPublisher
+from main.domain.item import BidEventSubscriber
 from main.infrastructure import BidRepositoryImpl
 from main.infrastructure import ItemRepositoryImpl
 from main.infrastructure import EventPublisherImpl
@@ -31,6 +33,7 @@ def lambda_handler(event: dict, context):
     injector = Injector([DIModule()])
     item_usecase = injector.get(ItemUseCase)
     bid_usecase = injector.get(BidUseCase)
+    bid_event_subscriber = injector.get(BidEventSubscriber)
 
     logger.debug(json.dumps(event))
 
@@ -38,7 +41,9 @@ def lambda_handler(event: dict, context):
         return api_handler(event, context, item_usecase, bid_usecase)
 
     if "Records" in event:
-        return stream_handler(event, context, item_usecase, bid_usecase)
+        return stream_handler(
+            event, context, item_usecase, bid_usecase, bid_event_subscriber
+        )
 
     return {
         "statusCode": 500,
@@ -107,10 +112,28 @@ def api_handler(
 
 
 def stream_handler(
-    event: dict, context, item_usecase: ItemUseCase, bid_usecase: BidUseCase
+    event: dict,
+    context,
+    item_usecase: ItemUseCase,
+    bid_usecase: BidUseCase,
+    bid_event_subscriber: BidEventSubscriber,
 ):
     logger.debug(json.dumps(event))
-    return {
-        "statusCode": 200,
-        "body": "OK",
-    }
+
+    try:
+        event_name, event_details = parse_event(event)
+    except Exception as e:
+        logger.error(e)
+        return {"statusCode": 500, "body": "NG"}
+
+    if event_name == "BID":
+        bid_event = BidEvent.reconstruct(event_details)
+        bid_event_subscriber.consume(bid_event)
+
+    return {"statusCode": 200, "body": "OK", "eventName": event_name}
+
+
+def parse_event(event: dict):
+    event_name = event["Records"][0]["dynamodb"]["NewImage"]["name"]["S"]
+    event_details = event["Records"][0]["dynamodb"]["NewImage"]["details"]["M"]
+    return event_name, event_details

@@ -1,5 +1,4 @@
 from __future__ import annotations
-from main.domain import bid
 
 from main.presentation.lambda_handler import stream_handler
 
@@ -48,15 +47,11 @@ def test_正常系():
             }
         ]
     }
-    context = {}
-    assert 200 == stream_handler(
-        event, context, item_usecase_mock, bid_usecase_mock, bid_event_subscriber_mock
-    ).get("statusCode")
 
-
-def test_異常系_パースエラー():
-    event = {}
     context = {}
-    assert 500 == stream_handler(
+    res = stream_handler(
         event, context, item_usecase_mock, bid_usecase_mock, bid_event_subscriber_mock
-    ).get("statusCode")
+    )
+
+    assert 200 == res.get("statusCode")
+    assert "BID" == res.get("eventName")

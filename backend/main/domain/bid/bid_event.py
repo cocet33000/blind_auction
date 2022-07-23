@@ -12,3 +12,20 @@ class BidEvent(Event):
             "price": price,
         }
         super().__init__(event_name, event_details)
+
+    def user_name(self):
+        return self.event_details.get("user_name")
+
+    def item_id(self):
+        return self.event_details.get("item_id")
+
+    def price(self):
+        return self.event_details.get("price")
+
+    @staticmethod
+    def reconstruct(event_details: dict):
+        user_name = event_details.get("user_name")
+        item_id = event_details.get("item_id")
+        price = event_details.get("price")
+
+        return BidEvent(user_name=user_name, item_id=item_id, price=price)  # type: ignore

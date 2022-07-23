@@ -129,7 +129,7 @@ def stream_handler(
     try:
         if event_name == "BID":
             bid_event = BidEvent.reconstruct(event_details)
-            logger.debug(json.dumps(bid_event))
+            logger.info(f"increment item_id: {bid_event.item_id()}")
             bid_event_subscriber.consume(bid_event)
         return {"statusCode": 200, "body": "OK", "eventName": event_name}
     except Exception as e:

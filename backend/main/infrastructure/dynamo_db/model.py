@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from pynamodb.models import Model
 from pynamodb.attributes import UnicodeAttribute
 from pynamodb.attributes import NumberAttribute
+from pynamodb.attributes import MapAttribute
 from pynamodb.indexes import LocalSecondaryIndex, GlobalSecondaryIndex, AllProjection
 from pynamodb.attributes import UTCDateTimeAttribute
 
@@ -83,3 +84,16 @@ class Item(Model):
             start_price=Price(self.start_price),
             bid_num=int(self.bid_num),
         )
+
+
+class Event(Model):
+    class Meta:
+        load_dotenv()
+        if os.environ.get("MODE") == "local":
+            host = "http://localhost:8000"
+        table_name = os.environ.get("AWS_DYNAMO_DB_EVENTS_TABLE_NAME")
+        region = os.environ.get("AWS_REGION")
+
+    id = UnicodeAttribute(hash_key=True)
+    name = UnicodeAttribute(null=False)
+    details = MapAttribute(null=False)

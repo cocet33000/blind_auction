@@ -13,6 +13,7 @@ from main.domain.item import Item
 from main.domain.bid import Bid
 from main.domain.bid import AllBidsByUser
 from main.domain.bid import BidRepository
+from main.domain.shared import EventPublisher
 from main.usecase import BidUseCase
 from main.usecase import BidAlreadyExistsError
 
@@ -40,12 +41,16 @@ bid_repository_mock.getByUserName.return_value = AllBidsByUser(
 )
 bid_repository_mock.save.return_value = {"is_error": False}
 
+event_publisher_mock = Mock(spec=EventPublisher)
+event_publisher_mock.publish.return_value = {"is_error": False}
+
 
 @singleton
 class DIModule(Module):
     def configure(self, binder):
         binder.bind(BidRepository, to=bid_repository_mock)
         binder.bind(ItemRepository, to=item_repository_mock)
+        binder.bind(EventPublisher, to=event_publisher_mock)
 
 
 def test_正常系():

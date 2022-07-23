@@ -1,3 +1,3 @@
-from .model import Item, Bid
+from .model import Item, Bid, Event
 
-__all__ = ["Item", "Bid"]
+__all__ = ["Item", "Bid", "Event"]

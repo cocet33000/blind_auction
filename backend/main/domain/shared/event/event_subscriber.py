@@ -6,7 +6,6 @@ from .event import Event
 
 
 class EventSubscriber(ABC):
-    @staticmethod
     @abstractmethod
-    def consume(event: Event):
+    def consume(self, event: Event):
         raise NotImplementedError

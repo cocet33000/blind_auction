@@ -1,4 +1,5 @@
-from .handler import api_handler, stream_handler
+from .api_handler import api_handler
+from .stream_handler import stream_handler
 from .handler import lambda_handler
 from .helper_functions import parse_event, parser_bid_event
 

@@ -68,29 +68,6 @@ DateTimeDisplay.propTypes = {
 	value: PropTypes.string,
 	type: PropTypes.string
 };
-const ShowCounter = ({ days, hours, minutes, seconds }) => {
-	return (
-		<main>
-			<Grid sx={{ flexGrow: 1 }} container spacing={1}>
-				<Grid item xs={12}>
-					<Grid container justifyContent="center" spacing={3}>
-						{[days, hours, minutes, seconds].map((value, index) => (
-							<Grid key={value} item>
-								<DateTimeDisplay value={value} type={index} />
-							</Grid>
-						))}
-					</Grid>
-				</Grid>
-			</Grid>
-		</main>
-	);
-};
-ShowCounter.propTypes = {
-	days: PropTypes.number,
-	hours: PropTypes.number,
-	minutes: PropTypes.number,
-	seconds: PropTypes.number
-};
 
 const useCountdown = (targetDate) => {
 	const countDownDate = new Date(targetDate).getTime();
@@ -122,7 +99,8 @@ const useCountdown = (targetDate) => {
 
 const CountdownTimer = ({ targetDate }) => {
 	const [days, hours, minutes, seconds] = useCountdown(targetDate);
-
+	const displaylist = [days, hours, minutes, seconds];
+	console.log(displaylist);
 	if (days + hours + minutes + seconds <= 0) {
 		return <ExpiredNotice />;
 	} else {

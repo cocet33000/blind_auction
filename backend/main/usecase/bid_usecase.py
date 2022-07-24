@@ -6,6 +6,7 @@ from main.domain.bid import BidRepository
 from main.domain.bid import BidFactory
 from main.domain.bid import BidEvent
 from main.domain.shared import EventPublisher
+from main.domain.shared import DomainException
 
 
 class BidUseCase:
@@ -35,18 +36,10 @@ class BidUseCase:
         )
 
         # WARNING: 本来はRepositoryへの永続化とEventの発行は同一トランザクションで行う必要がある
-        res = self.BidRepository.save(bid)
-        # TODO: dictを返すのではなくエラーをraiseするようにする
-        if res.get("is_error"):
-            return {"is_error": True}
+        self.BidRepository.save(bid)
 
         bid_event = BidEvent(user_name, item_id, price)
-        res = self.EventPublisher.publish(bid_event)
-        if res.get("is_error"):
-            # TODO: dictを返すのではなくエラーをraiseするようにする
-            return {"is_error": True}
-
-        return {"is_error": False}
+        self.EventPublisher.publish(bid_event)
 
     # getByUserNameの戻り値を変更（list(Bid) -> AllBidsByUser）したので動かない
     def get_bids_by_user(self, user_name: str) -> dict:

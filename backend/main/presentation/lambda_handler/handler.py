@@ -4,7 +4,6 @@ import logging
 from injector import Injector, Module, singleton
 
 from main.domain.bid import BidRepository
-from main.domain.bid import BidEvent
 from main.domain.item import ItemRepository
 from main.domain.shared import EventPublisher
 from main.domain.item import BidEventSubscriber
@@ -15,7 +14,8 @@ from main.infrastructure import EventPublisherImpl
 from main.usecase import ItemUseCase
 from main.usecase import BidUseCase
 
-from .helper_functions import parse_event, parser_bid_event
+from .api_handler import api_handler
+from .stream_handler import stream_handler
 
 logger = logging.getLogger()
 
@@ -51,90 +51,3 @@ def lambda_handler(event: dict, context):
         "statusCode": 500,
         "body": "NG",
     }
-
-
-def api_handler(
-    event: dict, context, item_usecase: ItemUseCase, bid_usecase: BidUseCase
-):
-    path = event["pathParameters"]["proxy"]
-    method = event["requestContext"]["http"]["method"]
-
-    if path == "items":
-        if method == "GET":
-            # ここで詰め替える
-            return {"statusCode": 200, "body": json.dumps(item_usecase.get_items())}
-        if method == "POST":
-            body = json.loads(event["body"])
-            response = item_usecase.register_item(
-                name=body.get("name"),
-                image_src=body.get("image_src"),
-                description=body.get("description"),
-                start_price=int(body.get("start_price")),
-            )
-
-            if response["is_error"]:
-                return {
-                    "statusCode": 500,
-                    "body": "NG",
-                }
-            else:
-                return {
-                    "statusCode": 200,
-                    "body": "OK",
-                }
-
-    elif path == "bids":
-        if method == "POST":
-            body = json.loads(event["body"])
-            response = bid_usecase.register_bid(
-                user_name=body.get("user_name"),
-                item_id=body.get("item_id"),
-                price=body.get("price"),
-            )
-
-            if response["is_error"]:
-                return {
-                    "statusCode": 500,
-                    "body": "NG",
-                }
-            else:
-                return {
-                    "statusCode": 200,
-                    "body": "OK",
-                }
-        elif method == "GET":
-            user_name = event["queryStringParameters"].get("user_name")
-            return {
-                "statusCode": 200,
-                "body": json.dumps(bid_usecase.get_bids_by_user(user_name=user_name)),
-            }
-
-    else:
-        return {"statusCode": 404}
-
-
-def stream_handler(
-    event: dict,
-    context,
-    item_usecase: ItemUseCase,
-    bid_usecase: BidUseCase,
-    bid_event_subscriber: BidEventSubscriber,
-):
-    logger.debug(json.dumps(event))
-
-    try:
-        event_name, event_details = parse_event(event)
-    except Exception as e:
-        logger.error(e)
-        return {"statusCode": 500, "body": "NG"}
-
-    try:
-        if event_name == "BID":
-            item_id, user_name, price = parser_bid_event(event_details)
-            bid_event = BidEvent(item_id=item_id, user_name=user_name, price=price)
-            logger.info(f"increment item_id: {bid_event.item_id()}")
-            bid_event_subscriber.consume(bid_event)
-        return {"statusCode": 200, "body": "OK", "eventName": event_name}
-    except Exception as e:
-        logger.error(e)
-        return {"statusCode": 200, "body": "OK", "eventName": event_name}

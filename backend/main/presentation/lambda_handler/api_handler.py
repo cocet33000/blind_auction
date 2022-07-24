@@ -3,6 +3,8 @@ import json
 from main.usecase import ItemUseCase
 from main.usecase import BidUseCase
 
+from main.domain.shared import DomainException
+
 
 def api_handler(
     event: dict, context, item_usecase: ItemUseCase, bid_usecase: BidUseCase
@@ -15,7 +17,7 @@ def api_handler(
             try:
                 items = item_usecase.get_items()
                 return {"statusCode": 200, "body": json.dumps(items)}
-            except Exception as e:
+            except DomainException as e:
                 return {"statusCode": 500, "body": "NG"}
 
         if method == "POST":
@@ -32,7 +34,7 @@ def api_handler(
                     "statusCode": 200,
                     "body": "OK",
                 }
-            except Exception as e:
+            except DomainException as e:
                 return {
                     "statusCode": 500,
                     "body": "NG",
@@ -54,7 +56,7 @@ def api_handler(
                     "body": "OK",
                 }
 
-            except Exception as e:
+            except DomainException as e:
                 return {
                     "statusCode": 500,
                     "body": "NG",
@@ -67,7 +69,7 @@ def api_handler(
                     "statusCode": 200,
                     "body": json.dumps(bids_by_user),
                 }
-            except Exception as e:
+            except DomainException as e:
                 return {
                     "statusCode": 500,
                     "body": "NG",

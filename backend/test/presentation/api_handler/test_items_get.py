@@ -4,6 +4,8 @@ from main.presentation.lambda_handler import api_handler
 
 from mock import Mock
 
+from main.domain.shared import DomainException
+
 from main.usecase import ItemUseCase
 from main.usecase import BidUseCase
 
@@ -44,7 +46,7 @@ def test_正常系():
 
 
 def test_異常系():
-    item_usecase_mock.get_items.side_effect = Exception("NG")
+    item_usecase_mock.get_items.side_effect = DomainException("NG")
     response: dict = api_handler(event, "", item_usecase_mock, bid_usecase_mock)
 
     assert response.get("statusCode") == 500

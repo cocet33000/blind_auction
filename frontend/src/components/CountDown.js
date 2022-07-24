@@ -109,13 +109,18 @@ const CountdownTimer = ({ targetDate }) => {
 				<Grid sx={{ flexGrow: 1 }} container spacing={1}>
 					<Grid item xs={12}>
 						<Grid container justifyContent="center" spacing={3}>
-							{displaylist.length == 4
-								? displaylist.map((value, index) => (
-										<Grid key={value} item>
-											<DateTimeDisplay value={value} type={index} />
-										</Grid>
-								  ))
-								: ''}
+							<Grid key={'day'} item>
+								<DateTimeDisplay value={days} type={0} />
+							</Grid>
+							<Grid key={'hours'} item>
+								<DateTimeDisplay value={hours} type={1} />
+							</Grid>
+							<Grid key={'minutes'} item>
+								<DateTimeDisplay value={minutes} type={2} />
+							</Grid>
+							<Grid key={'seconds'} item>
+								<DateTimeDisplay value={seconds} type={3} />
+							</Grid>
 						</Grid>
 					</Grid>
 				</Grid>

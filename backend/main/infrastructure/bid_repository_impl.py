@@ -1,10 +1,10 @@
 from __future__ import annotations
-import logging
 
 from . import dynamo_db
 from main.domain.bid import Bid
 from main.domain.bid import AllBidsByUser
 from main.domain.bid import BidRepository
+from main.domain.shared import DomainException
 
 
 class BidRepositoryImpl(BidRepository):
@@ -18,10 +18,8 @@ class BidRepositoryImpl(BidRepository):
 
         try:
             new_bid.save()
-            return {"is_error": False, "id": bid.id}
         except Exception as e:
-            logging.error(e)
-            return {"is_error": True}
+            raise DomainException(e)
 
     @staticmethod
     def getByUserName(user_name) -> AllBidsByUser:

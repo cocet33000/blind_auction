@@ -1,4 +1,5 @@
 from __future__ import annotations
+from pydoc import resolve
 
 from main.presentation.lambda_handler import api_handler
 
@@ -50,3 +51,4 @@ def test_異常系():
     response: dict = api_handler(event, "", item_usecase_mock, bid_usecase_mock)
 
     assert response.get("statusCode") == 500
+    assert response.get("body").get("message") == "NG"

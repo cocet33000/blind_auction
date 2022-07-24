@@ -28,7 +28,8 @@ def test_正常系():
 
 
 def test_異常系():
-    bid_usecase_mock.get_bids_by_user.side_effect = DomainException("error")
+    bid_usecase_mock.get_bids_by_user.side_effect = DomainException("NG")
     response: dict = api_handler(event, "", item_usecase_mock, bid_usecase_mock)
 
     assert response.get("statusCode") == 500
+    assert response.get("body").get("message") == "NG"

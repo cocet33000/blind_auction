@@ -18,7 +18,7 @@ def api_handler(
                 items = item_usecase.get_items()
                 return {"statusCode": 200, "body": json.dumps(items)}
             except DomainException as e:
-                return {"statusCode": 500, "body": "NG"}
+                return {"statusCode": 500, "body": {"message": e.message()}}
 
         if method == "POST":
             body = json.loads(event["body"])
@@ -37,7 +37,7 @@ def api_handler(
             except DomainException as e:
                 return {
                     "statusCode": 500,
-                    "body": "NG",
+                    "body": {"message": e.message()},
                 }
 
     elif path == "bids":
@@ -59,7 +59,7 @@ def api_handler(
             except DomainException as e:
                 return {
                     "statusCode": 500,
-                    "body": "NG",
+                    "body": {"message": e.message()},
                 }
         elif method == "GET":
             user_name = event["queryStringParameters"].get("user_name")
@@ -72,7 +72,7 @@ def api_handler(
             except DomainException as e:
                 return {
                     "statusCode": 500,
-                    "body": "NG",
+                    "body": {"message": e.message()},
                 }
 
     else:

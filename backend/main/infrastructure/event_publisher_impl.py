@@ -1,10 +1,10 @@
 from __future__ import annotations
-import logging
 import uuid
 
 from . import dynamo_db
 from main.domain.shared import EventPublisher
 from main.domain.shared import Event
+from main.domain.shared import DomainException
 
 
 class EventPublisherImpl(EventPublisher):
@@ -16,7 +16,5 @@ class EventPublisherImpl(EventPublisher):
 
         try:
             new_event.save()
-            return {"is_error": False}
         except Exception as e:
-            logging.error(e)
-            return {"is_error": True}
+            raise DomainException(e)

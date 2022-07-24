@@ -1,6 +1,10 @@
 class DomainException(Exception):
     def __init__(self, *args: object) -> None:
-        self._message = args[0]
+        try:
+            self._message = args[0]
+        except:
+            self._message = "no message"
+
         super().__init__(*args)
 
     def message(self) -> str:

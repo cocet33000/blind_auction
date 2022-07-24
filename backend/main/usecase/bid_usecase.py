@@ -26,7 +26,7 @@ class BidUseCase:
         # この知識はユースケースではなく、ドメインに持たせても良いかもしれない
         bids_by_user = self.BidRepository.getByUserName(user_name)
         if bids_by_user.exists_bid_by_item_id(item_id):
-            raise BidAlreadyExistsError
+            raise BidAlreadyExistsError("同一ユーザーは同一商品に一度しか入札できません")
 
         bid_factory = BidFactory(self.ItemRepository)
         bid = bid_factory.create(
@@ -56,5 +56,5 @@ class BidUseCase:
         }
 
 
-class BidAlreadyExistsError(Exception):
+class BidAlreadyExistsError(DomainException):
     pass

@@ -1,4 +1,5 @@
 from __future__ import annotations
+import json
 
 from main.presentation.lambda_handler import api_handler
 
@@ -31,14 +32,16 @@ def test_正常系():
 def test_異常系():
     bid_usecase_mock.register_bid.side_effect = DomainException("NG")
     response: dict = api_handler(event, "", item_usecase_mock, bid_usecase_mock)
+    body = json.loads(response.get("body"))
 
     assert response.get("statusCode") == 500
-    assert response.get("body").get("message") == "NG"
+    assert body.get("message") == "NG"
 
 
 def test_異常系_既に入札済みエラー():
     bid_usecase_mock.register_bid.side_effect = BidAlreadyExistsError("NG")
     response: dict = api_handler(event, "", item_usecase_mock, bid_usecase_mock)
+    body = json.loads(response.get("body"))
 
     assert response.get("statusCode") == 500
-    assert response.get("body").get("message") == "NG"
+    assert body.get("message") == "NG"

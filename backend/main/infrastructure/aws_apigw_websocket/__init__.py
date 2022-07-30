@@ -1,1 +1,1 @@
-from .functions import send_commecnt_Bid_num_increase
+from .functions import send_comment_Bid_num_increase

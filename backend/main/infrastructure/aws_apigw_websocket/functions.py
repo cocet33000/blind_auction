@@ -7,10 +7,10 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-table = boto3.resource('dynamodb').Table(
+table = boto3.resource('dynamodb', region_name=os.environ.get("AWS_REGION", "ap-northeast-1")).Table(
     os.environ.get("AWS_DYNAMO_DB_WSCONNECTION_TABLE_NAME"))
 apigw = boto3.client('apigatewaymanagementapi',
-                     endpoint_url=os.environ.get("AWS_APIGW_WSENDOPOINT_URL"))
+                     endpoint_url=os.environ.get("AWS_APIGW_WSENDOPOINT_URL"), region_name=os.environ.get("AWS_REGION", "ap-northeast-1"))
 
 
 def send_comment_Bid_num_increase(item_id: str, bid_num: float) -> bool:

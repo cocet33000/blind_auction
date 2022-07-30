@@ -2,6 +2,7 @@ import pytest
 import uuid
 
 from main.domain.item import Item
+from main.domain.item import Status
 from main.domain.value_object import Price
 from main.domain.shared.errors import ProhibitedGenerationError
 
@@ -9,6 +10,7 @@ from main.domain.shared.errors import ProhibitedGenerationError
 def test_itemを再構成():
     item = Item.reconstruct(
         id=str(uuid.uuid4()),
+        status=Status.BEFORE_AUCTION,
         name="hoge",
         image_src="hoge",
         description="hoge",
@@ -16,6 +18,7 @@ def test_itemを再構成():
         bid_num=0,
     )
     assert item.id is not None
+    assert item.status == Status.BEFORE_AUCTION
     assert item.name == "hoge"
     assert item.image_src == "hoge"
     assert item.description == "hoge"
@@ -23,6 +26,7 @@ def test_itemを再構成():
     assert item.bid_num == 0
     assert item.to_dict() == {
         "id": item.id,
+        "status": item.status.value,
         "name": item.name,
         "image_src": item.image_src,
         "description": item.description,
@@ -35,6 +39,7 @@ def test_外部からのitemの生成はNG():
     with pytest.raises(ProhibitedGenerationError):
         Item(
             id=str(uuid.uuid4()),
+            status=Status.BEFORE_AUCTION,
             name="hoge",
             image_src="hoge",
             description="hoge",

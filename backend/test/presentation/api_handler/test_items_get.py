@@ -11,11 +11,13 @@ from main.usecase import ItemUseCase
 from main.usecase import BidUseCase
 
 from main.domain.item import Item
+from main.domain.item import Status
 from main.domain.value_object import Price
 
 items = [
     Item.reconstruct(
         id="1",
+        status=Status.BEFORE_AUCTION,
         name="hoge",
         image_src="test.png",
         description="hoge",
@@ -41,7 +43,7 @@ def test_正常系():
     response: dict = api_handler(event, "", item_usecase_mock, bid_usecase_mock)
 
     assert (
-        '{"items": [{"id": "1", "name": "hoge", "image_src": "test.png", "description": "hoge", "start_price": 100, "bid_num": 0}]}'
+        '{"items": [{"id": "1", "status": "before_auction", "name": "hoge", "image_src": "test.png", "description": "hoge", "start_price": 100, "bid_num": 0}]}'
         == response.get("body")
     )
 

@@ -1,12 +1,21 @@
+from enum import Enum
+
 from ..value_object import Price
 from ..shared.caller import get_caller_function_name
 from ..shared.errors import ProhibitedGenerationError
+
+
+class Status(Enum):
+    BEFORE_AUCTION = "before_auction"
+    UP_FOR_AUCTION = "on_sales"
+    SOLD_OUT = "sold_out"
 
 
 class Item:
     def __init__(
         self,
         id: str,
+        status: Status,
         name: str,
         image_src: str,
         description: str,
@@ -20,6 +29,7 @@ class Item:
 
         self.id = id
         self.name = name
+        self.status = status
         self.image_src = image_src
         self.description = description
 
@@ -32,6 +42,7 @@ class Item:
     def to_dict(self) -> dict:
         return {
             "id": self.id,
+            "status": self.status.value,
             "name": self.name,
             "image_src": self.image_src,
             "description": self.description,
@@ -42,10 +53,19 @@ class Item:
     @staticmethod
     def reconstruct(
         id: str,
+        status: Status,
         name: str,
         image_src: str,
         description: str,
         start_price: Price,
         bid_num: int,
     ) -> "Item":
-        return Item(id, name, image_src, description, start_price, bid_num)
+        return Item(
+            id=id,
+            status=status,
+            name=name,
+            image_src=image_src,
+            description=description,
+            start_price=start_price,
+            bid_num=bid_num,
+        )

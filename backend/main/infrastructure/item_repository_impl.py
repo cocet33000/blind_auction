@@ -1,8 +1,10 @@
 from __future__ import annotations
+from io import IncrementalNewlineDecoder
 import logging
 
 
 from . import dynamo_db
+from . import aws_apigw_websocket
 
 from main.domain.item import Item
 from main.domain.item import ItemRepository
@@ -29,7 +31,10 @@ class ItemRepositoryImpl(ItemRepository):
     @staticmethod
     def bidNumIncrement(item_id):
         # 仮実装
-        item = dynamo_db.Item(hash_key=item_id, range_key="item")
+        item = dynamo_db.Item.get(
+            hash_key=item_id, range_key="item")
+        aws_apigw_websocket.send_comment_Bid_num_increase(
+            item_id=item_id, bid_num=int(item.to_model().bid_num)+1)
         return item.update(actions=[dynamo_db.Item.bid_num.add(1)])
 
     @staticmethod

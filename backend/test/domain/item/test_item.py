@@ -10,7 +10,7 @@ from main.domain.shared.errors import ProhibitedGenerationError
 def test_itemを再構成():
     item = Item.reconstruct(
         id=str(uuid.uuid4()),
-        status=Status.BEFORE_AUCTION,
+        status=Status.get_status("before_auction"),
         name="hoge",
         image_src="hoge",
         description="hoge",

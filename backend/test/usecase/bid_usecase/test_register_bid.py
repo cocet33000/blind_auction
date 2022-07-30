@@ -10,6 +10,7 @@ from injector import Injector, Module, singleton
 from main.domain.value_object import Price
 from main.domain.item import ItemRepository
 from main.domain.item import Item
+from main.domain.item import Status
 from main.domain.bid import Bid
 from main.domain.bid import AllBidsByUser
 from main.domain.bid import BidRepository
@@ -21,6 +22,7 @@ START_PRICE = 500
 item_repository_mock = Mock(spec=ItemRepository)
 item_repository_mock.getByItemId.return_value = Item.reconstruct(
     id="1",
+    status=Status.BEFORE_AUCTION,
     name="fuga",
     image_src="test.png",
     description="fuga",

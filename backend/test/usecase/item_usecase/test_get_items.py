@@ -5,12 +5,14 @@ from injector import Injector, Module, singleton
 
 from main.domain.item import ItemRepository
 from main.domain.item import Item
+from main.domain.item import Status
 from main.domain.value_object import Price
 
 from main.usecase import ItemUseCase
 
 item1 = Item.reconstruct(
     id="1",
+    status=Status.BEFORE_AUCTION,
     name="hoge",
     image_src="test.png",
     description="hoge",
@@ -19,6 +21,7 @@ item1 = Item.reconstruct(
 )
 item2 = Item.reconstruct(
     id="2",
+    status=Status.BEFORE_AUCTION,
     name="fuga",
     image_src="test.png",
     description="fuga",

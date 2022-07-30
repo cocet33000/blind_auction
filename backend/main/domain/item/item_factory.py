@@ -1,6 +1,7 @@
 import uuid
 
 from .item import Item
+from .item import Status
 from ..value_object.price import Price
 
 
@@ -16,6 +17,7 @@ class ItemFactory:
 
         return Item(
             id=new_id,
+            status=Status.BEFORE_AUCTION,
             name=name,
             image_src=image_src,
             description=description,

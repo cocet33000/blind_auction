@@ -7,11 +7,13 @@ from main.domain.value_object import Price
 from main.domain.bid import BidFactory
 from main.domain.item import ItemRepository
 from main.domain.item import Item
+from main.domain.item import Status
 
 START_PRICE = 1000
 item_repository_mock = Mock(spec=ItemRepository)
 item_repository_mock.getByItemId.return_value = Item.reconstruct(
     id="1",
+    status=Status.BEFORE_AUCTION,
     name="fuga",
     image_src="test.png",
     description="fuga",

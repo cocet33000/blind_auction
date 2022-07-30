@@ -11,7 +11,7 @@ import MuiAlert from '@mui/material/Alert';
 import { useNavigate } from 'react-router-dom';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 
-import MenuButton from './components/MenuButton';
+import MenuButton from './MenuButton';
 const Alert = React.forwardRef(function Alert(props, ref) {
 	return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
@@ -43,7 +43,7 @@ const ResponsiveAppBar = () => {
 
 	return (
 		<ThemeProvider theme={darkTheme}>
-			<AppBar position="static" color="primary" enableColorOnDark>
+			<AppBar position="fixed" color="primary" enableColorOnDark>
 				<Container maxWidth="xl">
 					<Toolbar disableGutters>
 						<Typography

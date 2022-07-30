@@ -10,6 +10,7 @@ from pynamodb.attributes import UTCDateTimeAttribute
 
 from main.domain.bid import Bid as DomainModelBid
 from main.domain.item import Item as DomainModelItem
+from main.domain.item import Status as DomainModelItemStatus
 from main.domain.value_object import Price
 
 
@@ -67,6 +68,7 @@ class Item(Model):
         region = os.environ.get("AWS_REGION")
 
     id = UnicodeAttribute(hash_key=True)
+    # statusを追加する
     range_key = UnicodeAttribute(range_key=True)
     name = UnicodeAttribute(null=False)
     image_src = UnicodeAttribute(null=False)
@@ -78,6 +80,7 @@ class Item(Model):
     def to_model(self) -> DomainModelItem:
         return DomainModelItem.reconstruct(
             id=self.id,
+            status=DomainModelItemStatus.BEFORE_AUCTION,
             name=self.name,
             image_src=self.image_src,
             description=self.description,

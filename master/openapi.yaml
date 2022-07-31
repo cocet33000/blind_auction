@@ -1,0 +1,215 @@
+openapi: 3.0.0
+info:
+  title: Blind Auction API
+  description: ""
+  version: 0.0.0
+servers:
+  - url: ""
+    description: prod
+  - url: ""
+    description: dev
+
+paths:
+  /healthcheck:
+    get:
+      tags:
+        - healthcheck
+      summary: サーバーの状態を返しますよ
+      description: サーバーの状態を返します。
+      responses:
+        "200":
+          description: サーバーは正常に動作しています
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/healthy_response"
+
+  /items:
+    get:
+      tags:
+        - items
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+      summary: アイテム一覧を返す
+      responses:
+        "200":
+          description: アイテム一覧
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/items"
+    post:
+      tags:
+        - items
+      summary: 商品を登録する
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                name:
+                  type: string
+                  example: 商品3
+                image_src:
+                  type: string
+                  example: http://{image_src}
+                description:
+                  type: string
+                  example: 良い商品です
+                start_price:
+                  type: integer
+                  example: 100
+      responses:
+        "200":
+          description: アイテム一覧
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/bids_post_response"
+  /bids:
+    post:
+      tags:
+        - bids
+      summary: 入札する
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/bids_post_request"
+      responses:
+        "200":
+          description: アイテム一覧
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/bids_post_response"
+  /users/{userId}/bid-history:
+    get:
+      tags:
+        - users
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+      summary: ユーザーの入札一覧を返す
+      responses:
+        "200":
+          description: 入札一覧
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/bids_get_response"
+
+components:
+  schemas:
+    healthy_response:
+      description: サーバーの状態のレスポンス
+      type: object
+      properties:
+        status:
+          type: string
+          example: ok
+    items:
+      description: アイテム一覧
+      type: object
+      properties:
+        has_next:
+          type: boolean
+          example: false
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/item"
+    bid:
+      description: 入札
+      type: object
+      properties:
+        user_name:
+          type: string
+          example: miyazawa
+        price:
+          type: integer
+          example: 100
+        item_id:
+          type: integer
+          example: 10
+    item:
+      description: アイテム
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 3
+        name:
+          type: string
+          example: 商品3
+        image_src:
+          type: string
+          example: http://{image_src}
+        description:
+          type: string
+          example: 良い商品です
+        start_price:
+          type: integer
+          example: 100
+        bid_num:
+          type: integer
+          example: 5
+    bids_post_response:
+      description: サーバーの状態のレスポンス
+      type: object
+      properties:
+        is_error:
+          type: boolean
+          example: True
+        errors:
+          type: array
+          items:
+            $ref: "#/components/schemas/bids_post_error"
+    bids_post_error:
+      description: エラー詳細
+      type: object
+      properties:
+        message:
+          type: string
+          example: "入札金額が不正"
+    bids_post_request:
+      description: サーバーの状態のレスポンス
+      type: object
+      properties:
+        user_name:
+          type: string
+          example: miyazawa
+        item_id:
+          type: integer
+          example: 3
+        price:
+          type: integer
+          example: 1000
+    bids_get_response:
+      description: アイテム
+      properties:
+        bid_history:
+          type: array
+          items:
+            $ref: "#/components/schemas/bided_items"
+    bided_items:
+      description: 入札詳細
+      type: object
+      properties:
+        item:
+          $ref: "#/components/schemas/item"
+        bid:
+          properties:
+            price:
+              type: integer
+              example: 100
+            bided_at:
+              type: string
+              format: date-time
+              example: 2020-01-31T23:59:59.000+09:00

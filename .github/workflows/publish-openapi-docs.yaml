@@ -5,6 +5,7 @@ on:
     branches:
       - master
     paths:
+      - .github/workflows/publish-openapi-docs.yaml
       - openapi/**
 
 jobs:

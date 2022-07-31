@@ -1,0 +1,37 @@
+name: Publish OpenAPI docs
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - openapi/**
+
+jobs:
+  publish-openapi-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install swagger-cli
+        run: |
+          npm install -g swagger-cli
+
+      - name: Validate Swagger Files
+        run: |
+          swagger-cli validate -d openapi/openapi.yaml --type yaml
+
+      - name: Generate Swagger UI
+        if: github.event.pull_request.merged == true
+        uses: Legion2/swagger-ui-action@v1
+        with:
+          output: tmp
+          spec-file: openapi/openapi.yaml
+
+      - name: Publish Swagger UI
+        if: github.event.pull_request.merged == true
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./tmp
+          destination_dir: ${{ github.base_ref }}

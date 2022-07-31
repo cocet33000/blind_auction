@@ -1,9 +1,14 @@
 name: Publish OpenAPI docs
 
 on:
-  push:
+  pull_request:
     branches:
       - master
+    types:
+      - opened
+      - synchronize
+      - labeled
+      - closed
     paths:
       - .github/workflows/publish-openapi-docs.yaml
       - openapi/**

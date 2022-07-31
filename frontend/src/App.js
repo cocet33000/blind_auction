@@ -1,7 +1,7 @@
 import './App.css';
 
 import Home from './Home.js';
-import AppBar from './AppBar.js';
+import AppBar from './components/AppBar.js';
 import CognitoAuthenticator from './components/CognitoAuthenticator.js';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Container } from '@mui/material';

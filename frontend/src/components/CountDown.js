@@ -99,8 +99,6 @@ const useCountdown = (targetDate) => {
 
 const CountdownTimer = ({ targetDate }) => {
 	const [days, hours, minutes, seconds] = useCountdown(targetDate);
-	const displaylist = [days, hours, minutes, seconds];
-	console.log(displaylist);
 	if (days + hours + minutes + seconds <= 0) {
 		return <ExpiredNotice />;
 	} else {

@@ -7,8 +7,18 @@ from ..shared.errors import ProhibitedGenerationError
 
 class Status(Enum):
     BEFORE_AUCTION = "before_auction"
-    UP_FOR_AUCTION = "on_sales"
+    UP_FOR_AUCTION = "up_for_auction"
     SOLD_OUT = "sold_out"
+
+    # TODO: 絶対もっと良いやり方があるのでリファクタリングする
+    @staticmethod
+    def get_status(value):
+        if value == "before_auction":
+            return Status.BEFORE_AUCTION
+        elif value == "on_sales":
+            return Status.UP_FOR_AUCTION
+        elif value == "sold_out":
+            return Status.SOLD_OUT
 
 
 class Item:

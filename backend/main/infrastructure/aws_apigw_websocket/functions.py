@@ -13,8 +13,8 @@ table = boto3.resource(
 ).Table("blind-auction-websocket-connections")
 apigw = boto3.client(
     "apigatewaymanagementapi",
-    endpoint_url=os.environ.get("https://wss.blind-auction.com/deb"),
-    region_name=os.environ.get("ap-northeast-1"),
+    endpoint_url="https://wss.blind-auction.com/deb",
+    region_name="ap-northeast-1"
 )
 
 

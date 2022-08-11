@@ -2,7 +2,7 @@ import ItemCard from './components/ItemCard.js';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 //import Container from '@mui/material/Container';
-import { Button } from '@mui/material';
+//import { Button } from '@mui/material';
 // import { styled } from '@mui/system';
 import ItemDetailDialog from './components/ItemDetailDialog';
 import 'slick-carousel/slick/slick.css';
@@ -82,10 +82,8 @@ function Home() {
 					<Stack spacing={5}>
 						{items.map((item) => {
 							return (
-								<Button
+								<div
 									key={item.id}
-									component="div"
-									textTransform="none"
 									onClick={() => {
 										setOpen(true);
 										setClickedItem(item);
@@ -102,7 +100,7 @@ function Home() {
 										image_src={item.image_src}
 										bid_num={item.bid_num}
 									/>
-								</Button>
+								</div>
 							);
 						})}
 					</Stack>

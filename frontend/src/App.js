@@ -19,6 +19,9 @@ function App() {
 		palette: {
 			primary: {
 				main: '#26262d'
+			},
+			card: {
+				background: '#f5f5f5'
 			}
 		}
 	});

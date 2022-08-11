@@ -1,7 +1,7 @@
 import ItemCard from './components/ItemCard.js';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Container from '@mui/material/Container';
+//import Container from '@mui/material/Container';
 import { Button } from '@mui/material';
 // import { styled } from '@mui/system';
 import ItemDetailDialog from './components/ItemDetailDialog';
@@ -66,7 +66,7 @@ function Home() {
 	const dateTimeAfterThreeDays = NOW_IN_MS + THREE_DAYS_IN_MS;
 
 	return (
-		<Container sx={(theme) => theme.mixins.toolbar}>
+		<div>
 			<Box sx={{ p: 3 }}>
 				<CountdownTimer targetDate={dateTimeAfterThreeDays} />
 			</Box>
@@ -108,7 +108,7 @@ function Home() {
 					</Stack>
 				</Box>
 			</Box>
-		</Container>
+		</div>
 	);
 }
 

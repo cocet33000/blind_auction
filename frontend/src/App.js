@@ -15,7 +15,13 @@ function App() {
 	// 	border: '1px solid'
 	// }));
 
-	const theme = createTheme();
+	const theme = createTheme({
+		palette: {
+			primary: {
+				main: '#26262d'
+			}
+		}
+	});
 	return (
 		<ThemeProvider theme={theme}>
 			<Router>

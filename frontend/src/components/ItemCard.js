@@ -13,20 +13,21 @@ export default function ItemCard(props) {
 					display: 'flex',
 					padding: { xs: '20px', md: '30px' },
 					maxWidth: { xs: '350px', md: '530px' },
-					margin: 'auto',
-					bgcolor: 'card.background',
-					boxShadow: 3
+					margin: 'auto'
 				}}
 			>
 				<Stack spacing={3}>
-					<Typography sx={{ fontSize: { xs: 25, md: 30 }, mb: 0 }}>
-						{props.name}
-					</Typography>
+					<Box sx={{ height: '10px' }}>
+						<Typography sx={{ fontSize: { xs: 20, md: 25 } }}>
+							{props.name}
+						</Typography>
+					</Box>
 					<Box sx={{ display: 'flex' }}>
 						<CardMedia
 							component="img"
 							sx={{ maxWidth: { xs: '330px', md: '500px' } }}
 							image={props.image_src}
+							alt="Live from space album cover"
 						/>
 					</Box>
 					<Box

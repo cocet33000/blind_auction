@@ -1,8 +1,8 @@
 import ItemCard from './components/ItemCard.js';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Container from '@mui/material/Container';
-import { Button } from '@mui/material';
+//import Container from '@mui/material/Container';
+//import { Button } from '@mui/material';
 // import { styled } from '@mui/system';
 import ItemDetailDialog from './components/ItemDetailDialog';
 import 'slick-carousel/slick/slick.css';
@@ -66,7 +66,7 @@ function Home() {
 	const dateTimeAfterThreeDays = NOW_IN_MS + THREE_DAYS_IN_MS;
 
 	return (
-		<Container sx={(theme) => theme.mixins.toolbar}>
+		<div>
 			<Box sx={{ p: 3 }}>
 				<CountdownTimer targetDate={dateTimeAfterThreeDays} />
 			</Box>
@@ -82,10 +82,8 @@ function Home() {
 					<Stack spacing={5}>
 						{items.map((item) => {
 							return (
-								<Button
+								<div
 									key={item.id}
-									component="div"
-									textTransform="none"
 									onClick={() => {
 										setOpen(true);
 										setClickedItem(item);
@@ -102,13 +100,13 @@ function Home() {
 										image_src={item.image_src}
 										bid_num={item.bid_num}
 									/>
-								</Button>
+								</div>
 							);
 						})}
 					</Stack>
 				</Box>
 			</Box>
-		</Container>
+		</div>
 	);
 }
 

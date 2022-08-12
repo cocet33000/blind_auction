@@ -42,7 +42,7 @@ const ResponsiveAppBar = () => {
 	// };
 
 	return (
-		<AppBar position="fixed" enableColorOnDark="true">
+		<AppBar position="fixed" color="primary" enableColorOnDark="true">
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
 					<Typography

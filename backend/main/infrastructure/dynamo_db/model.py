@@ -100,3 +100,19 @@ class Event(Model):
     id = UnicodeAttribute(hash_key=True)
     name = UnicodeAttribute(null=False)
     details = MapAttribute(null=False)
+
+
+class Auction(Model):
+    class Meta:
+        load_dotenv()
+        if os.environ.get("MODE") == "local":
+            host = "http://localhost:8000"
+        table_name = os.environ.get("AWS_DYNAMO_DB_ITEMS_TABLE_NAME")
+        region = os.environ.get("AWS_REGION")
+
+    id = UnicodeAttribute(hash_key=True)
+    range_key = UnicodeAttribute(range_key=True)
+    name = UnicodeAttribute(null=False)
+    status = UnicodeAttribute(null=False)
+    start_datetime = UTCDateTimeAttribute(null=False)
+    end_datetime = UTCDateTimeAttribute(null=False)

@@ -114,5 +114,28 @@ def api_handler(
                     "statusCode": 500,
                     "body": json.dumps({"message": e.message()}),
                 }
+        elif method == "POST":
+            body = json.loads(event["body"])
+
+            try:
+                auction_usecase.register_auction(
+                    name=body.get("name"),
+                    start_datetime=body.get("start_datetime"),
+                    end_datetime=body.get("end_datetime"),
+                )
+
+                return {
+                    "statusCode": 200,
+                    "body": "OK",
+                    "headers": {"content-type": "application/json;charset=UTF-8"},
+                }
+
+            except DomainException as e:
+                return {
+                    "statusCode": 500,
+                    "body": json.dumps({"message": e.message()}),
+                    "headers": {"content-type": "application/json;charset=UTF-8"},
+                }
+
     else:
         return {"statusCode": 404}

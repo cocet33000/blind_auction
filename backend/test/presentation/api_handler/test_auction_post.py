@@ -18,7 +18,7 @@ auction_usecase_mock = Mock(spec=AuctionUseCase)
 query_usecase_mock = Mock(spec=QueryUseCase)
 
 event = {
-    "pathParameters": {"proxy": "auction"},
+    "pathParameters": {"proxy": "auctions"},
     "requestContext": {"http": {"method": "POST"}},
     "body": """{"name": "hoge", "start_datetime": "2022/01/01 12:00", "end_datetime": "2022/03/01 12:00"}""",
 }
@@ -26,14 +26,15 @@ event = {
 
 def test_正常系():
     # TODO: リクエスト内容を別ファイルで用意する
-    # response: dict = api_handler(
-    #     event,
-    #     "",
-    #     item_usecase_mock,
-    #     bid_usecase_mock,
-    #     auction_usecase_mock,
-    #     query_usecase_mock,
-    # )  # type: ignore
+    auction_usecase_mock.register_auction.return_value = "OK"
 
-    # assert response.get("statusCode") == 200
-    assert 1 == 1
+    response: dict = api_handler(
+        event,
+        "",
+        item_usecase_mock,
+        bid_usecase_mock,
+        auction_usecase_mock,
+        query_usecase_mock,
+    )  # type: ignore
+
+    assert response.get("statusCode") == 200

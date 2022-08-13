@@ -10,10 +10,12 @@ from main.domain.shared import DomainException
 from main.usecase import ItemUseCase
 from main.usecase import BidUseCase
 from main.usecase import AuctionUseCase
+from main.usecase import QueryUseCase
 
 from main.domain.item import Item
 from main.domain.item import Status
 from main.domain.value_object import Price
+
 
 items = [
     Item.reconstruct(
@@ -30,6 +32,7 @@ items = [
 item_usecase_mock = Mock(spec=ItemUseCase)
 bid_usecase_mock = Mock(spec=BidUseCase)
 auction_usecase_mock = Mock(spec=AuctionUseCase)
+query_usecase_mock = Mock(spec=QueryUseCase)
 
 event = {
     "pathParameters": {"proxy": "items"},
@@ -43,8 +46,13 @@ def test_正常系():
         "items": [item.to_dict() for item in items]
     }
     response: dict = api_handler(
-        event, "", item_usecase_mock, bid_usecase_mock, auction_usecase_mock
-    )
+        event,
+        "",
+        item_usecase_mock,
+        bid_usecase_mock,
+        auction_usecase_mock,
+        query_usecase_mock,
+    )  # type: ignore
 
     assert (
         '{"items": [{"id": "1", "status": "before_auction", "name": "hoge", "image_src": "test.png", "description": "hoge", "start_price": 100, "bid_num": 0}]}'
@@ -55,8 +63,13 @@ def test_正常系():
 def test_異常系():
     item_usecase_mock.get_items.side_effect = DomainException("NG")
     response: dict = api_handler(
-        event, "", item_usecase_mock, bid_usecase_mock, auction_usecase_mock
-    )
+        event,
+        "",
+        item_usecase_mock,
+        bid_usecase_mock,
+        auction_usecase_mock,
+        query_usecase_mock,
+    )  # type: ignore
     body = json.loads(response.get("body"))
 
     assert response.get("statusCode") == 500

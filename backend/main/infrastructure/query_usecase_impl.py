@@ -1,12 +1,12 @@
 from __future__ import annotations
-from main.domain.query import QueryRepository
-from main.domain.query.bid_history import BidHistory
+
+from main.usecase import QueryUseCase
 from . import dynamo_db
 
 
-class QueryReositoryImpl(QueryRepository):
+class QueryUsecaseImpl(QueryUseCase):
     @staticmethod
-    def get_bid_history(user_name: str) -> BidHistory:
+    def get_bid_history(user_name: str):
         bidhisory = []
         bids = [
             bid.to_model()
@@ -26,4 +26,4 @@ class QueryReositoryImpl(QueryRepository):
             }
             bidhisory.append(bidHistorySlice)
 
-        return BidHistory(user_name=user_name, bid_history=bidhisory)
+        return bidhisory

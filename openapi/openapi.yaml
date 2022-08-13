@@ -86,24 +86,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/bids_post_response"
-  /users/{userId}/bid-history:
+  /auctions:
     get:
       tags:
-        - users
-      parameters:
-        - in: path
-          name: userId
-          schema:
-            type: string
-          required: true
-      summary: ユーザーの入札一覧を返す
+        - auctions
+      summary: オークション一覧を返す
       responses:
         "200":
-          description: 入札一覧
+          description: オークション一覧
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/bids_get_response"
+                $ref: "#/components/schemas/auctions_get_response"
 
 components:
   schemas:
@@ -213,3 +207,35 @@ components:
               type: string
               format: date-time
               example: 2020-01-31T23:59:59.000+09:00
+    auctions_get_response:
+      description: オークション一覧
+      type: object
+      properties:
+        has_next:
+          type: boolean
+          example: false
+        auctions:
+          type: array
+          items:
+            $ref: "#/components/schemas/auction"
+    auction:
+      description: オークション
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: オークション001
+        status:
+          type: string
+          example: 開催中
+        start_date:
+          type: string
+          format: date-time
+          example: '2020-01-01T23:59:59.000+09:00'
+        end_date:
+          type: string
+          format: date-time
+          example: '2020-03-31T23:59:59.000+09:00'

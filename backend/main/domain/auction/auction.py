@@ -32,6 +32,15 @@ class Auction:
         self._start_datetime = start_datetime
         self._end_datetime = end_datetime
 
+    def to_dict(self) -> dict:
+        return {
+            "id": self._id,
+            "name": self._name,
+            "status": self._status.value,
+            "start_datetime": self._start_datetime,
+            "end_datetime": self._end_datetime,
+        }
+
     def name(self) -> str:
         return self._name
 

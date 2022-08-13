@@ -114,6 +114,22 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/auctions_get_response"
+    post:
+      tags:
+        - auctions
+      summary: オークション登録
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/auctions_post_request"
+      responses:
+        "200":
+          description: アイテム一覧
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/bids_post_response"
 
 components:
   schemas:
@@ -299,3 +315,17 @@ components:
           type: string
           format: 'YYYYMMDD'
           example: '2022/01/01'
+    auctions_post_request:
+      type: object
+      properties:
+        name:
+          type: string
+          example: オークションA
+        start_datetime:
+          type: string
+          format: 'YYYY/MM/DD HH:DD'
+          example: '2021/01/01 12:00'
+        end_datetime:
+          type: string
+          format: 'YYYY/MM/DD HH:DD'
+          example: '2022/01/01 12:00'

@@ -37,3 +37,19 @@ class Auction:
 
     def isOpen(self) -> bool:
         return self._status == Status.OPEN
+
+    @staticmethod
+    def reconstruct(
+        id: str,
+        name: str,
+        status: Status,
+        start_datetime: datetime,
+        end_datetime: datetime,
+    ) -> "Auction":
+        return Auction(
+            id=id,
+            name=name,
+            status=status,
+            start_datetime=start_datetime,
+            end_datetime=end_datetime,
+        )

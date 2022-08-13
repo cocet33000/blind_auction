@@ -78,5 +78,18 @@ def api_handler(
                     "body": json.dumps({"message": e.message()}),
                 }
 
+    elif path == "auctions":
+        if method == "GET":
+            try:
+                auctions = [{"id": "1", "name": "auction001"}]
+                return {
+                    "statusCode": 200,
+                    "body": json.dumps({"has_next:": False, "auctions": auctions}),
+                }
+            except DomainException as e:
+                return {
+                    "statusCode": 500,
+                    "body": json.dumps({"message": e.message()}),
+                }
     else:
         return {"statusCode": 404}

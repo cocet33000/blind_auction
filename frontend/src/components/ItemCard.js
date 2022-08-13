@@ -28,7 +28,7 @@ export default function ItemCard(props) {
 				sx={{
 					display: 'flex',
 					padding: { xs: '20px', md: '30px' },
-					maxWidth: { xs: '350px', md: '530px' },
+					maxWidth: { xs: '350px', md: '530px', lg: '800px' },
 					margin: 'auto',
 					bgcolor: 'card.background',
 					boxShadow: 3
@@ -41,7 +41,7 @@ export default function ItemCard(props) {
 					<Box sx={{ display: 'flex' }}>
 						<CardMedia
 							component="img"
-							sx={{ maxWidth: { xs: '330px', md: '500px' } }}
+							sx={{ maxWidth: { xs: '360px', md: '500px', lg: '800px' } }}
 							image={props.item.image_src}
 						/>
 					</Box>

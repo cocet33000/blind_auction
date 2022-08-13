@@ -1,6 +1,7 @@
 import ItemCard from './components/ItemCard.js';
 import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
+import Grid from '@mui/material/Grid';
+//import Stack from '@mui/material/Stack';
 //import Container from '@mui/material/Container';
 //import { Button } from '@mui/material';
 // import { styled } from '@mui/system';
@@ -10,15 +11,13 @@ import './css/slider.css';
 import './css/slider.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import CountdownTimer from './components/CountDown';
+import CountdownTimer from './components/CountdownTimer';
 
 const socket = new WebSocket('wss://wss.blind-auction.com/deb');
 
 function Home() {
 	const [items, setItems] = useState([]);
 	const updateItemBidnum = (item_id, bid_num) => {
-		console.log(item_id);
-		console.log(bid_num);
 		setItems((items) => {
 			const updateditems = items.map((item) => {
 				if (item.id === item_id) {
@@ -52,10 +51,6 @@ function Home() {
 		};
 	}, []);
 
-	// const StyledContainer = styled(Box)(({ theme }) => ({
-	// 	...theme.mixins.toolbar
-	// }));
-
 	//unix時間でカウントダウンを設定
 	const THREE_DAYS_IN_MS = 3 * 24 * 60 * 60 * 1000;
 	const NOW_IN_MS = new Date().getTime();
@@ -66,28 +61,20 @@ function Home() {
 			<Box sx={{ p: 3 }}>
 				<CountdownTimer targetDate={dateTimeAfterThreeDays} />
 			</Box>
-			<Box sx={{ p: 3 }}>
-				<Box sx={{ width: '100%' }}>
-					<Stack spacing={5}>
-						{items.map((item) => {
-							return (
-								// <div
-								// 	key={item.id}
-								// 	onClick={() => {
-								// 		setOpen(true);
-								// 		setClickedItem(item);
-								// 	}}
-								// 	sx={{
-								// 		'&.MuiButtonBase-root:hover': {
-								// 			bgcolor: 'transparent'
-								// 		}
-								// 	}}
-								// >
-								<ItemCard key={item.id} item={item} />
-							);
-						})}
-					</Stack>
-				</Box>
+			<Box sx={{ px: { xs: 0, md: 5, xl: 8 }, py: { xs: 4, md: 5, xl: 8 } }}>
+				<Grid
+					container
+					columnSpacing={{ xs: 4, md: 8, xl: 12 }}
+					rowSpacing={{ xs: 4, md: 8, xl: 12 }}
+				>
+					{items.map((item) => {
+						return (
+							<Grid item xs={12} md={6} lg={4} xl={3} key={item.id}>
+								<ItemCard item={item} />
+							</Grid>
+						);
+					})}
+				</Grid>
 			</Box>
 		</div>
 	);

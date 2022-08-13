@@ -40,10 +40,10 @@ export default function ItemDetailDialog(props) {
 					}
 				});
 			})
-			.catch((error) => {
+			.catch((response, error) => {
 				Store.addNotification({
 					title: 'ERROR',
-					message: 'ERROR occurred in Backend',
+					message: response.data,
 					type: 'danger',
 					insert: 'top',
 					container: 'top-right',
@@ -64,20 +64,26 @@ export default function ItemDetailDialog(props) {
 					open={props.isOpen}
 					onClose={props.handleClose}
 					fullWidth={true}
-					maxWidth={'md'}
+					maxWidth={'lg'}
+					scroll={'body'}
 				>
-					<DialogTitle>{props.item.name}</DialogTitle>
+					<DialogTitle sx={{ fontSize: { xs: 24, md: 36 } }}>
+						{props.item.name}
+					</DialogTitle>
 					<DialogContent>
-						<img
-							style={{ maxWidth: '100%', maxHeight: 'calc(100vh - 64px)' }}
-							src={props.item.image_src}
-						/>
+						<Box display="flex" alignItems="center" justifyContent="center">
+							<img
+								style={{ maxWidth: '100%', maxHeight: 'calc(100vh - 18px)' }}
+								//style={{ maxWidth: '100%', maxHeight: '100%' }}
+								src={props.item.image_src}
+							/>
+						</Box>
 						<Box
 							sx={{
 								height: 150
 							}}
 						>
-							<DialogContentText sx={{ fontSize: 24 }}>
+							<DialogContentText sx={{ fontSize: { xs: 24, md: 36, lg: 48 } }}>
 								{props.item.description}
 							</DialogContentText>
 						</Box>
@@ -89,6 +95,7 @@ export default function ItemDetailDialog(props) {
 						>
 							<Input
 								placeholder={'初期価格：' + props.item.start_price}
+								size="normal"
 								id="standard-adornment-amount"
 								type="number"
 								variant="standard"
@@ -98,7 +105,7 @@ export default function ItemDetailDialog(props) {
 									<InputAdornment position="start">¥</InputAdornment>
 								}
 								sx={{
-									fontSize: 20
+									fontSize: { fontSize: { xs: 24, md: 36, lg: 48 } }
 								}}
 							/>
 
@@ -107,7 +114,7 @@ export default function ItemDetailDialog(props) {
 								onClick={bid}
 								disabled={authStatus === 'authenticated' ? false : true}
 							>
-								{authStatus === 'authenticated' ? 'BID' : 'NEED SignIn'}
+								BID
 							</Button>
 						</Stack>
 					</DialogContent>

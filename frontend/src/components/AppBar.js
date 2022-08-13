@@ -4,7 +4,7 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+//import Container from '@mui/material/Container';
 //import { ThemeProvider, createTheme } from '@mui/material/styles';
 //import Snackbar from '@mui/material/Snackbar';
 //import MuiAlert from '@mui/material/Alert';
@@ -43,7 +43,7 @@ const ResponsiveAppBar = () => {
 
 	return (
 		<AppBar position="fixed" color="primary" enableColorOnDark="true">
-			<Container maxWidth="xl">
+			<Box sx={{ px: { xs: 2, md: 5 } }}>
 				<Toolbar disableGutters>
 					<Typography
 						onClick={() => {
@@ -76,7 +76,7 @@ const ResponsiveAppBar = () => {
 						<MenuButton anchor="right" />
 					</Box>
 				</Toolbar>
-			</Container>
+			</Box>
 		</AppBar>
 		// <Snackbar
 		// 	open={isNotification && authStatus === 'authenticated'}

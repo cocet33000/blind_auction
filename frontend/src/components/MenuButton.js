@@ -56,7 +56,12 @@ export default function MenuButton(props) {
 
 	const authenticatedList = [
 		{ name: 'profile', onClick: handleSignIn },
-		{ name: 'Biding Item', onClick: handleSignIn },
+		{
+			name: 'Biding Item',
+			onClick: () => {
+				navigate('/history');
+			}
+		},
 		{ name: 'sign out', onClick: signOut }
 	];
 

@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { ReactNotifications } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
+import BidHistory from './BidHistory';
 
 function App() {
 	// const StyledBox = styled(Box)(({ theme }) => ({
@@ -40,6 +41,7 @@ function App() {
 				/>
 				<Routes>
 					<Route path="/auth" element={<CognitoAuthenticator />} />
+					<Route path="/history" element={<BidHistory />} />
 					<Route path="/" element={<Home />} />
 				</Routes>
 			</Router>

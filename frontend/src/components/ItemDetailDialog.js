@@ -40,10 +40,10 @@ export default function ItemDetailDialog(props) {
 					}
 				});
 			})
-			.catch((response, error) => {
+			.catch((error) => {
 				Store.addNotification({
 					title: 'ERROR',
-					message: response.data,
+					message: 'ERROR occurred in Backend',
 					type: 'danger',
 					insert: 'top',
 					container: 'top-right',

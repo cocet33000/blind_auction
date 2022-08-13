@@ -28,6 +28,12 @@ jobs:
           pip3 install awscli
           pip install -r requirements.txt -t ./
 
+      - name: local dynamoDB create at docker
+        working-directory: backend
+        run:  |
+          docker-compose -f ./local-dynamo/docker-compose.yaml up -d 
+          sh ./local-dynamo/createTable.sh
+
       - name: run pytest
         working-directory: backend
         run: |

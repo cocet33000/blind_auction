@@ -103,7 +103,7 @@ def api_handler(
         if method == "GET":
             try:
                 auctions = [
-                    auction.to_dict() for auction in auction_usecase.get_auctions_all()
+                    # auction.to_dict() for auction in auction_usecase.get_auctions_all()
                 ]
                 return {
                     "statusCode": 200,

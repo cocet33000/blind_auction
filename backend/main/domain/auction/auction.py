@@ -37,8 +37,8 @@ class Auction:
             "id": self._id,
             "name": self._name,
             "status": self._status.value,
-            "start_datetime": self._start_datetime.strftime("%Y/%m/%d"),
-            "end_datetime": self._end_datetime.strftime("%Y/%m/%d"),
+            "start_datetime": self._start_datetime,
+            "end_datetime": self._end_datetime,
         }
 
     def name(self) -> str:

@@ -16,11 +16,16 @@ def api_handler(
         if method == "GET":
             try:
                 items = item_usecase.get_items()
-                return {"statusCode": 200, "body": json.dumps(items)}
+                return {
+                    "statusCode": 200,
+                    "body": json.dumps(items),
+                    "headers": {"content-type": "application/json;charset=UTF-8"},
+                }
             except DomainException as e:
                 return {
                     "statusCode": 500,
                     "body": json.dumps(({"message": e.message()})),
+                    "headers": {"content-type": "application/json;charset=UTF-8"},
                 }
 
         if method == "POST":
@@ -36,11 +41,13 @@ def api_handler(
                 return {
                     "statusCode": 200,
                     "body": "OK",
+                    "headers": {"content-type": "application/json;charset=UTF-8"},
                 }
             except DomainException as e:
                 return {
                     "statusCode": 500,
                     "body": json.dumps({"message": e.message()}),
+                    "headers": {"content-type": "application/json;charset=UTF-8"},
                 }
 
     elif path == "bids":
@@ -57,12 +64,14 @@ def api_handler(
                 return {
                     "statusCode": 200,
                     "body": "OK",
+                    "headers": {"content-type": "application/json;charset=UTF-8"},
                 }
 
             except DomainException as e:
                 return {
                     "statusCode": 500,
                     "body": json.dumps({"message": e.message()}),
+                    "headers": {"content-type": "application/json;charset=UTF-8"},
                 }
         elif method == "GET":
             user_name = event["queryStringParameters"].get("user_name")
@@ -71,11 +80,13 @@ def api_handler(
                 return {
                     "statusCode": 200,
                     "body": json.dumps(bids_by_user),
+                    "headers": {"content-type": "application/json;charset=UTF-8"},
                 }
             except DomainException as e:
                 return {
                     "statusCode": 500,
                     "body": json.dumps({"message": e.message()}),
+                    "headers": {"content-type": "application/json;charset=UTF-8"},
                 }
 
     else:

@@ -4,7 +4,6 @@ import Stack from '@mui/material/Stack';
 //import Container from '@mui/material/Container';
 //import { Button } from '@mui/material';
 // import { styled } from '@mui/system';
-import ItemDetailDialog from './components/ItemDetailDialog';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './css/slider.css';
@@ -17,8 +16,6 @@ const socket = new WebSocket('wss://wss.blind-auction.com/deb');
 
 function Home() {
 	const [items, setItems] = useState([]);
-	const [clickedItem, setClickedItem] = useState('');
-	const [isOpen, setOpen] = useState(false);
 	const updateItemBidnum = (item_id, bid_num) => {
 		console.log(item_id);
 		console.log(bid_num);
@@ -36,7 +33,6 @@ function Home() {
 		});
 	};
 	useEffect(() => {
-		// Update the document title using the browser API
 		axios
 			.get('https://api.blind-auction.com/dev/items')
 			.then((response) => {
@@ -70,37 +66,24 @@ function Home() {
 			<Box sx={{ p: 3 }}>
 				<CountdownTimer targetDate={dateTimeAfterThreeDays} />
 			</Box>
-			<ItemDetailDialog
-				isOpen={isOpen}
-				handleClose={() => {
-					setOpen(false);
-				}}
-				item={clickedItem}
-			/>
 			<Box sx={{ p: 3 }}>
 				<Box sx={{ width: '100%' }}>
 					<Stack spacing={5}>
 						{items.map((item) => {
 							return (
-								<div
-									key={item.id}
-									onClick={() => {
-										setOpen(true);
-										setClickedItem(item);
-									}}
-									sx={{
-										'&.MuiButtonBase-root:hover': {
-											bgcolor: 'transparent'
-										}
-									}}
-								>
-									<ItemCard
-										id={item.id}
-										name={item.name}
-										image_src={item.image_src}
-										bid_num={item.bid_num}
-									/>
-								</div>
+								// <div
+								// 	key={item.id}
+								// 	onClick={() => {
+								// 		setOpen(true);
+								// 		setClickedItem(item);
+								// 	}}
+								// 	sx={{
+								// 		'&.MuiButtonBase-root:hover': {
+								// 			bgcolor: 'transparent'
+								// 		}
+								// 	}}
+								// >
+								<ItemCard key={item.id} item={item} />
 							);
 						})}
 					</Stack>

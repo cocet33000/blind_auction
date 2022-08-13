@@ -1,0 +1,72 @@
+{
+    "AttributeDefinitions": [
+        {
+            "AttributeName": "id",
+            "AttributeType": "S"
+        },
+        {
+            "AttributeName": "range_key",
+            "AttributeType": "S"
+        },
+        {
+            "AttributeName": "name",
+            "AttributeType": "S"
+        },
+        {
+            "AttributeName": "bided_user_name",
+            "AttributeType": "S"
+        }
+    ],
+    "KeySchema": [
+        {
+            "AttributeName": "id",
+            "KeyType": "HASH"
+        },
+        {
+            "AttributeName": "range_key",
+            "KeyType": "RANGE"
+        }
+    ],
+    "LocalSecondaryIndexes": [
+        {
+            "IndexName": "name-index",
+            "KeySchema": [
+                {
+                    "AttributeName": "id",
+                    "KeyType": "HASH"
+                },
+                {
+                    "AttributeName": "name",
+                    "KeyType": "RANGE"
+                }
+            ],
+            "Projection": {
+                "ProjectionType": "ALL"
+            }
+        }
+    ],
+    "GlobalSecondaryIndexes": [
+        {
+            "IndexName": "bidsByUsername-GSI",
+            "KeySchema": [
+                {
+                    "AttributeName": "bided_user_name",
+                    "KeyType": "HASH"
+                },
+                {
+                    "AttributeName": "range_key",
+                    "KeyType": "RANGE"
+                }
+            ],
+            "Projection": {
+                "ProjectionType": "ALL"
+            },
+            "ProvisionedThroughput": {
+                "ReadCapacityUnits": 1,
+                "WriteCapacityUnits": 1
+            }
+        }
+    ],
+    "TableName": "amtest-blind-auction-items",
+    "BillingMode": "PAY_PER_REQUEST"
+}

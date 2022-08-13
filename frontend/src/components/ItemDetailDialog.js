@@ -39,7 +39,12 @@ export default function ItemDetailDialog(props) {
 	return (
 		<main>
 			{props.item ? (
-				<Dialog open={props.isOpen} onClose={props.handleClose}>
+				<Dialog
+					open={props.isOpen}
+					onClose={props.handleClose}
+					fullWidth={true}
+					maxWidth={'md'}
+				>
 					<DialogTitle>{props.item.name}</DialogTitle>
 					<DialogContent>
 						<img

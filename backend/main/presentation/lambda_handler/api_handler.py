@@ -3,6 +3,7 @@ import json
 from main.usecase import ItemUseCase
 from main.usecase import BidUseCase
 from main.usecase import AuctionUseCase
+from main.usecase import QueryUseCase
 
 from main.domain.shared import DomainException
 
@@ -13,6 +14,7 @@ def api_handler(
     item_usecase: ItemUseCase,
     bid_usecase: BidUseCase,
     auction_usecase: AuctionUseCase,
+    query_usecase: QueryUseCase,
 ):
     path = event["pathParameters"]["proxy"]
     method = event["requestContext"]["http"]["method"]

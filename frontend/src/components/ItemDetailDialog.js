@@ -10,6 +10,7 @@ import { Stack, Box } from '@mui/material';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import axios from 'axios';
 import { PropTypes } from 'prop-types';
+import { Store } from 'react-notifications-component';
 
 export default function ItemDetailDialog(props) {
 	const [price, setPrice] = React.useState('');
@@ -28,8 +29,28 @@ export default function ItemDetailDialog(props) {
 			.post('https://api.blind-auction.com/dev/bids', data)
 			.then((response) => {
 				console.log(response.data);
+				Store.addNotification({
+					title: 'SUCCESS',
+					message: 'Your bid has completed successfully',
+					type: 'success',
+					insert: 'top',
+					container: 'top-right',
+					dismiss: {
+						duration: 3000
+					}
+				});
 			})
 			.catch((error) => {
+				Store.addNotification({
+					title: 'ERROR',
+					message: 'ERROR occurred in Backend',
+					type: 'danger',
+					insert: 'top',
+					container: 'top-right',
+					dismiss: {
+						duration: 3000
+					}
+				});
 				console.log('ERROR!! occurred in Backend.', error);
 			});
 
@@ -39,7 +60,12 @@ export default function ItemDetailDialog(props) {
 	return (
 		<main>
 			{props.item ? (
-				<Dialog open={props.isOpen} onClose={props.handleClose}>
+				<Dialog
+					open={props.isOpen}
+					onClose={props.handleClose}
+					fullWidth={true}
+					maxWidth={'md'}
+				>
 					<DialogTitle>{props.item.name}</DialogTitle>
 					<DialogContent>
 						<img
@@ -71,6 +97,9 @@ export default function ItemDetailDialog(props) {
 								startAdornment={
 									<InputAdornment position="start">¥</InputAdornment>
 								}
+								sx={{
+									fontSize: 20
+								}}
 							/>
 
 							<Button

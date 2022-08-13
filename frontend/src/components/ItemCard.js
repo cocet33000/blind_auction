@@ -4,11 +4,27 @@ import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
+import ItemDetailDialog from './ItemDetailDialog';
+import { useState } from 'react';
 
 export default function ItemCard(props) {
+	const [clickedItem, setClickedItem] = useState('');
+	const [isOpen, setOpen] = useState(false);
+
 	return (
 		<Box>
+			<ItemDetailDialog
+				isOpen={isOpen}
+				handleClose={() => {
+					setOpen(false);
+				}}
+				item={clickedItem}
+			/>
 			<Card
+				onClick={() => {
+					setOpen(true);
+					setClickedItem(props.item);
+				}}
 				sx={{
 					display: 'flex',
 					padding: { xs: '20px', md: '30px' },
@@ -20,13 +36,13 @@ export default function ItemCard(props) {
 			>
 				<Stack spacing={3}>
 					<Typography sx={{ fontSize: { xs: 25, md: 30 }, mb: 0 }}>
-						{props.name}
+						{props.item.name}
 					</Typography>
 					<Box sx={{ display: 'flex' }}>
 						<CardMedia
 							component="img"
 							sx={{ maxWidth: { xs: '330px', md: '500px' } }}
-							image={props.image_src}
+							image={props.item.image_src}
 						/>
 					</Box>
 					<Box
@@ -40,7 +56,7 @@ export default function ItemCard(props) {
 					>
 						<Box sx={{ height: '35px' }}>
 							<Typography sx={{ fontSize: { xs: 15, md: 20 } }}>
-								{props.bid_num}
+								{props.item.bid_num}
 							</Typography>
 						</Box>
 					</Box>
@@ -51,7 +67,7 @@ export default function ItemCard(props) {
 }
 
 ItemCard.propTypes = {
-	name: PropTypes.string.isRequired,
-	image_src: PropTypes.string.isRequired,
-	bid_num: PropTypes.number.isRequired
+	item: PropTypes.any.isRequired,
+	bid_num: PropTypes.number.isRequired,
+	onClick: PropTypes.any
 };

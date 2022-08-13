@@ -70,6 +70,22 @@ paths:
               schema:
                 $ref: "#/components/schemas/bids_post_response"
   /bids:
+    get:
+      tags:
+        - bids
+      parameters:
+        - in: query
+          name: user_name
+          schema:
+            type: string
+      summary: ユーザーの入札一覧を返す
+      responses:
+        "200":
+          description: 入札一覧
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/bid_historys"
     post:
       tags:
         - bids
@@ -239,3 +255,47 @@ components:
           type: string
           format: date-time
           example: '2020-03-31T23:59:59.000+09:00'
+    bid_historys:
+      description: 入札履歴一覧
+      type: object
+      properties:
+        "bid_historys":
+          type: array
+          items:
+            $ref: "#/components/schemas/bid_history"
+    bid_history:
+      description: 入札履歴
+      type: object
+      properties:
+        item:
+          $ref: "#/components/schemas/bid_history_item"
+        bid:
+          $ref: "#/components/schemas/bid_history_bid"
+    bid_history_item:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "38a48bb7-c627-4dcb-afc6-974001b3391f"
+        name:
+          type: string
+          example: 商品3
+        image_src:
+          type: string
+          example: http://{image_src}
+        description:
+          type: string
+          example: 良い商品です
+        start_price:
+          type: integer
+          example: 100
+    bid_history_bid:
+      type: object
+      properties:
+        price:
+          type: integer
+          example: 150
+        bided_at:
+          type: string
+          format: 'YYYYMMDD'
+          example: '2022/01/01'

@@ -21,7 +21,7 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: '3.9'
-          
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -43,6 +43,11 @@ jobs:
 
       - name: run pytest
         working-directory: backend
+        env:
+           MODE: "local"
+           AWS_DYNAMO_DB_ITEMS_TABLE_NAME : "amtest-blind-auction-items"
+           AWS_DYNAMO_DB_EVENTS_TABLE_NAME: "blind_auction_events"
+           AWS_REGION: "ap-northeast-1"
         run: |
           pip install pytest
           pip install pytest-cov

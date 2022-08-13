@@ -1,4 +1,5 @@
 from __future__ import annotations
+from datetime import datetime
 import json
 
 from main.presentation.lambda_handler import api_handler
@@ -26,7 +27,18 @@ event = {
 
 def test_正常系():
     # TODO: リクエスト内容を別ファイルで用意する
-    bid_usecase_mock.get_bids_by_user.return_value = "ok"
+    query_usecase_mock.get_bid_history.return_value = [
+        {
+            "item": {
+                "id": "1",
+                "name": "test",
+                "image_src": "test",
+                "description": "test",
+                "start_price": 100,
+            },
+            "bid": {"price": 100, "bided_at": datetime.now()},
+        },
+    ]
     response: dict = api_handler(
         event,
         "",
@@ -36,20 +48,4 @@ def test_正常系():
         query_usecase_mock,
     )  # type: ignore
 
-    assert response.get("statusCode") == 200
-
-
-def test_異常系():
-    bid_usecase_mock.get_bids_by_user.side_effect = DomainException("NG")
-    response: dict = api_handler(
-        event,
-        "",
-        item_usecase_mock,
-        bid_usecase_mock,
-        auction_usecase_mock,
-        query_usecase_mock,
-    )  # type: ignore
-    body = json.loads(response.get("body"))
-
-    assert response.get("statusCode") == 500
-    assert body.get("message") == "NG"
+    assert response["statusCode"] == 200

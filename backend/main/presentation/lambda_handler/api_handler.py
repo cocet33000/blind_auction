@@ -7,6 +7,8 @@ from main.usecase import QueryUseCase
 
 from main.domain.shared import DomainException
 
+from .serialize import bids_history_serialize
+
 
 def api_handler(
     event: dict,
@@ -83,10 +85,11 @@ def api_handler(
         elif method == "GET":
             user_name = event["queryStringParameters"].get("user_name")
             try:
-                bids_by_user = bid_usecase.get_bids_by_user(user_name=user_name)
+                bids_by_user = query_usecase.get_bid_history(user_name=user_name)
+
                 return {
                     "statusCode": 200,
-                    "body": json.dumps(bids_by_user),
+                    "body": json.dumps(bids_history_serialize(bids_by_user)),
                     "headers": {"content-type": "application/json;charset=UTF-8"},
                 }
             except DomainException as e:

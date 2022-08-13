@@ -10,3 +10,14 @@ def parser_bid_event(event_details: dict):
     price = event_details["price"]["N"]
 
     return item_id, user_name, price
+
+
+def bids_by_user_serialize(bids_by_user: list):
+    return [
+        {
+            "item_id": bid["item_id"],
+            "user_name": bid["user_name"],
+            "price": bid["price"],
+        }
+        for bid in bids_by_user
+    ]

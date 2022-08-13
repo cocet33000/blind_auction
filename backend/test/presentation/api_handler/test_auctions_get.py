@@ -1,6 +1,7 @@
 from __future__ import annotations
 import json
 from datetime import datetime
+from main.domain import auction
 
 from main.presentation.lambda_handler import api_handler
 
@@ -35,9 +36,6 @@ event = {
 
 def test_正常系():
     # TODO: リクエスト内容を別ファイルで用意する
+    auction_usecase_mock.get_auctions_all.return_value = auctions
     response: dict = api_handler(event, "", item_usecase_mock, bid_usecase_mock, auction_usecase_mock)  # type: ignore
     assert response.get("statusCode") == 200
-    assert (
-        response.get("body")
-        == '{"has_next:": false, "auctions": [{"id": "1", "name": "auction001"}]}'
-    )

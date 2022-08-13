@@ -86,7 +86,9 @@ def api_handler(
     elif path == "auctions":
         if method == "GET":
             try:
-                auctions = [{"id": "1", "name": "auction001"}]
+                auctions = [
+                    auction.to_dict() for auction in auction_usecase.get_auctions_all()
+                ]
                 return {
                     "statusCode": 200,
                     "body": json.dumps({"has_next:": False, "auctions": auctions}),

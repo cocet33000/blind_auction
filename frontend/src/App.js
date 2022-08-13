@@ -6,8 +6,9 @@ import CognitoAuthenticator from './components/CognitoAuthenticator.js';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // import { styled } from '@mui/system';
 import Box from '@mui/material/Box';
-// import { Container } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ReactNotifications } from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css';
 
 function App() {
 	// const StyledBox = styled(Box)(({ theme }) => ({
@@ -27,6 +28,7 @@ function App() {
 	});
 	return (
 		<ThemeProvider theme={theme}>
+			<ReactNotifications />
 			<Router>
 				<AppBar />
 				{/* appbarと重なる為、余白用のBoxをおく */}

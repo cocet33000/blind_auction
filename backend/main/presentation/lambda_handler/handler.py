@@ -12,10 +12,12 @@ from main.infrastructure import BidRepositoryImpl
 from main.infrastructure import ItemRepositoryImpl
 from main.infrastructure import AuctionRepositoryImpl
 from main.infrastructure import EventPublisherImpl
+from main.infrastructure import QueryUsecaseImpl
 
-from main.usecase import ItemUseCase
+from main.usecase import ItemUseCase, query_usecase
 from main.usecase import BidUseCase
 from main.usecase import AuctionUseCase
+from main.usecase import QueryUseCase
 
 from .api_handler import api_handler
 from .stream_handler import stream_handler
@@ -33,6 +35,7 @@ class DIModule(Module):
         binder.bind(ItemRepository, to=ItemRepositoryImpl)
         binder.bind(AuctionRepository, to=AuctionRepositoryImpl)
         binder.bind(EventPublisher, to=EventPublisherImpl)
+        binder.bind(QueryUseCase, to=QueryUsecaseImpl)
 
 
 def lambda_handler(event: dict, context):
@@ -41,11 +44,14 @@ def lambda_handler(event: dict, context):
     bid_usecase = injector.get(BidUseCase)
     auction_usecase = injector.get(AuctionUseCase)
     bid_event_subscriber = injector.get(BidEventSubscriber)
+    query_usecase = injector.get(QueryUseCase)
 
     logger.debug(json.dumps(event))
 
     if "pathParameters" in event:
-        return api_handler(event, context, item_usecase, bid_usecase, auction_usecase)
+        return api_handler(
+            event, context, item_usecase, bid_usecase, auction_usecase, query_usecase
+        )
 
     if "Records" in event:
         return stream_handler(

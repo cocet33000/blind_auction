@@ -2,12 +2,17 @@ import json
 
 from main.usecase import ItemUseCase
 from main.usecase import BidUseCase
+from main.usecase import AuctionUseCase
 
 from main.domain.shared import DomainException
 
 
 def api_handler(
-    event: dict, context, item_usecase: ItemUseCase, bid_usecase: BidUseCase
+    event: dict,
+    context,
+    item_usecase: ItemUseCase,
+    bid_usecase: BidUseCase,
+    auction_usecase: AuctionUseCase,
 ):
     path = event["pathParameters"]["proxy"]
     method = event["requestContext"]["http"]["method"]

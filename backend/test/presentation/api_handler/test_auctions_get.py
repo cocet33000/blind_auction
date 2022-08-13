@@ -11,9 +11,11 @@ from main.domain.auction import Status
 
 from main.usecase import ItemUseCase
 from main.usecase import BidUseCase
+from main.usecase import AuctionUseCase
 
 item_usecase_mock = Mock(spec=ItemUseCase)
 bid_usecase_mock = Mock(spec=BidUseCase)
+auction_usecase_mock = Mock(spec=AuctionUseCase)
 
 auctions = [
     Auction.reconstruct(
@@ -33,7 +35,7 @@ event = {
 
 def test_正常系():
     # TODO: リクエスト内容を別ファイルで用意する
-    response: dict = api_handler(event, "", item_usecase_mock, bid_usecase_mock)  # type: ignore
+    response: dict = api_handler(event, "", item_usecase_mock, bid_usecase_mock, auction_usecase_mock)  # type: ignore
     assert response.get("statusCode") == 200
     assert (
         response.get("body")

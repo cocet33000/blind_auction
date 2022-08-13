@@ -1,0 +1,11 @@
+version: "3.0"
+services:
+  openapi-generator-server:
+    image: openapitools/openapi-generator-cli
+    volumes:
+      - type: bind
+        source: ./
+        target: /local
+    command: generate -g python-flask -i local/openapi.yaml -o /local/generated/
+
+

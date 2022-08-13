@@ -31,31 +31,31 @@ const DateTimeDisplay = ({ value, type }) => {
 	return (
 		<Paper
 			sx={{
-				width: 100,
-				height: 150,
+				width: { xs: 60, md: 100 },
+				height: { xs: 75, md: 150 },
 				textAlign: 'center'
 			}}
 			elevation={0}
 		>
 			<Stack spacing={0}>
 				<Typography
-					variant="h1"
 					component="div"
 					gutterBottom
 					sx={{
 						pb: 0,
-						mb: 0
+						mb: 0,
+						fontSize: { xs: 54, md: 96 }
 					}}
 				>
 					{value}
 				</Typography>
 				<Typography
-					variant="h6"
 					component="div"
 					gutterBottom
 					sx={{
 						pt: -1,
-						mt: 0
+						mt: 0,
+						fontSize: { xs: 20, md: 24 }
 					}}
 				>
 					{unit}

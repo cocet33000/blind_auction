@@ -32,8 +32,33 @@ class Auction:
         self._start_datetime = start_datetime
         self._end_datetime = end_datetime
 
+    def to_dict(self) -> dict:
+        return {
+            "id": self._id,
+            "name": self._name,
+            "status": self._status.value,
+            "start_datetime": self._start_datetime.strftime("%Y/%m/%d"),
+            "end_datetime": self._end_datetime.strftime("%Y/%m/%d"),
+        }
+
     def name(self) -> str:
         return self._name
 
     def isOpen(self) -> bool:
         return self._status == Status.OPEN
+
+    @staticmethod
+    def reconstruct(
+        id: str,
+        name: str,
+        status: Status,
+        start_datetime: datetime,
+        end_datetime: datetime,
+    ) -> "Auction":
+        return Auction(
+            id=id,
+            name=name,
+            status=status,
+            start_datetime=start_datetime,
+            end_datetime=end_datetime,
+        )

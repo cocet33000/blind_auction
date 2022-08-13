@@ -2,12 +2,17 @@ import json
 
 from main.usecase import ItemUseCase
 from main.usecase import BidUseCase
+from main.usecase import AuctionUseCase
 
 from main.domain.shared import DomainException
 
 
 def api_handler(
-    event: dict, context, item_usecase: ItemUseCase, bid_usecase: BidUseCase
+    event: dict,
+    context,
+    item_usecase: ItemUseCase,
+    bid_usecase: BidUseCase,
+    auction_usecase: AuctionUseCase,
 ):
     path = event["pathParameters"]["proxy"]
     method = event["requestContext"]["http"]["method"]
@@ -78,5 +83,20 @@ def api_handler(
                     "body": json.dumps({"message": e.message()}),
                 }
 
+    elif path == "auctions":
+        if method == "GET":
+            try:
+                auctions = [
+                    auction.to_dict() for auction in auction_usecase.get_auctions_all()
+                ]
+                return {
+                    "statusCode": 200,
+                    "body": json.dumps({"has_next:": False, "auctions": auctions}),
+                }
+            except DomainException as e:
+                return {
+                    "statusCode": 500,
+                    "body": json.dumps({"message": e.message()}),
+                }
     else:
         return {"statusCode": 404}

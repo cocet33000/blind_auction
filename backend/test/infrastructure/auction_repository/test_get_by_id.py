@@ -1,3 +1,5 @@
+import pytest
+
 import uuid
 from datetime import datetime
 
@@ -22,3 +24,8 @@ def test_正常系():
     auction = AuctionRepositoryImpl.getById(auction_id)
 
     assert auction.to_dict()["id"] == auction_id
+
+
+def test_存在しないID指定():
+    with pytest.raises(Exception):
+        AuctionRepositoryImpl.getById("not_exist_id")

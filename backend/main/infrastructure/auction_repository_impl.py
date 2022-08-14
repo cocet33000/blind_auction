@@ -30,3 +30,7 @@ class AuctionRepositoryImpl(AuctionRepository):
             auction.to_model()
             for auction in dynamo_db.Auction.query(hash_key="auction")
         ]
+
+    @staticmethod
+    def getById(id):
+        return dynamo_db.Auction.get(hash_key="auction", range_key=id).to_model()

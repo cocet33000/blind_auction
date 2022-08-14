@@ -7,6 +7,7 @@ from pynamodb.attributes import NumberAttribute
 from pynamodb.attributes import MapAttribute
 from pynamodb.indexes import LocalSecondaryIndex, GlobalSecondaryIndex, AllProjection
 from pynamodb.attributes import UTCDateTimeAttribute
+from main.domain import auction
 
 from main.domain.bid import Bid as DomainModelBid
 from main.domain.item import Item as DomainModelItem
@@ -79,6 +80,7 @@ class Item(Model):
     description = UnicodeAttribute(null=False)
     start_price = NumberAttribute(null=False)
     bid_num = NumberAttribute(null=False)
+    auction_id = UnicodeAttribute(null=False)
     getAllItemsIndex = GetAllItemsIndex()
 
     def to_model(self) -> DomainModelItem:
@@ -90,6 +92,7 @@ class Item(Model):
             description=self.description,
             start_price=Price(self.start_price),
             bid_num=int(self.bid_num),
+            auction_id=self.auction_id,
         )
 
 

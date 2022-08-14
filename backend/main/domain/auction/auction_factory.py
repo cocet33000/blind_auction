@@ -8,7 +8,7 @@ class AuctionFactory:
     @staticmethod
     def create(name: str, start_datetime, end_datetime) -> Auction:
         def getNewId() -> str:
-            return "bid" + str(uuid.uuid4())
+            return "auction" + str(uuid.uuid4())
 
         new_id = getNewId()
         return Auction(

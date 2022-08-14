@@ -20,7 +20,7 @@ query_usecase_mock = Mock(spec=QueryUseCase)
 event = {
     "pathParameters": {"proxy": "items"},
     "requestContext": {"http": {"method": "POST"}},
-    "body": """{"name": "hoge", "image_src": "test.png", "description": "hoge", "start_price": 100}""",
+    "body": """{"name": "hoge", "image_src": "test.png", "description": "hoge", "start_price": 100, "auction_id": "auction1234"}""",
 }
 
 
@@ -49,7 +49,5 @@ def test_異常系():
         auction_usecase_mock,
         query_usecase_mock,
     )  # type: ignore
-    body = json.loads(response.get("body"))
 
     assert response.get("statusCode") == 500
-    assert body.get("message") == "NG"

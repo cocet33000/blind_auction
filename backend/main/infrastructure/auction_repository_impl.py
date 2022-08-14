@@ -13,10 +13,10 @@ class AuctionRepositoryImpl(AuctionRepository):
         _auction = auction.to_dict()
 
         new_auction = dynamo_db.Auction(hash_key="auction", range_key=_auction["id"])
-        new_auction.name = _auction["name"]
-        new_auction.status = _auction["status"]
-        new_auction.start_datetime = _auction["start_datetime"]
-        new_auction.end_datetime = _auction["end_datetime"]
+        new_auction.auction_name = _auction["name"]
+        new_auction.auction_status = _auction["status"]
+        new_auction.auction_start_datetime = _auction["start_datetime"]
+        new_auction.auction_end_datetime = _auction["end_datetime"]
         new_auction.save()
 
         try:

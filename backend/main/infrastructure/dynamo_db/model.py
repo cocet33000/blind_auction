@@ -116,16 +116,16 @@ class Auction(Model):
 
     id = UnicodeAttribute(hash_key=True)
     range_key = UnicodeAttribute(range_key=True)
-    name = UnicodeAttribute(null=False)
-    status = UnicodeAttribute(null=False)
-    start_datetime = UTCDateTimeAttribute(null=False)
-    end_datetime = UTCDateTimeAttribute(null=False)
+    auction_name = UnicodeAttribute(null=False)
+    auction_status = UnicodeAttribute(null=False)
+    auction_start_datetime = UTCDateTimeAttribute(null=False)
+    auction_end_datetime = UTCDateTimeAttribute(null=False)
 
     def to_model(self) -> DomainModelAuction:
         return DomainModelAuction.reconstruct(
             id=self.range_key,
-            name=self.name,
-            status=DomainModelAuctionStatus.get_status(self.status),  # type: ignore
-            start_datetime=self.start_datetime,
-            end_datetime=self.end_datetime,
+            name=self.auction_name,
+            status=DomainModelAuctionStatus.get_status(self.auction_status),  # type: ignore
+            start_datetime=self.auction_start_datetime,
+            end_datetime=self.auction_end_datetime,
         )

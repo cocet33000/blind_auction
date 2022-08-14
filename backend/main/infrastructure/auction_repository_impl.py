@@ -12,7 +12,7 @@ class AuctionRepositoryImpl(AuctionRepository):
     def save(auction) -> dict:
         _auction = auction.to_dict()
 
-        new_auction = dynamo_db.Auction(hash_key=_auction["id"], range_key="auction")
+        new_auction = dynamo_db.Auction(hash_key="auction", range_key=_auction["id"])
         new_auction.name = _auction["name"]
         new_auction.status = _auction["status"]
         new_auction.start_datetime = _auction["start_datetime"]
@@ -26,4 +26,7 @@ class AuctionRepositoryImpl(AuctionRepository):
 
     @staticmethod
     def getAll():
-        return []
+        return [
+            auction.to_model()
+            for auction in dynamo_db.Auction.query(hash_key="auction")
+        ]

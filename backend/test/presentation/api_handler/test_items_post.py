@@ -20,7 +20,7 @@ query_usecase_mock = Mock(spec=QueryUseCase)
 event = {
     "pathParameters": {"proxy": "items"},
     "requestContext": {"http": {"method": "POST"}},
-    "body": """{"name": "hoge", "image_src": "test.png", "description": "hoge", "start_price": 100}""",
+    "body": """{"name": "hoge", "image_src": "test.png", "description": "hoge", "start_price": 100, "auction_id": "auction1234"}""",
 }
 
 

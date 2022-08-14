@@ -14,7 +14,7 @@ from main.infrastructure import AuctionRepositoryImpl
 from main.infrastructure import EventPublisherImpl
 from main.infrastructure import QueryUsecaseImpl
 
-from main.usecase import ItemUseCase, query_usecase
+from main.usecase import ItemUseCase
 from main.usecase import BidUseCase
 from main.usecase import AuctionUseCase
 from main.usecase import QueryUseCase

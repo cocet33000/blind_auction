@@ -20,8 +20,7 @@ def bad_request_response(e):
         "body": json.dumps(e.message()),
         "headers": {"content-type": "application/json;charset=UTF-8"},
     }
-
-
+    
 def bad_request_response(e):
     return {
         "statusCode": 400,

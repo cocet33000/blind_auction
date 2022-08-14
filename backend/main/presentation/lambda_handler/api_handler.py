@@ -58,7 +58,7 @@ def api_handler(
                     image_src=body.get("image_src"),
                     description=body.get("description"),
                     start_price=int(body.get("start_price")),
-                    auction_id=body.get("aucion_id"),
+                    auction_id=body.get("auction_id"),
                 )
 
                 return {

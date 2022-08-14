@@ -1,4 +1,5 @@
 import pytest
+import uuid
 from mock import Mock
 
 from injector import Injector, Module, singleton
@@ -19,6 +20,7 @@ item_repository_mock.getByItemId.return_value = Item.reconstruct(
     description="fuga",
     start_price=Price(START_PRICE),
     bid_num=0,
+    auction_id=uuid.uuid4(),
 )
 
 

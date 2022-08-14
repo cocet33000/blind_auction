@@ -14,6 +14,7 @@ def test_正常系():
         description="hoge",
         start_price=Price(100),
         bid_num=0,
+        auction_id=str(uuid.uuid4()),
     )
     res = ItemRepositoryImpl.save(item)
     assert res.get("is_error") is False

@@ -1,5 +1,6 @@
 import json
 from datetime import datetime
+from main.domain import auction
 
 from main.usecase import ItemUseCase
 from main.usecase import BidUseCase
@@ -64,6 +65,7 @@ def api_handler(
                     image_src=body.get("image_src"),
                     description=body.get("description"),
                     start_price=int(body.get("start_price")),
+                    auction_id=body.get("aucion_id"),
                 )
 
                 return {

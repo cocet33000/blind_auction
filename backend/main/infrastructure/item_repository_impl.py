@@ -19,6 +19,7 @@ class ItemRepositoryImpl(ItemRepository):
         new_item.description = item.description
         new_item.start_price = item.start_price
         new_item.bid_num = item.bid_num
+        new_item.auction_id = item.auction_id
         new_item.save()
 
         try:
@@ -33,7 +34,8 @@ class ItemRepositoryImpl(ItemRepository):
         # 仮実装
         item = dynamo_db.Item.get(hash_key=item_id, range_key="item")
         aws_apigw_websocket.send_comment_Bid_num_increase(
-            item_id=item_id, bid_num=int(item.to_model().bid_num)+1)
+            item_id=item_id, bid_num=int(item.to_model().bid_num) + 1
+        )
         return item.update(actions=[dynamo_db.Item.bid_num.add(1)])
 
     @staticmethod

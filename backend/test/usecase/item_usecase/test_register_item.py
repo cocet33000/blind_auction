@@ -25,8 +25,11 @@ def test_正常系():
     image_src = "http://hoge.jpg"
     description = "hogeです"
     start_price = 10000
+    auction_id = "hoge"
 
-    response = item_usecase.register_item(name, image_src, description, start_price)
+    response = item_usecase.register_item(
+        name, image_src, description, start_price, auction_id
+    )
     assert not response["is_error"]
 
 
@@ -38,8 +41,9 @@ def test_価格が数値でない場合はエラー():
     image_src = "http://hoge.jpg"
     description = "hogeです"
     start_price = "hoge"
+    auction_id = "hoge"
 
     with pytest.raises(ValueError):
         item_usecase.register_item(
-            name, image_src, description, start_price  # type: ignore
+            name, image_src, description, start_price, auction_id  # type: ignore
         )

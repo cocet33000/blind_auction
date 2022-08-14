@@ -17,6 +17,7 @@ def test_正常系():
         description="hoge",
         start_price=Price(100),
         bid_num=0,
+        auction_id=str(uuid.uuid4()),
     )
     ItemRepositoryImpl.save(item)
 

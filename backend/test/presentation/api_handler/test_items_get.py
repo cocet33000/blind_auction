@@ -1,5 +1,6 @@
 from __future__ import annotations
 import json
+import uuid
 
 from main.presentation.lambda_handler import api_handler
 
@@ -26,6 +27,7 @@ items = [
         description="hoge",
         start_price=Price(100),
         bid_num=0,
+        auction_id="uuid",
     )
 ]
 
@@ -55,7 +57,7 @@ def test_正常系():
     )  # type: ignore
 
     assert (
-        '{"items": [{"id": "1", "status": "before_auction", "name": "hoge", "image_src": "test.png", "description": "hoge", "start_price": 100, "bid_num": 0}]}'
+        '{"items": [{"id": "1", "status": "before_auction", "name": "hoge", "image_src": "test.png", "description": "hoge", "start_price": 100, "bid_num": 0, "auction_id": "uuid"}]}'
         == response.get("body")
     )
 

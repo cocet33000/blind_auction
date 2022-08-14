@@ -14,13 +14,19 @@ class ItemUseCase:
         return {"items": [item.to_dict() for item in items]}
 
     def register_item(
-        self, name: str, image_src: str, description: str, start_price: int
+        self,
+        name: str,
+        image_src: str,
+        description: str,
+        start_price: int,
+        auction_id: str,
     ) -> dict:
         item = ItemFactory.create(
             name=name,
             image_src=image_src,
             description=description,
             start_price=start_price,
+            auction_id=auction_id,
         )
 
         return self.ItemRepository.save(item)

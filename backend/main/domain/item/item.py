@@ -30,6 +30,7 @@ class Item:
         image_src: str,
         description: str,
         start_price: Price,
+        auction_id: str,
         bid_num: int,
     ):
         # createtという関数以外からの呼び出し時はエラー
@@ -42,6 +43,7 @@ class Item:
         self.status = status
         self.image_src = image_src
         self.description = description
+        self.auction_id = auction_id
 
         if not isinstance(start_price, Price):
             raise TypeError
@@ -58,6 +60,7 @@ class Item:
             "description": self.description,
             "start_price": int(self.start_price),
             "bid_num": self.bid_num,
+            "auction_id": self.auction_id,
         }
 
     @staticmethod
@@ -69,6 +72,7 @@ class Item:
         description: str,
         start_price: Price,
         bid_num: int,
+        auction_id: str,
     ) -> "Item":
         return Item(
             id=id,
@@ -78,4 +82,5 @@ class Item:
             description=description,
             start_price=start_price,
             bid_num=bid_num,
+            auction_id=auction_id,
         )

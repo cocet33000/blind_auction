@@ -1,4 +1,5 @@
 from __future__ import annotations
+import uuid
 
 from mock import Mock
 from injector import Injector, Module, singleton
@@ -18,6 +19,7 @@ item1 = Item.reconstruct(
     description="hoge",
     start_price=Price(100),
     bid_num=0,
+    auction_id=str(uuid.uuid4()),
 )
 item2 = Item.reconstruct(
     id="2",
@@ -27,6 +29,7 @@ item2 = Item.reconstruct(
     description="fuga",
     start_price=Price(100),
     bid_num=0,
+    auction_id=str(uuid.uuid4()),
 )
 
 

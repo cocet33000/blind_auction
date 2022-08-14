@@ -9,6 +9,14 @@ class Status(Enum):
     OPEN = "OPEN"
     CLOSED = "CLOSED"
 
+    # TODO: 絶対もっと良いやり方があるのでリファクタリングする
+    @staticmethod
+    def get_status(value):
+        if value == "OPEN":
+            return Status.OPEN
+        elif value == "CLOSED":
+            return Status.CLOSED
+
 
 class Auction:
     def __init__(

@@ -11,6 +11,10 @@ from pynamodb.attributes import UTCDateTimeAttribute
 from main.domain.bid import Bid as DomainModelBid
 from main.domain.item import Item as DomainModelItem
 from main.domain.item import Status as DomainModelItemStatus
+from main.domain.auction import (
+    Auction as DomainModelAuction,
+    Status as DomainModelAuctionStatus,
+)
 from main.domain.value_object import Price
 
 
@@ -116,3 +120,12 @@ class Auction(Model):
     status = UnicodeAttribute(null=False)
     start_datetime = UTCDateTimeAttribute(null=False)
     end_datetime = UTCDateTimeAttribute(null=False)
+
+    def to_model(self) -> DomainModelAuction:
+        return DomainModelAuction.reconstruct(
+            id=self.range_key,
+            name=self.name,
+            status=DomainModelAuctionStatus.get_status(self.status),  # type: ignore
+            start_datetime=self.start_datetime,
+            end_datetime=self.end_datetime,
+        )

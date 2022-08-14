@@ -11,6 +11,7 @@ from main.domain.shared import DomainException
 from ..openapi_server.models.auctions_post_request import AuctionsPostRequest
 
 from .serialize import bids_history_serialize
+from .serialize import auctions_get_reonse_seririalize
 
 
 def bad_request_response(e):
@@ -113,12 +114,13 @@ def api_handler(
     elif path == "auctions":
         if method == "GET":
             try:
-                auctions = [
-                    # auction.to_dict() for auction in auction_usecase.get_auctions_all()
-                ]
+                auctions = auction_usecase.get_auctions_all()
+
                 return {
                     "statusCode": 200,
-                    "body": json.dumps({"has_next:": False, "auctions": auctions}),
+                    "body": json.dumps(
+                        auctions_get_reonse_seririalize(auctions),
+                    ),
                 }
             except DomainException as e:
                 return {

@@ -5,16 +5,20 @@ from mock import Mock
 from injector import Injector, Module, singleton
 
 from main.domain.item import ItemRepository
+from main.domain.auction import AuctionRepository
 from main.usecase import ItemUseCase
 
 item_repository_mock = Mock(spec=ItemRepository)
 item_repository_mock.save.return_value = {"is_error": False, "id": "1"}
+
+auction_repository_mock = Mock(spec=AuctionRepository)
 
 
 @singleton
 class DIModule(Module):
     def configure(self, binder):
         binder.bind(ItemRepository, to=item_repository_mock)
+        binder.bind(AuctionRepository, to=auction_repository_mock)
 
 
 def test_正常系():

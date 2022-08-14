@@ -4,12 +4,15 @@ import uuid
 from mock import Mock
 from injector import Injector, Module, singleton
 
+
 from main.domain.item import ItemRepository
+from main.domain.auction import AuctionRepository
 from main.domain.item import Item
 from main.domain.item import Status
 from main.domain.value_object import Price
 
 from main.usecase import ItemUseCase
+
 
 item1 = Item.reconstruct(
     id="1",
@@ -36,11 +39,14 @@ item2 = Item.reconstruct(
 item_repository_mock = Mock(spec=ItemRepository)
 item_repository_mock.getAll.return_value = [item1, item2]
 
+auction_repository_mock = Mock(spec=AuctionRepository)
+
 
 @singleton
 class DIModule(Module):
     def configure(self, binder):
         binder.bind(ItemRepository, to=item_repository_mock)
+        binder.bind(AuctionRepository, to=auction_repository_mock)
 
 
 def test_get_items():

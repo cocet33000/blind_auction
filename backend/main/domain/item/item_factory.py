@@ -1,13 +1,19 @@
 import uuid
+from injector import inject
 
 from .item import Item
 from .item import Status
 from ..value_object.price import Price
 
+from ..auction import AuctionRepository
+
 
 class ItemFactory:
-    @staticmethod
-    def create(name, image_src, description, start_price, auction_id) -> Item:
+    @inject
+    def __init__(self, auction_reository: AuctionRepository):
+        self.auction_repository = AuctionRepository
+
+    def create(self, name, image_src, description, start_price, auction_id) -> Item:
         def getNewId() -> str:
             return str(uuid.uuid4())
 

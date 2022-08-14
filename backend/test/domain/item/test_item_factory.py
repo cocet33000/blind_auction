@@ -24,10 +24,10 @@ def test_itemを生成():
     assert item.auction_id == "uuid"
 
 
-# def test_存在しないオークションID():
-#     auction_repository_mock.getById.side_effect = DomainException("")
+def test_存在しないオークションID():
+    auction_repository_mock.getById.side_effect = DomainException("")
 
-#     item_factory = ItemFactory(auction_repository_mock)
+    item_factory = ItemFactory(auction_repository_mock)
 
-#     with pytest.raises(DomainException):
-#         item_factory.create("hoge", "hoge", "hoge", 100, "not_exist_uuid")
+    with pytest.raises(DomainException):
+        item_factory.create("hoge", "hoge", "hoge", 100, "not_exist_uuid")

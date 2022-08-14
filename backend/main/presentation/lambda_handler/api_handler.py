@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 from main.usecase import ItemUseCase
 from main.usecase import BidUseCase
@@ -7,7 +8,17 @@ from main.usecase import QueryUseCase
 
 from main.domain.shared import DomainException
 
+from ..openapi_server.models.auctions_post_request import AuctionsPostRequest
+
 from .serialize import bids_history_serialize
+
+
+def bad_request_response(e):
+    return {
+        "statusCode": 400,
+        "body": json.dumps(e.message()),
+        "headers": {"content-type": "application/json;charset=UTF-8"},
+    }
 
 
 def api_handler(
@@ -118,10 +129,19 @@ def api_handler(
             body = json.loads(event["body"])
 
             try:
+                auctions_post_request = AuctionsPostRequest.from_dict(body)
+            except Exception as e:
+                return bad_request_response(e)
+
+            try:
                 auction_usecase.register_auction(
-                    name=body.get("name"),
-                    start_datetime=body.get("start_datetime"),
-                    end_datetime=body.get("end_datetime"),
+                    name=auctions_post_request.name,
+                    start_datetime=datetime.strptime(
+                        auctions_post_request.start_datetime, "%Y/%m/%d %H:%M"
+                    ),
+                    end_datetime=datetime.strptime(
+                        auctions_post_request.end_datetime, "%Y/%m/%d %H:%M"
+                    ),
                 )
 
                 return {

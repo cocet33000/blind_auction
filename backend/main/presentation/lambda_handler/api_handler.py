@@ -69,7 +69,6 @@ def api_handler(
             except DomainException as e:
                 return {
                     "statusCode": 500,
-                    "body": json.dumps({"message": e.message()}),
                     "headers": {"content-type": "application/json;charset=UTF-8"},
                 }
 
@@ -123,6 +122,7 @@ def api_handler(
                     "body": json.dumps(
                         auctions_get_reonse_seririalize(auctions),
                     ),
+                    "headers": {"content-type": "application/json;charset=UTF-8"},
                 }
             except DomainException as e:
                 return {

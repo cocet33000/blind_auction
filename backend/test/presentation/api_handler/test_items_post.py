@@ -49,7 +49,5 @@ def test_異常系():
         auction_usecase_mock,
         query_usecase_mock,
     )  # type: ignore
-    body = json.loads(response.get("body"))
 
     assert response.get("statusCode") == 500
-    assert body.get("message") == "NG"

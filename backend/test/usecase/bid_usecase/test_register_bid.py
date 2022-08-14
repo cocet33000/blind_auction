@@ -28,6 +28,7 @@ item_repository_mock.getByItemId.return_value = Item.reconstruct(
     description="fuga",
     start_price=Price(START_PRICE),
     bid_num=0,
+    auction_id=str(uuid.uuid4()),
 )
 bid_repository_mock = Mock(spec=BidRepository)
 bid_repository_mock.getByUserName.return_value = AllBidsByUser(

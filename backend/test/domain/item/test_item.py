@@ -16,6 +16,7 @@ def test_itemを再構成():
         description="hoge",
         start_price=Price(100),
         bid_num=0,
+        auction_id=str(uuid.uuid4()),
     )
     assert item.id is not None
     assert item.status == Status.BEFORE_AUCTION
@@ -32,6 +33,7 @@ def test_itemを再構成():
         "description": item.description,
         "start_price": item.start_price,
         "bid_num": item.bid_num,
+        "auction_id": item.auction_id,
     }
 
 
@@ -45,4 +47,5 @@ def test_外部からのitemの生成はNG():
             description="hoge",
             start_price=Price(100),
             bid_num=0,
+            auction_id=str(uuid.uuid4()),
         )

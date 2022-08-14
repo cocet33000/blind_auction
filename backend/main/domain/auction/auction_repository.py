@@ -15,3 +15,8 @@ class AuctionRepository(ABC):
     @abstractmethod
     def getAll() -> list[Auction]:
         raise NotImplementedError
+
+    @staticmethod
+    @abstractmethod
+    def getById(id) -> Auction:
+        raise NotImplementedError

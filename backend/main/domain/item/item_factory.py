@@ -19,10 +19,10 @@ class ItemFactory:
         def getNewId() -> str:
             return str(uuid.uuid4())
 
-        try:
-            self.auction_repository.getById(auction_id)
-        except Exception as e:
-            raise DomainException(e)
+        # try:
+        #     self.auction_repository.getById(auction_id)
+        # except Exception as e:
+        #     raise DomainException(e)
 
         new_id = getNewId()
 

@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - feature/**
+      - fix/**
     paths:
       - backend/**
       - .github/workflows/backend-feature.yaml

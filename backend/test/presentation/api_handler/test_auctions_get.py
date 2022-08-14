@@ -48,4 +48,3 @@ def test_正常系():
         query_usecase_mock,
     )  # type: ignore
     assert response.get("statusCode") == 200
-    assert response.get("body") == ""

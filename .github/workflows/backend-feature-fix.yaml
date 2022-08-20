@@ -8,6 +8,12 @@ on:
       - backend/**
       - .github/workflows/backend-feature-fix.yaml
 
+  pull_request:
+    branches:
+      - feature/**
+      - fix/**
+    types: [closed]
+
 permissions: write-all
 
 jobs:

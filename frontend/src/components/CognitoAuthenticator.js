@@ -62,7 +62,7 @@ export default function CognitoAuthenticator() {
 			return (
 				<View textAlign="center" padding={tokens.space.large}>
 					<Text color={`${tokens.colors.neutral['80']}`}>
-						&copy;BRIND-AUCTION All Rights Reserved
+						&copy;BLIND-AUCTION All Rights Reserved
 					</Text>
 				</View>
 			);

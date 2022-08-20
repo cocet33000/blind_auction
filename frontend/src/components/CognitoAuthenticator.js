@@ -15,13 +15,26 @@ import { I18n } from 'aws-amplify';
 // I18n.putVocabularies(vocabularies);
 I18n.putVocabularies(translations);
 I18n.setLanguage('ja');
+import awsExports from '../aws-exports';
 
-Amplify.configure({
-	aws_project_region: 'ap-northeast-1',
-	aws_cognito_region: 'ap-northeast-1',
-	aws_user_pools_id: 'ap-northeast-1_GDOgCTVlJ',
-	aws_user_pools_web_client_id: '4ot1mjr2mj65h59kv3f09cvpcd'
-});
+const isLocalhost = !!(window.location.hostname === 'localhost');
+const [localRedirectSignIn, productionRedirectSignIn] =
+	awsExports.oauth.redirectSignIn.split(',');
+const [localRedirectSignOut, productionRedirectSignOut] =
+	awsExports.oauth.redirectSignOut.split(',');
+const updatedAwsConfig = {
+	...awsExports,
+	oauth: {
+		...awsExports.oauth,
+		redirectSignIn: isLocalhost
+			? localRedirectSignIn
+			: productionRedirectSignIn,
+		redirectSignOut: isLocalhost
+			? localRedirectSignOut
+			: productionRedirectSignOut
+	}
+};
+Amplify.configure(updatedAwsConfig);
 
 export default function CognitoAuthenticator() {
 	const muiTheme = muiUseTheme();
@@ -150,6 +163,7 @@ export default function CognitoAuthenticator() {
 						signUpAttributes={['email']}
 						components={components}
 						formFields={formFields}
+						socialProviders={['google']}
 					>
 						{() => <Navigate to="/" />}
 					</Authenticator>

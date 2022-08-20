@@ -16,7 +16,6 @@ const BidHistory = () => {
 			axios
 				.get('https://api.blind-auction.com/dev/bids', {
 					params: {
-						//一旦空白
 						user_name: user.username
 					}
 				})

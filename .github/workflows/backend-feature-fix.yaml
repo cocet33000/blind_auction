@@ -52,7 +52,7 @@ jobs:
         run: |
           pip install pytest
           pip install pytest-cov
-          pytest test/ -v --cov --junitxml=pytest.xml --cov-report=term-missing:skip-covered | tee pytest-coverage.txt
+          pytest test/ -v
 
       - name: Create Coverage Comment
         id: coverageComment

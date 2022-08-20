@@ -100,5 +100,5 @@ jobs:
           GIT_PR_RELEASE_LABELS: release
           TZ: Asia/Tokyo # git-pr-release write Time.now in the title.
         run: |
-          gem install -N git-pr-release -v "1.9.0"
+          gem install git-pr-release -v "0.6.0"
           git-pr-release --no-fetch

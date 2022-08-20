@@ -43,6 +43,7 @@ jobs:
           sh ./local-dynamo/createTable.sh
 
       - name: run pytest
+        id: pytest
         continue-on-error: true
         working-directory: backend
         env:
@@ -63,3 +64,10 @@ jobs:
         with:
             pytest-coverage-path: /backend/pytest-coverage.txt
             junitxml-path: ./backend/pytest.xml
+
+      - name: Error handling
+        if: ${{steps.pytest.outcome == 'failure'}}
+        run: |
+          echo "pytest failed"
+          echo ${{steps.pytest.outcome}}
+          exit 1

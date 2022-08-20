@@ -6,7 +6,7 @@ on:
       - fix/**
     paths:
       - backend/**
-      - .github/workflows/backend-feature.yaml
+      - .github/workflows/backend-feature-fix.yaml
 
 permissions: write-all
 

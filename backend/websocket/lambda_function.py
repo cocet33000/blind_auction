@@ -45,7 +45,7 @@ def lambda_handler(event, context):
     else:
         return {
             'statusCode': 500,
-            'body': json.dumps('error')
+            'body': json.dumps('error!')
         }
 
 
@@ -55,7 +55,7 @@ def bid_event_publish(item_id, bid_num):
     except:
         return {
             'statusCode': 500,
-            'body': json.dumps('error')
+            'body': json.dumps('error!')
         }
     for connection in connections:
         if connection.get("id"):

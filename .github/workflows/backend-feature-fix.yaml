@@ -10,8 +10,7 @@ on:
 
   pull_request:
     branches:
-      - feature/**
-      - fix/**
+      - master
     types: [closed]
 
 permissions: write-all

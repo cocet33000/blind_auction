@@ -36,12 +36,27 @@ jobs:
           pip install -r requirements.txt -t ./
           zip -r package.zip ./*
 
-      - name: run pytest
+      - name: local dynamoDB create at docker
         working-directory: backend
+        run:  |
+          docker-compose -f ./local-dynamo/docker-compose.yaml up -d 
+          sh ./local-dynamo/createTable.sh
+
+      - name: run pytest
+        id: pytest
+        continue-on-error: true
+        working-directory: backend
+        env:
+          MODE: "local"
+          AWS_DYNAMO_DB_ITEMS_TABLE_NAME : "amtest-blind-auction-items"
+          AWS_DYNAMO_DB_EVENTS_TABLE_NAME: "blind_auction_events"
+          AWS_REGION: "ap-northeast-1"
         run: |
           pip install pytest
           pip install pytest-cov
           pytest test/ -v --cov --junitxml=pytest.xml --cov-report=term-missing:skip-covered | tee pytest-coverage.txt
+          exit ${PIPESTATUS[0]};
+
 
       - name: Create Coverage Comment
         id: coverageComment
@@ -49,6 +64,13 @@ jobs:
         with:
             pytest-coverage-path: /backend/pytest-coverage.txt
             junitxml-path: ./backend/pytest.xml
+
+      - name: Error handling
+        if: ${{steps.pytest.outcome == 'failure'}}
+        run: |
+          echo "pytest failed"
+          echo ${{steps.pytest.outcome}}
+          exit 1
 
       - name: Deploy
         working-directory: backend

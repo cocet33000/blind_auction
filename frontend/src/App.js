@@ -22,6 +22,26 @@ function App() {
 			primary: {
 				main: '#26262d'
 			},
+			authenticator: {
+				background: {
+					primary: '#f5f5f5',
+					secondary: '#BFBBBA'
+				},
+				font: {
+					interactive: '#000',
+					focus: '#000',
+					hover: '#000',
+					active: '#000'
+				},
+				components: {
+					button: {
+						background: '#737272',
+						hover: '#403F3F',
+						focus: '#403F3F',
+						active: '#403F3F'
+					}
+				}
+			},
 			card: {
 				background: '#f5f5f5'
 			}

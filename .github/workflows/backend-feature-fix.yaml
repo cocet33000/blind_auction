@@ -1,5 +1,6 @@
 name: Actions for Backend @feature
 on:
+  workflow_call:
   push:
     branches:
       - feature/**

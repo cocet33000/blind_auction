@@ -1,10 +1,14 @@
 from tracemalloc import start
+
 from ..openapi_server.models.bid_historys import BidHistorys
 from ..openapi_server.models.bid_history import BidHistory
 from ..openapi_server.models.bid_history_bid import BidHistoryBid
 from ..openapi_server.models.bid_history_item import BidHistoryItem
 from ..openapi_server.models.auction import Auction
 from ..openapi_server.models.auctions_get_response import AuctionsGetResponse
+
+from ..openapi_server.models.commands_auctions_response import CommandsAuctionsResponse
+from ..openapi_server.models.auction_event import AuctionEvent
 
 
 def bids_history_serialize(bid_historys: list):
@@ -44,3 +48,16 @@ def auctions_get_reonse_seririalize(auctions) -> dict:
         ],
         has_next=False,
     ).to_dict()
+
+
+def commands_auctions_response_serialize(auction_events) -> dict:
+    events = [
+        AuctionEvent(
+            id=auction_event.id(),
+            name=auction_event.name(),
+            status=auction_event.status(),
+        )
+        for auction_event in auction_events
+    ]
+
+    return CommandsAuctionsResponse(events=events).to_dict()

@@ -3,7 +3,7 @@ from unicodedata import name
 from injector import inject
 from datetime import datetime
 
-from main.domain.auction import AuctionFactory
+from main.domain.auction import AuctionFactory, auction_repository
 from main.domain.auction import AuctionRepository
 
 
@@ -38,6 +38,8 @@ class AuctionUseCase:
                 "name": _auction.get("name"),
                 "status": "OPEN",
             }
+
+            self.auction_repository.save(auction)
             return auction_event
         except Exception as e:
             return {}

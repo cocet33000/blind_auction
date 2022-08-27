@@ -1,4 +1,5 @@
 from __future__ import annotations
+from unicodedata import name
 from injector import inject
 from datetime import datetime
 
@@ -26,3 +27,12 @@ class AuctionUseCase:
     def get_auctions_all(self):
         auctions = self.auction_repository.getAll()
         return auctions
+
+    def switch_auction(self, auction_id):
+        auction = self.auction_repository.getById(auction_id)
+        try:
+            # auction_event = auction.switch()
+            auction_event = {"id": auction_id, "name": "auction_name", "status": "OPEN"}
+            return auction_event
+        except Exception as e:
+            return {}

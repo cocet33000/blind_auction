@@ -31,8 +31,13 @@ class AuctionUseCase:
     def switch_auction(self, auction_id):
         auction = self.auction_repository.getById(auction_id)
         try:
-            # auction_event = auction.switch()
-            auction_event = {"id": auction_id, "name": "auction_name", "status": "OPEN"}
+            auction.switchStatus(now_datetime=datetime.now())
+            _auction = auction.to_dict()
+            auction_event = {
+                "id": _auction.get("id"),
+                "name": _auction.get("name"),
+                "status": "OPEN",
+            }
             return auction_event
         except Exception as e:
             return {}

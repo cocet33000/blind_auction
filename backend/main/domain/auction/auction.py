@@ -70,3 +70,10 @@ class Auction:
             start_datetime=start_datetime,
             end_datetime=end_datetime,
         )
+
+    def switchStatus(self, now_datetime):
+
+        if self._start_datetime > now_datetime:
+            raise Exception
+
+        self._status = Status.OPEN

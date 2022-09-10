@@ -7,6 +7,8 @@ from .auction import Status
 class AuctionFactory:
     @staticmethod
     def create(name: str, start_datetime, end_datetime) -> Auction:
+        # TODO: 現在時刻より早いstart_datetimeはエラーを実装
+
         def getNewId() -> str:
             return "auction" + str(uuid.uuid4())
 

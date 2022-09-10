@@ -51,13 +51,6 @@ def auctions_get_reonse_seririalize(auctions) -> dict:
 
 
 def commands_auctions_response_serialize(auction_events) -> dict:
-    events = [
-        AuctionEvent(
-            id=auction_event.id(),
-            name=auction_event.name(),
-            status=auction_event.status(),
-        )
-        for auction_event in auction_events
-    ]
+    events = auction_events
 
     return CommandsAuctionsResponse(events=events).to_dict()

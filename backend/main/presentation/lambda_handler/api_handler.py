@@ -1,6 +1,5 @@
 import json
 from datetime import datetime
-from main.domain import auction
 
 from main.usecase import ItemUseCase
 from main.usecase import BidUseCase
@@ -163,12 +162,11 @@ def api_handler(
 
     elif path == "commands/auctions":
         if method == "POST":
-            auction_events = []
+            auction_events = auction_usecase.switch_auction()
             return {
                 "statusCode": 200,
-                "body": json.dumps(
-                    commands_auctions_response_serialize(auction_events)
-                ),
+                "body": commands_auctions_response_serialize(auction_events),
+                "headers": {"content-type": "application/json;charset=UTF-8"},
             }
 
     else:

@@ -130,6 +130,19 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/bids_post_response"
+  /commands/auctions:
+    post:
+      tags:
+        - commands
+      summary: オークション開始・終了処理を起動する
+      responses:
+        "200":
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/commands_auctions_response"
+
 
 components:
   schemas:
@@ -329,3 +342,23 @@ components:
           type: string
           format: 'YYYY/MM/DD HH:DD'
           example: '2022/01/01 12:00'
+    commands_auctions_response:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: "#/components/schemas/auction_event"
+    auction_event:
+      type: object
+      properties:
+        id:
+          type: string
+          example: auction140d3326-2e0d-4b7f-9ca5-a09e44db792c
+        name:
+          type: string
+          example: オークションA
+        status:
+          type: string
+          example: OPEN
+

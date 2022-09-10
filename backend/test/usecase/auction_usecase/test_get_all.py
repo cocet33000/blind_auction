@@ -1,7 +1,4 @@
 from __future__ import annotations
-import imp
-import spwd
-from unittest import mock
 
 from mock import Mock
 from datetime import datetime

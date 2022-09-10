@@ -1,4 +1,4 @@
-from main.domain.auction.auction_event import AuctionEvent
+from main.domain.auction import AuctionEvent
 from main.domain.auction.auction import Status
 
 

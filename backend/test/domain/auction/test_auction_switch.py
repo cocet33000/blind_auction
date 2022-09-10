@@ -3,6 +3,7 @@ import uuid
 from datetime import datetime
 
 from main.domain.auction import Auction
+from main.domain.auction import AuctionEvent
 from main.domain.auction import Status
 
 
@@ -18,9 +19,14 @@ def test_正常系_オークション開始():
     auction = Auction.reconstruct(ID, NAME, STATUS, START_DATETIME, END_DATETIME)
     assert not auction.isOpen()
 
-    auction.switchStatus(now_datetime=NOW_DATETIME)
+    auction_event = auction.switchStatus(now_datetime=NOW_DATETIME)
 
     assert auction.isOpen()
+    assert auction_event == AuctionEvent(
+        auction_id=ID,
+        auction_name=NAME,
+        type=Status.OPEN,
+    )
 
 
 def test_異常系_オークション開始():

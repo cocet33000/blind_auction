@@ -1,4 +1,7 @@
 from __future__ import annotations
+import imp
+import spwd
+from unittest import mock
 
 from mock import Mock
 from datetime import datetime
@@ -8,9 +11,11 @@ from injector import Injector, Module, singleton
 from main.domain.auction import Auction
 from main.domain.auction import Status
 from main.domain.auction import AuctionRepository
+from main.domain.shared import EventPublisher
 
 from main.usecase import AuctionUseCase
 
+event_publisher_mock = Mock(spec=EventPublisher)
 auction_repository_mock = Mock(spec=AuctionRepository)
 auction_repository_mock.getAll.return_value = [
     Auction.reconstruct(
@@ -34,6 +39,7 @@ auction_repository_mock.getAll.return_value = [
 class DIModule(Module):
     def configure(self, binder):
         binder.bind(AuctionRepository, to=auction_repository_mock)
+        binder.bind(EventPublisher, to=event_publisher_mock)
 
 
 def test_正常系():

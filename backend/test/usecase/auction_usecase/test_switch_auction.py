@@ -7,17 +7,22 @@ from mock import Mock
 from injector import Injector, Module, singleton
 
 from main.domain.auction import AuctionRepository
+from main.domain.auction import AuctionEvent
 from main.domain.auction import Auction, Status
-
+from main.domain.shared import EventPublisher
+from main.domain.shared.event import event_publisher
 from main.usecase import AuctionUseCase
 
 auction_repository_mock = Mock(spec=AuctionRepository)
+event_publisher_mock = Mock(spec=EventPublisher)
+event_publisher_mock.publish.return_value = {"is_error": False}
 
 
 @singleton
 class DIModule(Module):
     def configure(self, binder):
         binder.bind(AuctionRepository, to=auction_repository_mock)
+        binder.bind(EventPublisher, to=event_publisher_mock)
 
 
 def test_正常系():
@@ -36,5 +41,10 @@ def test_正常系():
     auction_id = ID
     auction_event = auction_usecase.switch_auction(auction_id)
 
-    assert auction_event.get("id") == auction_id
-    assert auction_event.get("status") == "OPEN"
+    assert event_publisher_mock.publish.call_count == 1
+    assert auction_repository_mock.save.call_count == 1
+    assert auction_event == AuctionEvent(
+        auction_id=ID,
+        auction_name=NAME,
+        type=Status.OPEN,
+    )

@@ -5,10 +5,11 @@ from .auction import Status
 
 
 class AuctionEvent(Event):
-    def __init__(self, auction_id, type: Status) -> None:
+    def __init__(self, auction_id, auction_name, type: Status) -> None:
         event_name = "AUCTION"
         event_details = {
             "auction_id": auction_id,
+            "name": auction_name,
             "type": type,
         }
         super().__init__(event_name, event_details)

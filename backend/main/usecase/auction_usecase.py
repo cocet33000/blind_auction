@@ -1,10 +1,12 @@
 from __future__ import annotations
-from unicodedata import name
 from injector import inject
 from datetime import datetime
 
-from main.domain.auction import AuctionFactory, auction_repository
+from main.domain.auction import AuctionFactory
+from main.domain.auction import AuctionEvent
 from main.domain.auction import AuctionRepository
+from main.domain.auction.auction import Status
+from main.domain.shared import EventPublisher
 
 
 class AuctionUseCase:
@@ -12,8 +14,10 @@ class AuctionUseCase:
     def __init__(
         self,
         AuctionRepositoryImpl: AuctionRepository,
+        EventPublisherImpl: EventPublisher,
     ):
         self.auction_repository = AuctionRepositoryImpl
+        self.EventPublisher = EventPublisherImpl
 
     def register_auction(
         self,
@@ -33,13 +37,19 @@ class AuctionUseCase:
         try:
             auction.switchStatus(now_datetime=datetime.now())
             _auction = auction.to_dict()
-            auction_event = {
-                "id": _auction.get("id"),
-                "name": _auction.get("name"),
-                "status": "OPEN",
-            }
+            # auction_event = {
+            #     "id": _auction.get("id"),
+            #     "name": _auction.get("name"),
+            #     "status": "OPEN",
+            # }
+            auction_event = AuctionEvent(
+                auction_id=auction_id,
+                auction_name=_auction.get("name"),
+                type=Status.OPEN,
+            )
 
             self.auction_repository.save(auction)
+            self.EventPublisher.publish(auction_event)
             return auction_event
         except Exception as e:
             return {}

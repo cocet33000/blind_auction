@@ -4,6 +4,7 @@ from datetime import datetime
 
 from main.domain.auction import AuctionFactory
 from main.domain.auction import AuctionRepository
+from main.domain.shared import EventPublisher, event
 
 
 class AuctionUseCase:
@@ -11,8 +12,10 @@ class AuctionUseCase:
     def __init__(
         self,
         AuctionRepositoryImpl: AuctionRepository,
+        EventPublisherImpl: EventPublisher,
     ):
         self.auction_repository = AuctionRepositoryImpl
+        self.EventPublisher = EventPublisherImpl
 
     def register_auction(
         self,
@@ -26,3 +29,17 @@ class AuctionUseCase:
     def get_auctions_all(self):
         auctions = self.auction_repository.getAll()
         return auctions
+
+    def switch_auction(self):
+        auctions = self.get_auctions_all()
+        events = []
+        try:
+            for auction in auctions:
+                auction_event = auction.switchStatus(now_datetime=datetime.now())
+                if auction_event is not None:
+                    events.append(auction_event)
+                    self.auction_repository.save(auction)
+                    self.EventPublisher.publish(auction_event)
+            return events
+        except Exception:
+            return {}

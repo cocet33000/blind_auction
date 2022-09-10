@@ -1,6 +1,5 @@
 import json
 from datetime import datetime
-from main.domain import auction
 
 from main.usecase import ItemUseCase
 from main.usecase import BidUseCase
@@ -11,7 +10,7 @@ from main.domain.shared import DomainException
 
 from ..openapi_server.models.auctions_post_request import AuctionsPostRequest
 
-from .serialize import bids_history_serialize
+from .serialize import bids_history_serialize, commands_auctions_response_serialize
 from .serialize import auctions_get_reonse_seririalize
 
 
@@ -160,6 +159,15 @@ def api_handler(
                     "body": json.dumps({"message": e.message()}),
                     "headers": {"content-type": "application/json;charset=UTF-8"},
                 }
+
+    elif path == "commands/auctions":
+        if method == "POST":
+            auction_events = auction_usecase.switch_auction()
+            return {
+                "statusCode": 200,
+                "body": commands_auctions_response_serialize(auction_events),
+                "headers": {"content-type": "application/json;charset=UTF-8"},
+            }
 
     else:
         return {"statusCode": 404}

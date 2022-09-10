@@ -1,8 +1,10 @@
 from datetime import datetime
 from enum import Enum
 
+
 from ..shared.caller import get_caller_function_name
 from ..shared.errors import ProhibitedGenerationError
+from ..shared import Event
 
 
 class Status(Enum):
@@ -16,6 +18,23 @@ class Status(Enum):
             return Status.OPEN
         elif value == "CLOSED":
             return Status.CLOSED
+
+
+class AuctionEvent(Event):
+    def __init__(self, auction_id, auction_name, type: Status) -> None:
+        event_name = "AUCTION"
+        event_details = {
+            "auction_id": auction_id,
+            "name": auction_name,
+            "type": type,
+        }
+        super().__init__(event_name, event_details)
+
+    def auction_id(self):
+        return self.event_details.get("auction_id")
+
+    def type(self):
+        return self.event_details.get("type")
 
 
 class Auction:
@@ -69,4 +88,25 @@ class Auction:
             status=status,
             start_datetime=start_datetime,
             end_datetime=end_datetime,
+        )
+
+    def switchStatus(self, now_datetime):
+
+        pre_status = self._status
+        if self._start_datetime > now_datetime:
+            self._status = Status.CLOSED
+        if self._start_datetime < now_datetime:
+            self._status = Status.OPEN
+        if self._end_datetime < now_datetime:
+            self._status = Status.CLOSED
+
+        # statusを更新した場合のみ、イベントを返却
+        return (
+            AuctionEvent(
+                auction_id=self._id,
+                auction_name=self._name,
+                type=self._status,
+            )
+            if self._status != pre_status
+            else None
         )

@@ -1,6 +1,7 @@
 from datetime import datetime
 from enum import Enum
 
+
 from ..shared.caller import get_caller_function_name
 from ..shared.errors import ProhibitedGenerationError
 from ..shared import Event
@@ -91,13 +92,21 @@ class Auction:
 
     def switchStatus(self, now_datetime):
 
+        pre_status = self._status
         if self._start_datetime > now_datetime:
-            raise Exception
+            self._status = Status.CLOSED
+        if self._start_datetime < now_datetime:
+            self._status = Status.OPEN
+        if self._end_datetime < now_datetime:
+            self._status = Status.CLOSED
 
-        self._status = Status.OPEN
-
-        return AuctionEvent(
-            auction_id=self._id,
-            auction_name=self._name,
-            type=self._status,
+        # statusを更新した場合のみ、イベントを返却
+        return (
+            AuctionEvent(
+                auction_id=self._id,
+                auction_name=self._name,
+                type=self._status,
+            )
+            if self._status != pre_status
+            else None
         )

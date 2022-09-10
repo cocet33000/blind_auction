@@ -36,6 +36,9 @@ class AuctionEvent(Event):
     def type(self):
         return self.event_details.get("type")
 
+    def name(self):
+        return self.event_details.get("name")
+
 
 class Auction:
     def __init__(

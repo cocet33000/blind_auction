@@ -1,11 +1,13 @@
 from __future__ import annotations
 from datetime import datetime
-
+import json
 from main.presentation.lambda_handler import api_handler
 
 
 from mock import Mock
 
+from main.domain.auction import AuctionEvent
+from main.domain.auction import Status
 
 from main.usecase import ItemUseCase
 from main.usecase import BidUseCase
@@ -27,7 +29,13 @@ event = {
 
 def test_正常系():
     # TODO: リクエスト内容を別ファイルで用意する
-    auction_usecase_mock.switch_auction.return_value = []
+    auction_usecase_mock.switch_auction.return_value = [
+        AuctionEvent(
+            auction_id="hoge",
+            auction_name="auction01",
+            type=Status.OPEN,
+        )
+    ]
     response: dict = api_handler(
         event,
         "",
@@ -38,4 +46,14 @@ def test_正常系():
     )  # type: ignore
 
     assert response.get("statusCode") == 200
-    assert response.get("body") == {"events": []}
+    assert response.get("body") == json.dumps(
+        {
+            "events": [
+                {
+                    "id": "hoge",
+                    "name": "auction01",
+                    "status": Status.OPEN.name,
+                }
+            ]
+        }
+    )

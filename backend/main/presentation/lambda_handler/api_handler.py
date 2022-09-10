@@ -165,7 +165,9 @@ def api_handler(
             auction_events = auction_usecase.switch_auction()
             return {
                 "statusCode": 200,
-                "body": commands_auctions_response_serialize(auction_events),
+                "body": json.dumps(
+                    commands_auctions_response_serialize(auction_events)
+                ),
                 "headers": {"content-type": "application/json;charset=UTF-8"},
             }
 

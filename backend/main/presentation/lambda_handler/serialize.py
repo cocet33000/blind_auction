@@ -1,5 +1,3 @@
-from tracemalloc import start
-
 from ..openapi_server.models.bid_historys import BidHistorys
 from ..openapi_server.models.bid_history import BidHistory
 from ..openapi_server.models.bid_history_bid import BidHistoryBid

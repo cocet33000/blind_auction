@@ -1,5 +1,4 @@
 from __future__ import annotations
-from io import IncrementalNewlineDecoder
 import logging
 
 
@@ -56,3 +55,11 @@ class ItemRepositoryImpl(ItemRepository):
         except Exception as e:
             logging.error(e)
             return "NG"
+
+    @staticmethod
+    def getByAuctionId(auction_id):
+        items = [
+            item.to_model()
+            for item in dynamo_db.Item.itemByAuctionIdIndex.query(hash_key=auction_id)
+        ]
+        return items

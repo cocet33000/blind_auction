@@ -9,7 +9,7 @@ from main.domain.shared import DomainException
 
 class BidRepositoryImpl(BidRepository):
     @staticmethod
-    def save(bid: Bid) -> dict:
+    def save(bid: Bid) -> None:
         new_bid = dynamo_db.Bid(hash_key=bid.bid_item_id, range_key=bid.id)
         new_bid.price = bid.price
         new_bid.bided_user_name = bid.bided_user_name

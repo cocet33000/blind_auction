@@ -15,6 +15,10 @@
         {
             "AttributeName": "bided_user_name",
             "AttributeType": "S"
+        },
+        {
+            "AttributeName": "auction_id",
+            "AttributeType": "S"
         }
     ],
     "KeySchema": [
@@ -51,6 +55,26 @@
             "KeySchema": [
                 {
                     "AttributeName": "bided_user_name",
+                    "KeyType": "HASH"
+                },
+                {
+                    "AttributeName": "range_key",
+                    "KeyType": "RANGE"
+                }
+            ],
+            "Projection": {
+                "ProjectionType": "ALL"
+            },
+            "ProvisionedThroughput": {
+                "ReadCapacityUnits": 1,
+                "WriteCapacityUnits": 1
+            }
+        },
+        {
+            "IndexName": "itemByAuctionId-GSI",
+            "KeySchema": [
+                {
+                    "AttributeName": "auction_id",
                     "KeyType": "HASH"
                 },
                 {

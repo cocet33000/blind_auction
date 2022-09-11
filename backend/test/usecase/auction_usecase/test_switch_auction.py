@@ -48,7 +48,6 @@ def test_正常系_オークション開始_イベント発行():
     event_publisher_mock.publish.call_count = 0
     auction_repository_mock.save.call_count = 0
 
-    auction_id = ID
     auction_events = auction_usecase.switch_auction()
 
     assert event_publisher_mock.publish.call_count == 1
@@ -85,7 +84,6 @@ def test_正常系_オークション開始済み_イベント発行なし():
     event_publisher_mock.publish.call_count = 0
     auction_repository_mock.save.call_count = 0
 
-    auction_id = ID
     auction_events = auction_usecase.switch_auction()
 
     assert event_publisher_mock.publish.call_count == 0
@@ -116,7 +114,6 @@ def test_正常系_オークション終了_イベント発行():
     event_publisher_mock.publish.call_count = 0
     auction_repository_mock.save.call_count = 0
 
-    auction_id = ID
     auction_events = auction_usecase.switch_auction()
 
     assert event_publisher_mock.publish.call_count == 1
@@ -153,7 +150,6 @@ def test_正常系_オークション終了済み_イベント発行なし():
     event_publisher_mock.publish.call_count = 0
     auction_repository_mock.save.call_count = 0
 
-    auction_id = ID
     auction_events = auction_usecase.switch_auction()
 
     assert event_publisher_mock.publish.call_count == 0

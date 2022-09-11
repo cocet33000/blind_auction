@@ -30,6 +30,17 @@ class BidsByUserNameIndex(GlobalSecondaryIndex):
     id = UnicodeAttribute(range_key=True)
 
 
+class ItemByAuctionIdIndex(GlobalSecondaryIndex):
+    class Meta:
+        index_name = "itemByAuctionId-GSI"
+        read_capacity_units = 1
+        write_capacity_units = 1
+        projection = AllProjection()
+
+    bided_user_name = UnicodeAttribute(hash_key=True)
+    id = UnicodeAttribute(range_key=True)
+
+
 class Bid(Model):
     class Meta:
         load_dotenv()
@@ -82,6 +93,7 @@ class Item(Model):
     bid_num = NumberAttribute(null=False)
     auction_id = UnicodeAttribute(null=False)
     getAllItemsIndex = GetAllItemsIndex()
+    itemByAuctionIdIndex = ItemByAuctionIdIndex()
 
     def to_model(self) -> DomainModelItem:
         return DomainModelItem.reconstruct(

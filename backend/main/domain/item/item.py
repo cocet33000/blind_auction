@@ -15,7 +15,7 @@ class Status(Enum):
     def get_status(value):
         if value == "before_auction":
             return Status.BEFORE_AUCTION
-        elif value == "on_sales":
+        elif value == "up_for_auction":
             return Status.UP_FOR_AUCTION
         elif value == "sold_out":
             return Status.SOLD_OUT
@@ -50,6 +50,12 @@ class Item:
         self.start_price = start_price
 
         self.bid_num = bid_num
+
+    def to_up_for_auction(self):
+        self.status = Status.UP_FOR_AUCTION
+
+    def to_sold_out(self):
+        self.status = Status.SOLD_OUT
 
     def to_dict(self) -> dict:
         return {

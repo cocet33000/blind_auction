@@ -29,14 +29,14 @@ def test_正常系():
                     "ApproximateCreationDateTime": 1658563931,
                     "Keys": {"id": {"S": "eec2b9ff-552a-4c54-aeef-dfd027411848"}},
                     "NewImage": {
-                        "name": {"S": "BID"},
+                        "name": {"S": "AUCTION"},
                         "details": {
                             "M": {
-                                "item_id": {
+                                "auction_id": {
                                     "S": "a0da31b7-d106-4797-b21b-c616edbb7dce"
                                 },
-                                "user_name": {"S": "cocet330000"},
-                                "price": {"N": "555"},
+                                "name": {"S": "auction-name"},
+                                "type": {"S": "OPEN"},
                             }
                         },
                         "id": {"S": "eec2b9ff-552a-4c54-aeef-dfd027411848"},
@@ -50,6 +50,8 @@ def test_正常系():
         ]
     }
 
+    auction_event_subscriber.consume.return_value = None
+
     context = {}
     res = stream_handler(
         event,
@@ -60,5 +62,4 @@ def test_正常系():
         auction_event_subscriber,
     )
 
-    assert 200 == res.get("statusCode")
-    assert "BID" == res.get("eventName")
+    assert auction_event_subscriber.consume.call_count == 1

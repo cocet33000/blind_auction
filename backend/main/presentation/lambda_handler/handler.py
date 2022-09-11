@@ -8,6 +8,7 @@ from main.domain.item import ItemRepository
 from main.domain.auction import AuctionRepository
 from main.domain.shared import EventPublisher
 from main.domain.item import BidEventSubscriber
+from main.domain.item import AuctionEventSubscriber
 from main.infrastructure import BidRepositoryImpl
 from main.infrastructure import ItemRepositoryImpl
 from main.infrastructure import AuctionRepositoryImpl
@@ -44,6 +45,7 @@ def lambda_handler(event: dict, context):
     bid_usecase = injector.get(BidUseCase)
     auction_usecase = injector.get(AuctionUseCase)
     bid_event_subscriber = injector.get(BidEventSubscriber)
+    auction_event_subscriber = injector.get(AuctionEventSubscriber)
     query_usecase = injector.get(QueryUseCase)
 
     logger.debug(json.dumps(event))
@@ -55,7 +57,12 @@ def lambda_handler(event: dict, context):
 
     if "Records" in event:
         return stream_handler(
-            event, context, item_usecase, bid_usecase, bid_event_subscriber
+            event,
+            context,
+            item_usecase,
+            bid_usecase,
+            bid_event_subscriber,
+            auction_event_subscriber,
         )
 
     return {

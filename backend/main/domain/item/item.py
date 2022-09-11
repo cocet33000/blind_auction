@@ -51,6 +51,12 @@ class Item:
 
         self.bid_num = bid_num
 
+    def to_up_for_auction(self):
+        self.status = Status.UP_FOR_AUCTION
+
+    def to_sold_out(self):
+        self.status = Status.SOLD_OUT
+
     def to_dict(self) -> dict:
         return {
             "id": self.id,

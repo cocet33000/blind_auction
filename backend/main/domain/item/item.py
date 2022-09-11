@@ -15,7 +15,7 @@ class Status(Enum):
     def get_status(value):
         if value == "before_auction":
             return Status.BEFORE_AUCTION
-        elif value == "on_sales":
+        elif value == "up_for_auction":
             return Status.UP_FOR_AUCTION
         elif value == "sold_out":
             return Status.SOLD_OUT

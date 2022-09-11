@@ -13,6 +13,7 @@ class ItemRepositoryImpl(ItemRepository):
     @staticmethod
     def save(item: Item) -> dict:
         new_item = dynamo_db.Item(hash_key=item.id, range_key="item")
+        new_item.status = item.status.value
         new_item.name = item.name
         new_item.image_src = item.image_src
         new_item.description = item.description

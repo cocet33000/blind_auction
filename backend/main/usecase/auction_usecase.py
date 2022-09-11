@@ -4,7 +4,7 @@ from datetime import datetime
 
 from main.domain.auction import AuctionFactory
 from main.domain.auction import AuctionRepository
-from main.domain.shared import EventPublisher, event
+from main.domain.shared import EventPublisher
 
 
 class AuctionUseCase:

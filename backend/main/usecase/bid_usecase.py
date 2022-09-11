@@ -21,7 +21,7 @@ class BidUseCase:
         self.BidRepository = BidRepositoryImpl
         self.EventPublisher = EventPublisherImpl
 
-    def register_bid(self, user_name: str, item_id: str, price: int) -> dict:
+    def register_bid(self, user_name: str, item_id: str, price: int) -> None:
         # 同一ユーザーは同一商品に一度しか入札できない
         # この知識はユースケースではなく、ドメインに持たせても良いかもしれない
         bids_by_user = self.BidRepository.getByUserName(user_name)

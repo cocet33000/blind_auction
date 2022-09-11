@@ -15,5 +15,5 @@ class BidEventSubscriber(EventSubscriber):
         self.ItemRepository = ItemRepositoryImpl
 
     def consume(self, bid_event: Event):
-        item_id = bid_event.item_id()
+        item_id = bid_event.item_id()  # type: ignore
         return self.ItemRepository.bidNumIncrement(item_id)  # type: ignore

@@ -138,12 +138,14 @@ def api_handler(
 
             try:
                 auction_usecase.register_auction(
-                    name=auctions_post_request.name,
+                    name=auctions_post_request.name,  # type: ignore
                     start_datetime=datetime.strptime(
-                        auctions_post_request.start_datetime, "%Y/%m/%d %H:%M"
+                        auctions_post_request.start_datetime,  # type: ignore
+                        "%Y/%m/%d %H:%M",
                     ),
                     end_datetime=datetime.strptime(
-                        auctions_post_request.end_datetime, "%Y/%m/%d %H:%M"
+                        auctions_post_request.end_datetime,  # type: ignore
+                        "%Y/%m/%d %H:%M",
                     ),
                 )
 

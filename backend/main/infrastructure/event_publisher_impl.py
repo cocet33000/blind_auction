@@ -9,7 +9,7 @@ from main.domain.shared import DomainException
 
 class EventPublisherImpl(EventPublisher):
     @staticmethod
-    def publish(event: Event) -> dict:
+    def publish(event: Event) -> None:
         new_event = dynamo_db.Event(hash_key=str(uuid.uuid4()))
         new_event.name = event.event_name
         new_event.details = event.event_details

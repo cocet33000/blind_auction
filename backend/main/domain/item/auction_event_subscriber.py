@@ -24,7 +24,17 @@ class AuctionEventSubscriber(EventSubscriber):
             self._consume_open_event(auction_event)
 
     def _consume_open_event(self, auction_event: Event):
-        pass
+        items = self.ItemRepository.getByAuctionId(
+            auction_event.auction_id()  # type: ignore
+        )
+        for item in items:
+            item.to_up_for_auction()
+            self.ItemRepository.save(item)
 
     def _consume_closed_event(self, auction_event: Event):
-        pass
+        items = self.ItemRepository.getByAuctionId(
+            auction_event.auction_id()  # type: ignore
+        )
+        for item in items:
+            item.to_sold_out()
+            self.ItemRepository.save(item)

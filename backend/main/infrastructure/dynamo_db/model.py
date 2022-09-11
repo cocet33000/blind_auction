@@ -84,7 +84,7 @@ class Item(Model):
         region = os.environ.get("AWS_REGION")
 
     id = UnicodeAttribute(hash_key=True)
-    # statusを追加する
+    status = UnicodeAttribute(null=False)
     range_key = UnicodeAttribute(range_key=True)
     name = UnicodeAttribute(null=False)
     image_src = UnicodeAttribute(null=False)

@@ -1,0 +1,27 @@
+service: local-test
+frameworkVersion: '3'
+provider:
+  name: aws
+  runtime: python3.9
+  stage: dev
+
+functions:
+  lambda_handler:
+    handler: ./main.presentation.lambda_handler.lambda_handler 
+
+    # apigwの定義を書く
+    events:
+      - httpApi:
+          path: /{proxy+}
+          method: ANY
+# 追加のプラグイン
+plugins:
+  # APIGWとLambdaをローカルでエミュレートするプラグイン
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    httpPort: 3000
+    
+
+  

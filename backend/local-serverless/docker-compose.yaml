@@ -1,0 +1,44 @@
+version: "3"
+services:
+  lambda:
+    build:
+      context: .
+    tty: true
+    volumes:
+      - ./:/app
+      - ../main:/app/main
+    working_dir: /app
+    ports:
+      - 3333:3000 # <= 3000を3333にマッピング
+    env_file:
+      - .env
+    extra_hosts:
+      - "localhost:host-gateway" #localhostをコンテナのホストマシン自身のIPに書き換える
+    networks:
+      - dynamodb-local-network
+
+  dynamodb-local:
+    container_name: test_dynamodb-local
+    image: amazon/dynamodb-local:latest
+    user: root
+    command: -jar DynamoDBLocal.jar -sharedDb
+    ports:
+      - 8000:8000
+    networks:
+      - dynamodb-local-network
+
+  dynamodb-admin:
+    container_name: test_dynamodb-admin
+    image: aaronshaf/dynamodb-admin:latest
+    environment:
+      - DYNAMO_ENDPOINT=dynamodb-local:8000
+    ports:
+      - 8001:8001
+    depends_on:
+      - dynamodb-local
+    networks:
+      - dynamodb-local-network
+
+networks:
+  dynamodb-local-network:
+    driver: bridge

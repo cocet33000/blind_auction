@@ -53,7 +53,7 @@ def commands_auctions_response_serialize(auction_events) -> dict:
         AuctionEvent(
             id=auction_event.auction_id(),
             name=auction_event.name(),
-            status=auction_event.type().name,
+            status=auction_event.type(),
         )
         for auction_event in auction_events
     ]

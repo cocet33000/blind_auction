@@ -12,12 +12,7 @@ class EventPublisherImpl(EventPublisher):
     def publish(event: Event) -> None:
         new_event = dynamo_db.Event(hash_key=str(uuid.uuid4()))
         new_event.name = event.event_name
-        # PynamoDBのEventがEnumをsave出来ないため、文字列に変換
-        new_event.details = {
-            "auction_id": event.event_details["auction_id"],
-            "name": event.event_details["name"],
-            "type": event.event_details["type"].value,
-        }
+        new_event.details = event.event_details
 
         try:
             new_event.save()

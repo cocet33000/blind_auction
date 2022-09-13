@@ -26,7 +26,7 @@ class AuctionEvent(Event):
         event_details = {
             "auction_id": auction_id,
             "name": auction_name,
-            "type": type,
+            "type": type.value,
         }
         super().__init__(event_name, event_details)
 

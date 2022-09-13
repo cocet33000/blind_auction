@@ -1,10 +1,12 @@
 from __future__ import annotations
 from injector import inject
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 
 from main.domain.auction import AuctionFactory
 from main.domain.auction import AuctionRepository
 from main.domain.shared import EventPublisher
+
+import logging
 
 
 class AuctionUseCase:
@@ -35,11 +37,14 @@ class AuctionUseCase:
         events = []
         try:
             for auction in auctions:
-                auction_event = auction.switchStatus(now_datetime=datetime.now())
+                auction_event = auction.switchStatus(
+                    now_datetime=datetime.now(timezone(timedelta(hours=9)))
+                )
                 if auction_event is not None:
                     events.append(auction_event)
                     self.auction_repository.save(auction)
                     self.EventPublisher.publish(auction_event)
             return events
         except Exception:
+            logging.exception("")
             return {}

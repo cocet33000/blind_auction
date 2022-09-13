@@ -1,6 +1,7 @@
 from __future__ import annotations
 from datetime import datetime
 from datetime import timedelta
+from datetime import timezone
 import uuid
 
 from mock import Mock
@@ -29,8 +30,8 @@ def test_正常系_オークション開始_イベント発行():
     ID = str(uuid.uuid4())
     NAME = "test_auction"
     STATUS = Status.CLOSED
-    START_DATETIME = datetime.now() - timedelta(days=1)
-    END_DATETIME = datetime.now() + timedelta(days=1)
+    START_DATETIME = datetime.now(timezone(timedelta(hours=9))) - timedelta(days=1)
+    END_DATETIME = datetime.now(timezone(timedelta(hours=9))) + timedelta(days=1)
     auction_repository_mock.getAll.return_value = [
         Auction.reconstruct(
             id=ID,
@@ -65,8 +66,8 @@ def test_正常系_オークション開始済み_イベント発行なし():
     ID = str(uuid.uuid4())
     NAME = "test_auction"
     STATUS = Status.OPEN
-    START_DATETIME = datetime.now() - timedelta(days=1)
-    END_DATETIME = datetime.now() + timedelta(days=1)
+    START_DATETIME = datetime.now(timezone(timedelta(hours=9))) - timedelta(days=1)
+    END_DATETIME = datetime.now(timezone(timedelta(hours=9))) + timedelta(days=1)
     auction_repository_mock.getAll.return_value = [
         Auction.reconstruct(
             id=ID,
@@ -95,8 +96,8 @@ def test_正常系_オークション終了_イベント発行():
     ID = str(uuid.uuid4())
     NAME = "test_auction"
     STATUS = Status.OPEN
-    START_DATETIME = datetime.now() - timedelta(days=2)
-    END_DATETIME = datetime.now() - timedelta(days=1)
+    START_DATETIME = datetime.now(timezone(timedelta(hours=9))) - timedelta(days=2)
+    END_DATETIME = datetime.now(timezone(timedelta(hours=9))) - timedelta(days=1)
     auction_repository_mock.getAll.return_value = [
         Auction.reconstruct(
             id=ID,
@@ -131,8 +132,8 @@ def test_正常系_オークション終了済み_イベント発行なし():
     ID = str(uuid.uuid4())
     NAME = "test_auction"
     STATUS = Status.CLOSED
-    START_DATETIME = datetime.now() - timedelta(days=2)
-    END_DATETIME = datetime.now() - timedelta(days=1)
+    START_DATETIME = datetime.now(timezone(timedelta(hours=9))) - timedelta(days=2)
+    END_DATETIME = datetime.now(timezone(timedelta(hours=9))) - timedelta(days=1)
     auction_repository_mock.getAll.return_value = [
         Auction.reconstruct(
             id=ID,

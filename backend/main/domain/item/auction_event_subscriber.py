@@ -16,7 +16,7 @@ class AuctionEventSubscriber(EventSubscriber):
         self.ItemRepository = ItemRepositoryImpl
 
     def consume(self, auction_event: Event):
-        auction_event_type = Status(auction_event.type())  # type: ignore
+        auction_event_type = auction_event.type()  # type: ignore
 
         if auction_event_type == Status.CLOSED:
             self._consume_closed_event(auction_event)

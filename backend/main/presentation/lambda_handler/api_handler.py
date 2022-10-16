@@ -1,6 +1,6 @@
 import json
+import logging
 from datetime import datetime
-from re import I
 
 from main.usecase import ItemUseCase
 from main.usecase import BidUseCase
@@ -48,6 +48,7 @@ def api_handler(
                     "headers": {"content-type": "application/json;charset=UTF-8"},
                 }
             except DomainException as e:
+                logging.exception("")
                 return {
                     "statusCode": 500,
                     "body": json.dumps(({"message": e.message()})),
@@ -71,8 +72,10 @@ def api_handler(
                     "headers": {"content-type": "application/json;charset=UTF-8"},
                 }
             except DomainException as e:
+                logging.exception("")
                 return {
                     "statusCode": 500,
+                    "body": json.dumps({"message": e.message()}),
                     "headers": {"content-type": "application/json;charset=UTF-8"},
                 }
 
@@ -94,6 +97,7 @@ def api_handler(
                 }
 
             except DomainException as e:
+                logging.exception("")
                 return {
                     "statusCode": 500,
                     "body": json.dumps({"message": e.message()}),
@@ -110,6 +114,7 @@ def api_handler(
                     "headers": {"content-type": "application/json;charset=UTF-8"},
                 }
             except DomainException as e:
+                logging.exception("")
                 return {
                     "statusCode": 500,
                     "body": json.dumps({"message": e.message()}),
@@ -129,6 +134,7 @@ def api_handler(
                     "headers": {"content-type": "application/json;charset=UTF-8"},
                 }
             except DomainException as e:
+                logging.exception("Error in stream event handling")
                 return {
                     "statusCode": 500,
                     "body": json.dumps({"message": e.message()}),
@@ -139,6 +145,7 @@ def api_handler(
             try:
                 auctions_post_request = AuctionsPostRequest.from_dict(body)
             except Exception as e:
+                logging.exception("")
                 return bad_request_response(e)
 
             try:
@@ -161,6 +168,7 @@ def api_handler(
                 }
 
             except DomainException as e:
+                logging.exception("")
                 return {
                     "statusCode": 500,
                     "body": json.dumps({"message": e.message()}),
@@ -179,6 +187,7 @@ def api_handler(
                     "headers": {"content-type": "application/json;charset=UTF-8"},
                 }
             except DomainException as e:
+                logging.exception("")
                 return {
                     "statusCode": 500,
                     "body": json.dumps(({"message": e.message()})),

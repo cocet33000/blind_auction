@@ -65,6 +65,7 @@ def test_正常系():
     test_price = 1000
 
     bid_usecase.register_bid(test_user_name, test_item_id, test_price)
+    assert event_publisher_mock.publish.call_count == 1
 
 
 def test_既に入札済みのユーザーの場合は例外を投げる():

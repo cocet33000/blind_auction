@@ -1,5 +1,3 @@
-//import { useState, useEffect } from 'react';
-//import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -10,19 +8,6 @@ import MenuButton from './MenuButton';
 
 const ResponsiveAppBar = () => {
 	let navigate = useNavigate();
-	//const { authStatus } = useAuthenticator((context) => [context.authStatus]);
-	// const { user } = useAuthenticator((context) => [context.user]);
-	// const [isNotification, setNotification] = useState('');
-
-	// useEffect(() => {
-	// 	setNotification(true);
-	// 	console.log('auth status is changed!');
-	// }, [authStatus]);
-
-	// eslint-disable-next-line no-unused-vars
-	// const handleClose = (event, reason) => {
-	// 	setNotification(false);
-	// };
 
 	return (
 		<AppBar position="fixed" color="primary" enableColorOnDark="true">
@@ -61,18 +46,6 @@ const ResponsiveAppBar = () => {
 				</Toolbar>
 			</Box>
 		</AppBar>
-		// <Snackbar
-		// 	open={isNotification && authStatus === 'authenticated'}
-		// 	autoHideDuration={6000}
-		// 	onClose={handleClose}
-		// 	anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-		// >
-		// 	<Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-		// 		{authStatus !== 'authenticated'
-		// 			? ''
-		// 			: 'You are signed in as ' + user.username}
-		// 	</Alert>
-		// </Snackbar>
 	);
 };
 export default ResponsiveAppBar;

@@ -36,7 +36,7 @@ const updatedAwsConfig = {
 };
 Amplify.configure(updatedAwsConfig);
 
-export default function CognitoAuthenticator() {
+export default function Login() {
 	const muiTheme = muiUseTheme();
 	const theme = {
 		name: 'Auth Example Theme',

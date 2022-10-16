@@ -1,10 +1,13 @@
 from __future__ import annotations
+from telnetlib import DO
 from injector import inject
 from datetime import datetime, timedelta, timezone
 
 from main.domain.auction import AuctionFactory
 from main.domain.auction import AuctionRepository
 from main.domain.shared import EventPublisher
+
+from main.domain.shared import DomainException
 
 import logging
 
@@ -50,3 +53,12 @@ class AuctionUseCase:
         except Exception:
             logging.exception("")
             return {}
+
+    def get_opening_auction(self):
+        auctions = self.auction_repository.getAll()
+
+        for auction in auctions:
+            if auction.isOpen():
+                return auction
+
+        raise DomainException("オークションが開催されていません")

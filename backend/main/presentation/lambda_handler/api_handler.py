@@ -170,10 +170,8 @@ def api_handler(
     if path == "home":
         if method == "GET":
             try:
-                auction = ""
-                items = []
-                # auction = auction_usecase.get_opening_auction()
-                # items = item_usecase.get_items_by_acution_id(auction.id)
+                auction = auction_usecase.get_opening_auction()
+                items = item_usecase.get_items_by_auction_id(auction.id())
 
                 return {
                     "statusCode": 200,

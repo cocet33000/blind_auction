@@ -55,24 +55,15 @@ def auctions_get_reonse_seririalize(auctions) -> dict:
 
 def home_get_response_serialize(_auction, _items) -> dict:
     auction = OpenAuction(
-        id="1",
-        name="test",
-        start_date="2020-01-01T00:00:00",
-        end_date="2020-01-01T00:00:00",
+        id=_auction.id(),
+        name=_auction.name(),
+        start_date=_auction.start_datetime().isoformat(),
+        end_date=_auction.end_datetime().isoformat(),
     )
 
     items = Items(
         has_next=False,
-        items=[
-            Item(
-                id="1",
-                name="test",
-                image_src="https://example.com",
-                description="test",
-                start_price=1000,
-                bid_num=0,
-            )
-        ],
+        items=[Item.from_dict(_item.to_dict()) for _item in _items],
     )
     return HomeGetResponse(auction=auction, items=items).to_dict()
 

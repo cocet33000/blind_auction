@@ -88,6 +88,9 @@ class Auction:
             "end_datetime": self.end_datetime(),
         }
 
+    def id(self):
+        return self._id
+
     def name(self) -> str:
         return self._name
 

@@ -35,7 +35,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/home"
+                $ref: "#/components/schemas/home_get_response"
 
   /items:
     get:
@@ -392,7 +392,7 @@ components:
         status:
           type: string
           example: OPEN
-    home:
+    home_get_response:
       type: object
       properties:
         auction:

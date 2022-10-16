@@ -1,5 +1,6 @@
 import json
 from datetime import datetime
+from re import I
 
 from main.usecase import ItemUseCase
 from main.usecase import BidUseCase
@@ -10,7 +11,11 @@ from main.domain.shared import DomainException
 
 from ..openapi_server.models.auctions_post_request import AuctionsPostRequest
 
-from .serialize import bids_history_serialize, commands_auctions_response_serialize
+from .serialize import (
+    bids_history_serialize,
+    commands_auctions_response_serialize,
+    home_get_response_serialize,
+)
 from .serialize import auctions_get_reonse_seririalize
 
 
@@ -159,6 +164,26 @@ def api_handler(
                 return {
                     "statusCode": 500,
                     "body": json.dumps({"message": e.message()}),
+                    "headers": {"content-type": "application/json;charset=UTF-8"},
+                }
+
+    if path == "home":
+        if method == "GET":
+            try:
+                auction = ""
+                items = []
+                # auction = auction_usecase.get_opening_auction()
+                # items = item_usecase.get_items_by_acution_id(auction.id)
+
+                return {
+                    "statusCode": 200,
+                    "body": json.dumps(home_get_response_serialize(auction, items)),
+                    "headers": {"content-type": "application/json;charset=UTF-8"},
+                }
+            except DomainException as e:
+                return {
+                    "statusCode": 500,
+                    "body": json.dumps(({"message": e.message()})),
                     "headers": {"content-type": "application/json;charset=UTF-8"},
                 }
 

@@ -1,9 +1,14 @@
+from main.presentation.openapi_server.models.open_auction import OpenAuction
+from main.presentation.openapi_server.models.items import Items
+from main.presentation.openapi_server.models.item import Item
+
 from ..openapi_server.models.bid_historys import BidHistorys
 from ..openapi_server.models.bid_history import BidHistory
 from ..openapi_server.models.bid_history_bid import BidHistoryBid
 from ..openapi_server.models.bid_history_item import BidHistoryItem
 from ..openapi_server.models.auction import Auction
 from ..openapi_server.models.auctions_get_response import AuctionsGetResponse
+from ..openapi_server.models.home_get_response import HomeGetResponse
 
 from ..openapi_server.models.commands_auctions_response import CommandsAuctionsResponse
 from ..openapi_server.models.auction_event import AuctionEvent
@@ -46,6 +51,30 @@ def auctions_get_reonse_seririalize(auctions) -> dict:
         ],
         has_next=False,
     ).to_dict()
+
+
+def home_get_response_serialize(_auction, _items) -> dict:
+    auction = OpenAuction(
+        id="1",
+        name="test",
+        start_date="2020-01-01T00:00:00",
+        end_date="2020-01-01T00:00:00",
+    )
+
+    items = Items(
+        has_next=False,
+        items=[
+            Item(
+                id="1",
+                name="test",
+                image_src="https://example.com",
+                description="test",
+                start_price=1000,
+                bid_num=0,
+            )
+        ],
+    )
+    return HomeGetResponse(auction=auction, items=items).to_dict()
 
 
 def commands_auctions_response_serialize(auction_events) -> dict:

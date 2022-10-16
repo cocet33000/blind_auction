@@ -396,7 +396,9 @@ components:
       type: object
       properties:
         auction:
+          description: 開催中のオークション
           $ref: "#/components/schemas/open_auction"
         items:
+          description: 開催中のオークションの商品一覧
           $ref: "#/components/schemas/items"
 

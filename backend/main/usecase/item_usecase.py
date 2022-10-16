@@ -39,3 +39,6 @@ class ItemUseCase:
         )
 
         return self.ItemRepository.save(item)
+
+    def get_items_by_auction_id(self, auction_id: str):
+        return self.ItemRepository.getByAuctionId(auction_id)

@@ -19,7 +19,7 @@ class Item(Model):
         """Item - a model defined in OpenAPI
 
         :param id: The id of this Item.  # noqa: E501
-        :type id: int
+        :type id: str
         :param name: The name of this Item.  # noqa: E501
         :type name: str
         :param image_src: The image_src of this Item.  # noqa: E501
@@ -32,7 +32,7 @@ class Item(Model):
         :type bid_num: int
         """
         self.openapi_types = {
-            'id': int,
+            'id': str,
             'name': str,
             'image_src': str,
             'description': str,
@@ -73,7 +73,7 @@ class Item(Model):
 
 
         :return: The id of this Item.
-        :rtype: int
+        :rtype: str
         """
         return self._id
 
@@ -83,7 +83,7 @@ class Item(Model):
 
 
         :param id: The id of this Item.
-        :type id: int
+        :type id: str
         """
 
         self._id = id

@@ -195,7 +195,7 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
           example: 3
         name:
           type: string

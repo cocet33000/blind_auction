@@ -11,6 +11,7 @@ import { useAuthenticator } from '@aws-amplify/ui-react';
 import axios from 'axios';
 import { PropTypes } from 'prop-types';
 import { Store } from 'react-notifications-component';
+// import usePostBid from '../hooks/usePostBid.js';
 
 export default function ItemDetailDialog(props) {
 	const [price, setPrice] = React.useState('');
@@ -18,6 +19,7 @@ export default function ItemDetailDialog(props) {
 	const { user } = useAuthenticator((context) => [context.user]);
 
 	const bid = () => {
+		//usePostBid(user.username, props.item.id, Number(price));
 		const data = {
 			user_name: user.username,
 			item_id: props.item.id,

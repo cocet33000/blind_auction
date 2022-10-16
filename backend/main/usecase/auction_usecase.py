@@ -13,9 +13,11 @@ class AuctionUseCase:
     @inject
     def __init__(
         self,
+        AuctionFactoryImpl: AuctionFactory,
         AuctionRepositoryImpl: AuctionRepository,
         EventPublisherImpl: EventPublisher,
     ):
+        self.auction_factory = AuctionFactoryImpl
         self.auction_repository = AuctionRepositoryImpl
         self.EventPublisher = EventPublisherImpl
 
@@ -25,7 +27,7 @@ class AuctionUseCase:
         start_datetime: datetime,
         end_datetime: datetime,
     ):
-        auction = AuctionFactory.create(name, start_datetime, end_datetime)
+        auction = self.auction_factory.create(name, start_datetime, end_datetime)
         self.auction_repository.save(auction)
 
     def get_auctions_all(self):

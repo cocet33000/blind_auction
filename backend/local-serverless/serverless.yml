@@ -4,6 +4,7 @@ provider:
   name: aws
   runtime: python3.9
   stage: dev
+  timeout: 300
 
 functions:
   lambda_handler:

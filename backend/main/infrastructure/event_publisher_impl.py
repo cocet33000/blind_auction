@@ -15,7 +15,7 @@ class EventPublisherImpl(EventPublisher):
         new_event.name = event.event_name
         new_event.details = {}
         for key, value in event.event_details.items():
-            if isinstance(value, str):
+            if isinstance(value, str) or isinstance(value, int):
                 new_event.details[key] = value
             elif isinstance(value, Status):
                 new_event.details[key] = value.value

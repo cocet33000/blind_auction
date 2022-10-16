@@ -24,6 +24,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/healthy_response"
 
+  /home:
+    get:
+      tags:
+        - home
+      summary: ホーム画面用API
+      responses:
+        "200":
+          description: ホーム
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/home_get_response"
+
   /items:
     get:
       tags:
@@ -182,7 +195,7 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
           example: 3
         name:
           type: string
@@ -263,6 +276,24 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/auction"
+    open_auction:
+      description: オークション
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: オークション001
+        start_date:
+          type: string
+          format: date-time
+          example: '2020-01-01T23:59:59.000+09:00'
+        end_date:
+          type: string
+          format: date-time
+          example: '2020-03-31T23:59:59.000+09:00'
     auction:
       description: オークション
       type: object
@@ -361,4 +392,13 @@ components:
         status:
           type: string
           example: OPEN
+    home_get_response:
+      type: object
+      properties:
+        auction:
+          description: 開催中のオークション
+          $ref: "#/components/schemas/open_auction"
+        items:
+          description: 開催中のオークションの商品一覧
+          $ref: "#/components/schemas/items"
 

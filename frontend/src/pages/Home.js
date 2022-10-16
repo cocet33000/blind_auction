@@ -4,15 +4,11 @@ import 'slick-carousel/slick/slick-theme.css';
 import CountdownTimer from '../components/CountdownTimer';
 import useGetItems from '../hooks/useGetItems';
 import ItemCardGrid from '../components/ItemCardGrid';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Home() {
-	//unix時間でカウントダウンを設定
-	//const THREE_DAYS_IN_MS = 3 * 24 * 60 * 60 * 1000;
-	//const NOW_IN_MS = new Date().getTime();
-	//const dateTimeAfterThreeDays = NOW_IN_MS + THREE_DAYS_IN_MS;
-
 	const { items, auction } = useGetItems();
-	console.log(auction);
+	if (!items | !auction) return <CircularProgress />;
 
 	return (
 		<div>

@@ -48,7 +48,7 @@ def lambda_handler(event: dict, context):
     auction_event_subscriber = injector.get(AuctionEventSubscriber)
     query_usecase = injector.get(QueryUseCase)
 
-    logger.debug(json.dumps(event))
+    logger.info(json.dumps(event))
 
     if "pathParameters" in event:
         return api_handler(

@@ -1,3 +1,4 @@
+import logging
 from main.domain.bid import BidEvent
 from main.domain.auction import AuctionEvent
 from main.usecase import ItemUseCase
@@ -19,7 +20,8 @@ def stream_handler(
 
     try:
         event_name, event_details = parse_event(event)
-    except Exception as e:
+    except Exception:
+        logging.exception("Error in stream event parsing.")
         return {"statusCode": 500, "body": "NG"}
 
     try:
@@ -37,5 +39,6 @@ def stream_handler(
             auction_event_subscriber.consume(auction_event)
         return {"statusCode": 200, "body": "OK", "eventName": event_name}
 
-    except Exception as e:
+    except Exception:
+        logging.exception("Error in stream event handling")
         return {"statusCode": 200, "body": "OK", "eventName": event_name}

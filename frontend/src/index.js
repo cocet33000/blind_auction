@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import { Authenticator } from '@aws-amplify/ui-react';
 import Home from './pages/Home.js';
 import AppBar from './components/AppBar.js';
-import CognitoAuthenticator from './components/CognitoAuthenticator.js';
+import Login from './pages/Login.js';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -59,7 +59,7 @@ ReactDOM.render(
 						}}
 					/>
 					<Routes>
-						<Route path="/auth" element={<CognitoAuthenticator />} />
+						<Route path="/auth" element={<Login />} />
 						<Route path="/history" element={<BidHistory />} />
 						<Route path="/" element={<Home />} />
 					</Routes>

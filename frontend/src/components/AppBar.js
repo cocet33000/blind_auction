@@ -4,26 +4,9 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-//import Container from '@mui/material/Container';
-//import { ThemeProvider, createTheme } from '@mui/material/styles';
-//import Snackbar from '@mui/material/Snackbar';
-//import MuiAlert from '@mui/material/Alert';
 import { useNavigate } from 'react-router-dom';
-//import { useAuthenticator } from '@aws-amplify/ui-react';
 
 import MenuButton from './MenuButton';
-// const Alert = React.forwardRef(function Alert(props, ref) {
-// 	return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-// });
-
-// const darkTheme = createTheme({
-// 	palette: {
-// 		mode: 'dark',
-// 		primary: {
-// 			main: '#000000'
-// 		}
-// 	}
-// });
 
 const ResponsiveAppBar = () => {
 	let navigate = useNavigate();

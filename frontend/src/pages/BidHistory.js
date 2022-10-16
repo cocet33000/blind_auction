@@ -4,7 +4,7 @@ import { Typography } from '@mui/material';
 import axios from 'axios';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import BidHistoryCard from './components/BidHistoryCard';
+import BidHistoryCard from '../components/BidHistoryCard';
 
 const BidHistory = () => {
 	const { user } = useAuthenticator((context) => [context.user]);

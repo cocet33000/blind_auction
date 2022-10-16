@@ -1,17 +1,12 @@
-import ItemCard from './components/ItemCard.js';
+import ItemCard from '../components/ItemCard.js';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-//import Stack from '@mui/material/Stack';
-//import Container from '@mui/material/Container';
-//import { Button } from '@mui/material';
-// import { styled } from '@mui/system';
+
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import './css/slider.css';
-import './css/slider.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import CountdownTimer from './components/CountdownTimer';
+import CountdownTimer from '../components/CountdownTimer';
 
 const socket = new WebSocket('wss://wss.blind-auction.com/deb');
 

@@ -1,5 +1,6 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from enum import Enum
+from datetime import timezone
 
 
 from ..shared.caller import get_caller_function_name
@@ -18,6 +19,24 @@ class Status(Enum):
             return Status.OPEN
         elif value == "CLOSED":
             return Status.CLOSED
+
+
+class Period(object):
+    def __init__(self, start_datetime: datetime, end_datetime: datetime):
+        self.start_datetime = start_datetime.astimezone(timezone(timedelta(hours=9)))
+        self.end_datetime = end_datetime.astimezone(timezone(timedelta(hours=9)))
+
+    def __eq__(self, other):
+        return (
+            self.start_datetime == other.start_datetime
+            and self.end_datetime == other.end_datetime
+        )
+
+    def to_dict(self):
+        return {
+            "start_datetime": self.start_datetime,
+            "end_datetime": self.end_datetime,
+        }
 
 
 class AuctionEvent(Event):
@@ -46,8 +65,7 @@ class Auction:
         id: str,
         name: str,
         status: Status,
-        start_datetime: datetime,
-        end_datetime: datetime,
+        period: Period,
     ):
         # createtという関数以外からの呼び出し時はエラー
         caller_function_name = get_caller_function_name()
@@ -59,16 +77,15 @@ class Auction:
         self._id = id
         self._name = name
         self._status = status
-        self._start_datetime = start_datetime
-        self._end_datetime = end_datetime
+        self._period = period
 
     def to_dict(self) -> dict:
         return {
             "id": self._id,
             "name": self._name,
             "status": self._status.value,
-            "start_datetime": self._start_datetime,
-            "end_datetime": self._end_datetime,
+            "start_datetime": self.start_datetime(),
+            "end_datetime": self.end_datetime(),
         }
 
     def name(self) -> str:
@@ -89,18 +106,18 @@ class Auction:
             id=id,
             name=name,
             status=status,
-            start_datetime=start_datetime,
-            end_datetime=end_datetime,
+            period=Period(start_datetime, end_datetime),
         )
 
     def switchStatus(self, now_datetime):
+        now_datetime = now_datetime.astimezone(timezone(timedelta(hours=9)))
 
         pre_status = self._status
-        if self._start_datetime > now_datetime:
+        if self.start_datetime() > now_datetime:
             self._status = Status.CLOSED
-        if self._start_datetime < now_datetime:
+        if self.start_datetime() < now_datetime:
             self._status = Status.OPEN
-        if self._end_datetime < now_datetime:
+        if self.end_datetime() < now_datetime:
             self._status = Status.CLOSED
 
         # statusを更新した場合のみ、イベントを返却
@@ -113,3 +130,9 @@ class Auction:
             if self._status != pre_status
             else None
         )
+
+    def start_datetime(self):
+        return self._period.start_datetime
+
+    def end_datetime(self):
+        return self._period.end_datetime

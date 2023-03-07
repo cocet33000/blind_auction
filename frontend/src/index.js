@@ -12,6 +12,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { ReactNotifications } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
 import BidHistory from './pages/BidHistory';
+import { urlContext } from './context/urlContext';
 
 const theme = createTheme({
 	palette: {
@@ -46,26 +47,28 @@ const theme = createTheme({
 
 ReactDOM.render(
 	<React.StrictMode>
-		<Authenticator.Provider>
-			<ThemeProvider theme={theme}>
-				<ReactNotifications />
-				<Router>
-					<AppBar />
-					{/* appbarと重なる為、余白用のBoxをおく */}
-					<Box
-						sx={{
-							width: 300,
-							height: theme.mixins.toolbar
-						}}
-					/>
-					<Routes>
-						<Route path="/auth" element={<Login />} />
-						<Route path="/history" element={<BidHistory />} />
-						<Route path="/" element={<Home />} />
-					</Routes>
-				</Router>
-			</ThemeProvider>
-		</Authenticator.Provider>
+		<urlContext.Provider value={process.env.REACT_APP_API_URL}>
+			<Authenticator.Provider>
+				<ThemeProvider theme={theme}>
+					<ReactNotifications />
+					<Router>
+						<AppBar />
+						{/* appbarと重なる為、余白用のBoxをおく */}
+						<Box
+							sx={{
+								width: 300,
+								height: theme.mixins.toolbar
+							}}
+						/>
+						<Routes>
+							<Route path="/auth" element={<Login />} />
+							<Route path="/history" element={<BidHistory />} />
+							<Route path="/" element={<Home />} />
+						</Routes>
+					</Router>
+				</ThemeProvider>
+			</Authenticator.Provider>
+		</urlContext.Provider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );

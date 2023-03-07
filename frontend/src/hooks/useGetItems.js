@@ -1,8 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import { urlContext } from '../context/urlContext';
 
 export default function useGetItems() {
+	const url = useContext(urlContext);
 	const [items, setItems] = useState([]);
+	const socket = new WebSocket('wss://wss.blind-auction.com/deb');
 	const [auction, setAuction] = useState('');
 	const updateItemBidnum = (item_id, bid_num) => {
 		setItems((items) => {
@@ -20,7 +23,7 @@ export default function useGetItems() {
 	};
 	useEffect(() => {
 		axios
-			.get('https://api.blind-auction.com/dev/home')
+			.get(url + '/home')
 			.then((response) => {
 				setItems(response.data.items.items);
 				setAuction(response.data.auction);
@@ -28,7 +31,7 @@ export default function useGetItems() {
 			.catch((error) => {
 				console.log('ERROR!! occurred in Backend.', error);
 			});
-		const socket = new WebSocket('wss://wss.blind-auction.com/deb');
+
 		socket.onmessage = (event) => {
 			const data = JSON.parse(event.data);
 			updateItemBidnum(data.item_id, data.bid_num);

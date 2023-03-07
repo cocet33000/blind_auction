@@ -11,13 +11,14 @@ import { useAuthenticator } from '@aws-amplify/ui-react';
 import axios from 'axios';
 import { PropTypes } from 'prop-types';
 import { Store } from 'react-notifications-component';
-// import usePostBid from '../hooks/usePostBid.js';
-
+//import usePostBid from '../hooks/usePostBid.js';
+import { urlContext } from '../context/urlContext';
+import { useContext } from 'react';
 export default function ItemDetailDialog(props) {
 	const [price, setPrice] = React.useState('');
 	const { authStatus } = useAuthenticator((context) => [context.authStatus]);
 	const { user } = useAuthenticator((context) => [context.user]);
-
+	const url = useContext(urlContext);
 	const bid = () => {
 		//usePostBid(user.username, props.item.id, Number(price));
 		const data = {
@@ -28,7 +29,7 @@ export default function ItemDetailDialog(props) {
 		console.log(data);
 
 		axios
-			.post('https://api.blind-auction.com/dev/bids', data)
+			.post(url + '/bids', data)
 			.then((response) => {
 				console.log(response.data);
 				Store.addNotification({

@@ -5,16 +5,19 @@ import axios from 'axios';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import BidHistoryCard from '../components/BidHistoryCard';
+import { useContext } from 'react';
+import { urlContext } from '../context/urlContext';
 
 const BidHistory = () => {
 	const { user } = useAuthenticator((context) => [context.user]);
 	const { authStatus } = useAuthenticator((context) => [context.authStatus]);
 	const [bidHistorys, setBidHistorys] = useState([]);
+	const url = useContext(urlContext);
 
 	useEffect(() => {
 		if (authStatus === 'authenticated') {
 			axios
-				.get('https://api.blind-auction.com/dev/bids', {
+				.get(url + '/bids', {
 					params: {
 						user_name: user.username
 					}

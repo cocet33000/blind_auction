@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { Store } from 'react-notifications-component';
+import { urlContext } from '../context/urlContext';
+import { useContext } from 'react';
 
 export default function usePostBid(username, item_id, price) {
 	const data = {
@@ -7,9 +9,9 @@ export default function usePostBid(username, item_id, price) {
 		item_id: item_id,
 		price: Number(price)
 	};
-	console.log(data);
+	const url = useContext(urlContext);
 	axios
-		.post('https://api.blind-auction.com/dev/bids', data)
+		.post(url + '/bids', data)
 		.then((response) => {
 			console.log(response.data);
 			Store.addNotification({

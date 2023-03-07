@@ -4,3 +4,5 @@
 *local-test.py
 .coverage
 coverage.xml
+deployment/*
+pytest*

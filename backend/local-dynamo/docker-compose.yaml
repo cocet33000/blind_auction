@@ -10,6 +10,20 @@ services:
       - 8000:8000
     networks:
       - dynamodb-local-network
+  dynamodb-init:
+    container_name: test_dynamodb-init
+    image: amazon/aws-cli
+    volumes:
+      - ./:/tmp
+    entrypoint: ["/usr/bin/bash", "/tmp/createTable.sh"]
+    networks:
+      - dynamodb-local-network
+    extra_hosts:
+      - "localhost:host-gateway" #localhostをコンテナのホストマシン自身のIPに書き換える
+    environment:
+      - AWS_ACCESS_KEY_ID=DUMMY
+      - AWS_SECRET_ACCESS_KEY=DUMMY
+
   dynamodb-admin:
     container_name: test_dynamodb-admin
     image: aaronshaf/dynamodb-admin:latest

@@ -1,0 +1,61 @@
+{
+    "amtest-blind-auction-items": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "auction_end_datetime": {
+                        "S": "2024-12-31T12:00:00.000000+0000"
+                    },
+                    "id": {
+                        "S": "auction"
+                    },
+                    "range_key": {
+                        "S": "auction8ecc48d7-291e-405b-89e2-cba50b9df62c"
+                    },
+                    "auction_start_datetime": {
+                        "S": "2023-03-01T12:00:00.000000+0000"
+                    },
+                    "auction_name": {
+                        "S": "オークションA"
+                    },
+                    "auction_status": {
+                        "S": "OPEN"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "range_key": {
+                        "S": "item"
+                    },
+                    "name": {
+                        "S": "ライト"
+                    },
+                    "auction_id": {
+                        "S": "auction8ecc48d7-291e-405b-89e2-cba50b9df62c"
+                    },
+                    "bid_num": {
+                        "N": "0"
+                    },
+                    "description": {
+                        "S": "ライト"
+                    },
+                    "start_price": {
+                        "N": "3000"
+                    },
+                    "id": {
+                        "S": "1280eb75-2cc1-4592-a195-c7a37b135944"
+                    },
+                    "image_src": {
+                        "S": "https://blind-auction-image.s3.ap-northeast-1.amazonaws.com/light.jpg"
+                    },
+                    "status": {
+                        "S": "before_auction"
+                    }
+                }
+            }
+        }
+    ]
+}
